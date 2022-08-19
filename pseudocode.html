@@ -13,16 +13,16 @@
 
 <!-- PSEUDO CODE 
 (note: try storing all states in APP for now, and we can funnel them to sspecific components when we've finalized our structure)
-states: userInput, movieObjects, newList, dbLists
+states: movieInput, movieObjects, newList, dbLists
 
 Main Flow:
-- An input takes a user-defined query for movie titles
-- On change, an attached event handler adds input to userInput state
-- on input submission, an API call to TMDB is made with the userInput state
-- API returns an object holding movie information to movieObjects state
-- any time movieObjects changes (aka any time an API call is made), useEffect in query results maps movieObjects and displays information (imgs, description, etc) in component (with an add button)
+- CHECK - An input takes a user-defined query for movie titles
+- CHECK - On change, an attached event handler adds input to movieInput state
+- CHECK - on input submission, an API call to TMDB is made with the movieInput state
+- CHECK - API returns an object holding movie information to movieObjects state
+- any time movieObjects changes (aka any time an API call is made), query results maps movieObjects and displays information (imgs, description, etc) in component (with an add button)
 
-in Make List component:
+in Make List Component:
 - A user text input for naming a new list
 - A button for adding a list.
 - On changing input field, setlistState()
@@ -30,7 +30,7 @@ in Make List component:
 - underneath, a div holding all the user made lists
 - onValue change, setdbList() gets all the lists from firebase and sends to modal pop up component (this contains the LIST unique IDs). Update div.list with all the lists user made (suggestion: listen for a sibling node instead?). 
 
-Results Query
+Query Results Component:
 - clicking add button, a modal component pops up and asks which List the user wants to send movieObject to. the list choices are in a dropdown. Choosing a list (that HOLDS THE LIST ID) and clicking the add button updates listState and sends to firebase:
 
 firebase root {

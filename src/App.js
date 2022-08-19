@@ -1,24 +1,52 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import axios from 'axios';
+import Header from './Header.js';
+
 
 function App() {
+  // stores user's movie title query
+  const [movieInput, setMovieInput] = useState('');
+
+  // stores api movie results
+  const [movieObjects, setMovieObjects] = useState([]);
+
+
+
+  // track user query:
+  const handleMovieInput = ( (e) => {
+    setMovieInput(e.target.value)
+  })  
+
+  const handleSubmit = ( (e) => {
+    e.preventDefault()
+    
+    axios({
+      url: 'https://api.themoviedb.org/3/search/movie',
+      params: {
+        api_key: '636ef606db6eb961991793ba4935ad7e',
+        language: 'en-US',
+        include_adult: 'false',
+        include_video: 'false',
+        query: movieInput  
+      },
+    }).then( (res) => {
+      const movieResults = res.data.results;
+      
+      setMovieObjects(movieResults);
+      
+    })
+
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      
+    <Header handleMovieInput={handleMovieInput} handleSubmit={handleSubmit} movieInput={movieInput} />
+
+
+    
+    </>
   );
 }
 
