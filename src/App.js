@@ -2,6 +2,7 @@ import './App.css';
 import { useState } from 'react';
 import axios from 'axios';
 import Header from './Header.js';
+import Results from './Results.js'
 
 
 function App() {
@@ -36,6 +37,14 @@ function App() {
       setMovieObjects(movieResults);
       
     })
+
+
+    const displayData = () => {
+      return movieObjects.map((movie) =>
+      <div>Test</div>
+    // rewrite as a list rather than components. 
+      )
+    }
 
   })
 
