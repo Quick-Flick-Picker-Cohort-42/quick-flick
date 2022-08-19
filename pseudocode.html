@@ -13,6 +13,7 @@
 
 <!-- PSEUDO CODE 
 (note: try storing all states in APP for now, and we can funnel them to sspecific components when we've finalized our structure)
+states: userInput, movieObjects, newList, dbLists
 
 Main Flow:
 - An input takes a user-defined query for movie titles
@@ -20,29 +21,6 @@ Main Flow:
 - on input submission, an API call to TMDB is made with the userInput state
 - API returns an object holding movie information to movieObjects state
 - any time movieObjects changes (aka any time an API call is made), useEffect in query results maps movieObjects and displays information (imgs, description, etc) in component (with an add button)
-- clicking add button, a modal component pops up with and asks which List the user wants to send movieObject the list choices are in a dropdown. Choosing a list (that HOLDS THE LIST ID) and clicking the add button sends movieObject from movieObjects to firebase as such:
-firebase root {
-
-  uniqueKey1 { <- premade set lists made in firebase 
-    ListName: '' <- list name defined by user in Make List component
-    movieObject {
-
-    }
-  
-  }
-  uniqueKey2{
-    ListName: 'name2'
-    movieObject {
-
-    }
-    movieObject2 {
-
-    }
-  
-  }
-
-}
-
 
 in Make List component:
 - A user text input for naming a new list
@@ -52,14 +30,30 @@ in Make List component:
 - underneath, a div holding all the user made lists
 - onValue change, setdbList() gets all the lists from firebase and sends to modal pop up component (this contains the LIST unique IDs). Update div.list with all the lists user made (suggestion: listen for a sibling node instead?). 
 
+Results Query
+- clicking add button, a modal component pops up and asks which List the user wants to send movieObject to. the list choices are in a dropdown. Choosing a list (that HOLDS THE LIST ID) and clicking the add button updates listState and sends to firebase:
 
+firebase root {
 
+  uniqueKey1 { <- premade set lists made in firebase 
+    ListName: '' <- list name defined by user in Make List component
+    movieObject {
+    }
+  }
 
-a button has a function that on click, sends  
+  uniqueKey2{
+    ListName: 'name2'
+    movieObject {
+    }
+    movieObject2 {
+    }
+  }
 
+}
 
-
-
+In User Generated List component:
+- takes its corresponding list object from firebase, stores it in userListMovies and displays on the page.
+- Natural Language Form: onChange of its inputs, filter() loops through the movie objects and randomly returns a movie fitting the NLF criteria. (visually displayed for user) 
 
 4 components
 Header that includes the following:
