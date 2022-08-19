@@ -15,13 +15,13 @@ function App() {
 
 
   // track user query:
-  const handleMovieInput = ( (e) => {
+  const handleMovieInput = ((e) => {
     setMovieInput(e.target.value)
-  })  
+  })
 
-  const handleSubmit = ( (e) => {
+  const handleSubmit = ((e) => {
     e.preventDefault()
-    
+
     axios({
       url: 'https://api.themoviedb.org/3/search/movie',
       params: {
@@ -29,20 +29,20 @@ function App() {
         language: 'en-US',
         include_adult: 'false',
         include_video: 'false',
-        query: movieInput  
+        query: movieInput
       },
-    }).then( (res) => {
+    }).then((res) => {
       const movieResults = res.data.results;
-      
+
       setMovieObjects(movieResults);
-      
+
     })
 
 
     const displayData = () => {
-      return movieObjects.map((movie) =>
-      <div>Test</div>
-    // rewrite as a list rather than components. 
+      return movieObjecsdnsdfbhjsdfbsjdhfbsljts.map((movie) =>
+        <div>Test</div>
+        // rewrite as a list rather than components. 
       )
     }
 
@@ -50,11 +50,11 @@ function App() {
 
   return (
     <>
-      
-    <Header handleMovieInput={handleMovieInput} handleSubmit={handleSubmit} movieInput={movieInput} />
+
+      <Header handleMovieInput={handleMovieInput} handleSubmit={handleSubmit} movieInput={movieInput} />
 
 
-    
+
     </>
   );
 }
