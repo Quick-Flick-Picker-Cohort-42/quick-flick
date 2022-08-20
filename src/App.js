@@ -49,13 +49,9 @@ function App() {
   })
 
   return (
-    <>
-      
-    <Header handleMovieInput={handleMovieInput} handleSubmit={handleSubmit} movieInput={movieInput} />
-
-
-    
-    </>
+    <div>
+      <Header handleMovieInput={handleMovieInput} handleSubmit={handleSubmit} movieInput={movieInput} />
+    </div>
   );
 }
 
