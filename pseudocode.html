@@ -25,20 +25,22 @@ Main Flow:
 in Make List Component:
 - A user text input for naming a new list
 - A button for adding a list.
-- On changing input field, setlistState()
-- On click, newList() function pushes listState to firebase.
+- On changing input field, setlist()
+- On click, newList() function pushes list state to firebase.
 - underneath, a div holding all the user made lists
 - onValue change, setdbList() gets all the lists from firebase and sends to modal pop up component (this contains the LIST unique IDs). Update div.list with all the lists user made (suggestion: listen for a sibling node instead?). 
 
 Query Results Component:
-- clicking add button, a modal component pops up and asks which List the user wants to send movieObject to. the list choices are in a dropdown. Choosing a list (that HOLDS THE LIST ID) and clicking the add button updates listState and sends to firebase:
+- clicking add button, a modal component pops up and asks which List the user wants to send movieObject to. the list choices are in a dropdown. Choosing a list (that HOLDS THE LIST ID) and clicking the add button updates setList and sends to firebase:
 
 firebase root {
 
   uniqueKey1 { <- premade set lists made in firebase 
     ListName: '' <- list name defined by user in Make List component
+      movieObject {
+      }
     movieObject {
-    }
+      }
   }
 
   uniqueKey2{
