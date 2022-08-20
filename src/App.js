@@ -15,10 +15,10 @@ function App() {
   const [movieObjects, setMovieObjects] = useState([]);
 
   // stores lists
-  const [list, setList] = useState({listName: ''});
+  const [list, setList] = useState({listName:''});
 
   // stores lists coming back from firebase
-  const [dbList, setdbList] = useState([]);
+  const [dbList, setdbList] = useState({});
 
   // track user query:
   const handleMovieInput = ( (e) => {
@@ -27,8 +27,8 @@ function App() {
 
   // handle list input
   const handleListInput = ( (e) => {
-    setList( lists => {
-      return { ...lists, listName: e.target.value }
+    setList( current => {
+      return { ...current, listName: e.target.value }
     });
   })
 
@@ -49,11 +49,13 @@ function App() {
     const database = getDatabase(firebase);
     const dbRef = ref(database);
 
+    // this is called/initialized on page load and persists (is always listening)
     onValue(dbRef, (response) => {
       // use .val() method to return the lists stored in firebase back to the page:
       const data = response.val();
       setdbList(data);
     })
+    // console.log(list)
   }, [])
 
   // handle movie title submit

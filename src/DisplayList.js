@@ -1,21 +1,21 @@
 const DisplayList = ( ({dbList}) => {
-    // console.log(dbList);
+    if (dbList) {
+        return (
+            <ul>
 
-    const listArray = [dbList];
-
-    for (let list in dbList) {
-        // console.log(list)
-
-    listArray.push(dbList);
-
-    // return(
-    //         <li key={list}>
-    //             {list.listName}   
-    //         </li>
-    //     )  
-            
+                {/* fucntion that acts like .map but for objects */}
+                {
+                    Object.entries(dbList).map(([key, value]) => {
+                        return (
+                            <li key={key}>
+                                {value.listName}
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+        )
     }
-    console.log(listArray);
 })
 
 export default DisplayList;
