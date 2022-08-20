@@ -1,6 +1,6 @@
 import './App.css';
 import firebase from './firebase';
-import { getDatabase, ref, push, onValue } from 'firebase/database';
+import { getDatabase, ref, push, onValue, remove } from 'firebase/database';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './Header.js';
@@ -36,14 +36,17 @@ function App() {
   const handleListCreation = ( (e) => {
     e.preventDefault()
     // console.log(list.listName)
-
     const database = getDatabase(firebase);
     const dbRef = ref(database);
-    
     // creating node with unique key representing the entire list
     push(dbRef, list)
-
   })
+
+  const handleRemoveList = (node) => {
+    const database = getDatabase(firebase);
+    const dbRef = ref(database, `/${node}`);
+    remove(dbRef)
+  }
 
   useEffect( () => {
     const database = getDatabase(firebase);
@@ -94,6 +97,7 @@ function App() {
       list={list}
       handleListCreation={handleListCreation}
       dbList={dbList}
+      handleRemoveList={handleRemoveList}
     />
 
     
