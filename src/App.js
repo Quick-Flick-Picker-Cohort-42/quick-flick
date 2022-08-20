@@ -3,22 +3,21 @@ import { useState } from 'react';
 import axios from 'axios';
 import Header from './Header.js';
 import Results from './Results.js'
+import Lists from './Lists.js';
 
 
 function App() {
+
+//! States
   // stores user's movie title query
   const [movieInput, setMovieInput] = useState('');
-
   // stores api movie results
-  const [movieObjects, setMovieObjects] = useState([]);
+  const [movieObject, setMovieObject] = useState([]);
+  //store movie to send
+  const [sendMovie, setSendMovie] = useState({});
 
-
-
-  // track user query:
-  const handleMovieInput = ( (e) => {
-    setMovieInput(e.target.value)
-  })  
-
+//!functions
+  // API call on user submit
   const handleSubmit = ( (e) => {
     e.preventDefault()
     
@@ -34,23 +33,27 @@ function App() {
     }).then( (res) => {
       const movieResults = res.data.results;
       
-      setMovieObjects(movieResults);
-      
+      setMovieObject(movieResults);
     })
-
-
-    const displayData = () => {
-      return movieObjects.map((movie) =>
-      <div>Test</div>
-    // rewrite as a list rather than components. 
-      )
-    }
-
   })
+
+  // track user query:
+  const handleMovieInput = ((e) => {
+    setMovieInput(e.target.value)
+  })  
+
+  //add movie to one of the lhe lists in list component
+  const addMovie = (e, movie) => {
+    e.preventDefault()
+    setSendMovie(movie)
+
+  }
 
   return (
     <div>
       <Header handleMovieInput={handleMovieInput} handleSubmit={handleSubmit} movieInput={movieInput} />
+      <Results movieObject={movieObject} addMovie={addMovie}/>
+      <Lists sendMovie={sendMovie}/>
     </div>
   );
 }
