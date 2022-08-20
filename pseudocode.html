@@ -57,6 +57,25 @@ In User Generated List component:
 - useEffect that sets dbList using information from firebase. This information is displayed on the page.
 - Natural Language Form: onChange of its inputs, filter() loops through the movie objects and randomly returns a movie fitting the NLF criteria. (visually displayed for user) 
 
+FOR LOOP IN ORDER TO ACCESS JUST THE LIST NAMES:
+
+ for (let listObject in data) {
+        // inside the loop, we push each list name to an array we already created inside the onValue() function:
+        // setdbList(data[listObject]);
+        // console.log(data[listObject].listName);
+        const listNames = data[listObject].listName;
+        // console.log(listNames);
+        
+        dbListArray.push(listNames);
+        
+      }
+      // console.log(dbList1);
+      setdbList(dbListArray);
+    })
+
+  }, [])
+
+
 4 components
 Header that includes the following:
 H1 displaying title. underneath, an input accepting user queries for movie titles. Returns an API call from TMDB API that provides a list of movies + information. stored in a useState state

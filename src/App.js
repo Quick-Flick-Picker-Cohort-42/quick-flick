@@ -1,6 +1,7 @@
 import './App.css';
-import firebase from './Firebase';
-import { useState } from 'react';
+import firebase from './firebase';
+import { getDatabase, ref, push, onValue } from 'firebase/database';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './Header.js';
 import ListPanel from './ListPanel.js';
@@ -14,7 +15,10 @@ function App() {
   const [movieObjects, setMovieObjects] = useState([]);
 
   // stores lists
-  const [list, setList] = useState([]);
+  const [list, setList] = useState({listName: ''});
+
+  // stores lists coming back from firebase
+  const [dbList, setdbList] = useState([]);
 
   // track user query:
   const handleMovieInput = ( (e) => {
@@ -31,13 +35,26 @@ function App() {
   // creates the list in firebase
   const handleListCreation = ( (e) => {
     e.preventDefault()
+    // console.log(list.listName)
+
     const database = getDatabase(firebase);
     const dbRef = ref(database);
     
-    
-
+    // creating node with unique key representing the entire list
+    push(dbRef, list)
 
   })
+
+  useEffect( () => {
+    const database = getDatabase(firebase);
+    const dbRef = ref(database);
+
+    onValue(dbRef, (response) => {
+      // use .val() method to return the lists stored in firebase back to the page:
+      const data = response.val();
+      setdbList(data);
+    })
+  }, [])
 
   // handle movie title submit
   const handleSubmit = ( (e) => {
@@ -71,7 +88,10 @@ function App() {
     />
 
     <ListPanel 
-      handleListInput={handleListInput} 
+      handleListInput={handleListInput}
+      list={list}
+      handleListCreation={handleListCreation}
+      dbList={dbList}
     />
 
     
