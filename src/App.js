@@ -17,10 +17,10 @@ function App() {
   const [sendMovie, setSendMovie] = useState({});
 
 //!functions
-  // API call on user submit
-  const handleSubmit = ( (e) => {
+
+  const handleSubmit = ((e) => {
     e.preventDefault()
-    
+
     axios({
       url: 'https://api.themoviedb.org/3/search/movie',
       params: {
@@ -28,13 +28,15 @@ function App() {
         language: 'en-US',
         include_adult: 'false',
         include_video: 'false',
-        query: movieInput  
+        query: movieInput
       },
-    }).then( (res) => {
+    }).then((res) => {
       const movieResults = res.data.results;
+
       
       setMovieObject(movieResults);
     })
+
   })
 
   // track user query:
@@ -55,6 +57,7 @@ function App() {
       <Results movieObject={movieObject} addMovie={addMovie}/>
       <Lists sendMovie={sendMovie}/>
     </div>
+
   );
 }
 
