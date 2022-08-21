@@ -3,6 +3,7 @@ const Lists = () => {
     <section className="">
       <h1>Lists Section</h1>
     </section>
+
   )
 }
 
