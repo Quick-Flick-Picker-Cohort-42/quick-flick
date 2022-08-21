@@ -4,15 +4,15 @@ import { getDatabase, ref, push, onValue, remove } from 'firebase/database';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './Header.js';
-
 import Results from './Results.js'
 import Lists from './Lists.js'
 import ListPanel from './ListPanel.js';
+import Modal from './Modal.js';
 
 
 function App() {
 
-//! States
+  //! States
   // stores user's movie title query
   const [movieInput, setMovieInput] = useState('');
   // stores api movie results
@@ -23,25 +23,25 @@ function App() {
 
 
   // stores lists
-  const [list, setList] = useState({listName:''});
+  const [list, setList] = useState({ listName: '' });
 
   // stores lists coming back from firebase
   const [dbList, setdbList] = useState({});
 
-  // track user query:
-  const handleMovieInput = ( (e) => {
-    setMovieInput(e.target.value)
-  })  
+  // // track user query:
+  // const handleMovieInput = ( (e) => {
+  //   setMovieInput(e.target.value)
+  // })  
 
   // handle list input
-  const handleListInput = ( (e) => {
-    setList( current => {
+  const handleListInput = ((e) => {
+    setList(current => {
       return { ...current, listName: e.target.value }
     });
   })
 
   // creates the list in firebase
-  const handleListCreation = ( (e) => {
+  const handleListCreation = ((e) => {
     e.preventDefault()
     // console.log(list.listName)
     const database = getDatabase(firebase);
@@ -56,7 +56,7 @@ function App() {
     remove(dbRef)
   }
 
-  useEffect( () => {
+  useEffect(() => {
     const database = getDatabase(firebase);
     const dbRef = ref(database);
 
@@ -70,7 +70,7 @@ function App() {
   }, [])
 
   // handle movie title submit
-  const handleSubmit = ( (e) => {
+  const handleSubmit = ((e) => {
     e.preventDefault()
 
     axios({
@@ -85,7 +85,7 @@ function App() {
     }).then((res) => {
       const movieResults = res.data.results;
 
-      
+
       setMovieObject(movieResults);
     })
 
@@ -95,7 +95,7 @@ function App() {
   // track user query:
   const handleMovieInput = ((e) => {
     setMovieInput(e.target.value)
-  })  
+  })
 
   //add movie to one of the lhe lists in list component
   const addMovie = (e, movie) => {
@@ -105,25 +105,26 @@ function App() {
   }
   return (
     <>
-      
-    <Header 
-      handleMovieInput={handleMovieInput}   
-      handleSubmit={handleSubmit} 
-      movieInput={movieInput} 
-    />
-    <Results 
-      movieObject={movieObject} 
-      addMovie={addMovie}/>
-    <Lists 
-      sendMovie={sendMovie}/>
-    <ListPanel 
-      handleListInput={handleListInput}
-      list={list}
-      handleListCreation={handleListCreation}
-      dbList={dbList}
-      handleRemoveList={handleRemoveList}
-    />
 
+      <Header
+        handleMovieInput={handleMovieInput}
+        handleSubmit={handleSubmit}
+        movieInput={movieInput}
+      />
+      <Results
+        movieObject={movieObject}
+        addMovie={addMovie} />
+      <Lists
+        sendMovie={sendMovie} />
+      <ListPanel
+        handleListInput={handleListInput}
+        list={list}
+        handleListCreation={handleListCreation}
+        dbList={dbList}
+        handleRemoveList={handleRemoveList}
+      />
+      <Modal dbList={dbList} />
+    </>
   );
 }
 
