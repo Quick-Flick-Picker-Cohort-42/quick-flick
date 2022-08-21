@@ -23,22 +23,24 @@ Main Flow:
 - any time movieObjects changes (aka any time an API call is made), query results maps movieObjects and displays information (imgs, description, etc) in component (with an add button)
 
 in Make List Component:
-- A user text input for naming a new list
-- A button for adding a list.
-- On changing input field, setlistState()
-- On click, newList() function pushes listState to firebase.
-- underneath, a div holding all the user made lists
-- onValue change, setdbList() gets all the lists from firebase and sends to modal pop up component (this contains the LIST unique IDs). Update div.list with all the lists user made (suggestion: listen for a sibling node instead?). 
+// CHECK - A user text input for naming a new list
+// CHECK - A button for adding a list.
+// CHECK - On changing input field, setlist()
+// CHECK - On submit, handleListCreation() function pushes listState to firebase.
+// CHECK - dbList state stores the objects that hold the listName property, and displays it on the page 
+// CHECK - underneath, a div holding all the user made lists
 
 Query Results Component:
-- clicking add button, a modal component pops up and asks which List the user wants to send movieObject to. the list choices are in a dropdown. Choosing a list (that HOLDS THE LIST ID) and clicking the add button updates listState and sends to firebase:
+- clicking add button, a modal component pops up and asks which List the user wants to send movieObject to. the list choices are in a dropdown. Choosing a list (that HOLDS THE LIST ID) and clicking the add button updates setList and sends to firebase:
 
 firebase root {
 
   uniqueKey1 { <- premade set lists made in firebase 
     ListName: '' <- list name defined by user in Make List component
+      movieObject {
+      }
     movieObject {
-    }
+      }
   }
 
   uniqueKey2{
@@ -54,6 +56,25 @@ firebase root {
 In User Generated List component:
 - useEffect that sets dbList using information from firebase. This information is displayed on the page.
 - Natural Language Form: onChange of its inputs, filter() loops through the movie objects and randomly returns a movie fitting the NLF criteria. (visually displayed for user) 
+
+FOR LOOP IN ORDER TO ACCESS JUST THE LIST NAMES:
+
+ for (let listObject in data) {
+        // inside the loop, we push each list name to an array we already created inside the onValue() function:
+        // setdbList(data[listObject]);
+        // console.log(data[listObject].listName);
+        const listNames = data[listObject].listName;
+        // console.log(listNames);
+        
+        dbListArray.push(listNames);
+        
+      }
+      // console.log(dbList1);
+      setdbList(dbListArray);
+    })
+
+  }, [])
+
 
 4 components
 Header that includes the following:
@@ -78,4 +99,8 @@ h2: the name of the list currently being shown
 multiple div containers containing the movie img and a remove button. clicking remove will remove the movie from the list.
 also, a natural language form. holds two inputs allowing user to choose
 
+
+ACCESSING/PRESERVING UNIQUE KEY NAME FROM FIREBASE
+    // listArray.push(dbList[node]);
+    // dbList[node].listKey = node
 -->
