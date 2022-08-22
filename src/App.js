@@ -86,10 +86,6 @@ function App() {
   })
 
 
-  // track user query:
-  const handleMovieInput = ((e) => {
-    setMovieInput(e.target.value)
-  })  
 
   //add movie to one of the lhe lists in list component
   const addMovie = (e, movie) => {
@@ -99,25 +95,24 @@ function App() {
   }
   return (
     <>
-      
-    <Header 
-      handleMovieInput={handleMovieInput}   
-      handleSubmit={handleSubmit} 
-      movieInput={movieInput} 
-    />
-    <Results 
-      movieObject={movieObject} 
-      addMovie={addMovie}/>
-    <Lists 
-      sendMovie={sendMovie}/>
-    <ListPanel 
-      handleListInput={handleListInput}
-      list={list}
-      handleListCreation={handleListCreation}
-      dbList={dbList}
-      handleRemoveList={handleRemoveList}
-    />
-  </>
+      <Header 
+        handleMovieInput={handleMovieInput}   
+        handleSubmit={handleSubmit} 
+        movieInput={movieInput} 
+      />
+      <Results 
+        movieObject={movieObject} 
+        addMovie={addMovie}/>
+      <Lists 
+        sendMovie={sendMovie}/>
+      <ListPanel 
+        handleListInput={handleListInput}
+        list={list}
+        handleListCreation={handleListCreation}
+        dbList={dbList}
+        handleRemoveList={handleRemoveList}
+      />
+    </>
   );
 }
 
