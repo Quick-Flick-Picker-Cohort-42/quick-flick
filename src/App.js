@@ -50,6 +50,11 @@ function App() {
     remove(dbRef)
   }
 
+  // track user query:
+  const handleMovieInput = ((e) => {
+    setMovieInput(e.target.value)
+  })
+
   useEffect( () => {
     const database = getDatabase(firebase);
     const dbRef = ref(database);

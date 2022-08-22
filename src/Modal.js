@@ -1,5 +1,3 @@
-
-
 const Modal = ({ movie, dbList, toggleModal }) => {
     return (
         <div className="modal">
@@ -27,3 +25,4 @@ const Modal = ({ movie, dbList, toggleModal }) => {
     )
 }
 
+export default Modal;
