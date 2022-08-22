@@ -102,7 +102,8 @@ function App() {
       />
       <Results 
         movieObject={movieObject} 
-        addMovie={addMovie}/>
+        addMovie={addMovie}
+        dbList={dbList}/>
       <Lists 
         sendMovie={sendMovie}/>
       <ListPanel 
