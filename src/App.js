@@ -113,7 +113,8 @@ function App() {
       />
       <Results
         movieObject={movieObject}
-        addMovie={addMovie} />
+        addMovie={addMovie}
+        dbList={dbList} />
       <Lists
         sendMovie={sendMovie} />
       <ListPanel
@@ -123,7 +124,7 @@ function App() {
         dbList={dbList}
         handleRemoveList={handleRemoveList}
       />
-      <Modal dbList={dbList} />
+
     </>
   );
 }
