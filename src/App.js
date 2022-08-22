@@ -4,7 +4,6 @@ import { getDatabase, ref, push, onValue, remove } from 'firebase/database';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './Header.js';
-
 import Results from './Results.js'
 import Lists from './Lists.js'
 import ListPanel from './ListPanel.js';
@@ -12,7 +11,7 @@ import ListPanel from './ListPanel.js';
 
 function App() {
 
-//! States
+// ! States
   // stores user's movie title query
   const [movieInput, setMovieInput] = useState('');
   // stores api movie results
@@ -27,11 +26,6 @@ function App() {
 
   // stores lists coming back from firebase
   const [dbList, setdbList] = useState({});
-
-  // track user query:
-  const handleMovieInput = ( (e) => {
-    setMovieInput(e.target.value)
-  })  
 
   // handle list input
   const handleListInput = ( (e) => {
@@ -101,7 +95,6 @@ function App() {
   }
   return (
     <>
-      
       <Header 
         handleMovieInput={handleMovieInput}   
         handleSubmit={handleSubmit} 
@@ -120,7 +113,6 @@ function App() {
         handleRemoveList={handleRemoveList}
       />
     </>
-
   );
 }
 
