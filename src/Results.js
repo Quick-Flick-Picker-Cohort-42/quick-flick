@@ -2,12 +2,18 @@ import { useState } from 'react';
 import Modal from './Modal.js';
 
 
-const Results = ({ movieObject, addMovie, dbList }) => {
+const Results = ({ movieObject, addMovie, dbList, setSendMovie, setListSelection, listSelection }) => {
   //on button click, take the information from that movie and send it to the list section
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);
+  }
+
+  if (modal) {
+    document.body.classList.add('active-modal')
+  } else {
+    document.body.classList.remove('active-modal')
   }
 
   return (
@@ -31,7 +37,7 @@ const Results = ({ movieObject, addMovie, dbList }) => {
                 <p>{movie.overview}</p>
                 <p>Release Date: {movie.release_date}</p>
               </div>
-              {modal ? <Modal movie={movie} dbList={dbList} toggleModal={toggleModal} /> : null}
+              {modal ? <Modal movie={movie} dbList={dbList} toggleModal={toggleModal} setSendMovie={setSendMovie} setListSelection={setListSelection} listSelection={listSelection} /> : null}
             </div>
           )
 

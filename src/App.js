@@ -17,9 +17,11 @@ function App() {
   // stores api movie results
 
   const [movieObject, setMovieObject] = useState([]);
-  //store movie to send
+  // store movie to send
   const [sendMovie, setSendMovie] = useState({});
 
+  // store list selection input
+  const [listSelection, setListSelection] = useState('');
 
   // stores lists
   const [list, setList] = useState({listName:''});
@@ -90,14 +92,6 @@ function App() {
 
   })
 
-
-
-  //add movie to one of the lhe lists in list component
-  const addMovie = (e, movie) => {
-    e.preventDefault()
-    setSendMovie(movie)
-
-  }
   return (
     <>
       <Header 
@@ -107,8 +101,10 @@ function App() {
       />
       <Results 
         movieObject={movieObject} 
-        addMovie={addMovie}
-        dbList={dbList}/>
+        dbList={dbList}
+        setSendMovie={setSendMovie}
+        setListSelection={setListSelection}
+        listSelection={listSelection} />
       <Lists 
         sendMovie={sendMovie}/>
       <ListPanel 
