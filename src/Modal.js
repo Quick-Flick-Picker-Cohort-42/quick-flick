@@ -32,11 +32,11 @@ const Modal = ({ movie, dbList, toggleModal, setSendMovie, setListSelection, lis
                 <h1>Add this Movie: </h1>
                 <form>
                     <label htmlFor="list">Save movie to list:</label>
-                    <select id="list" name="list" required onChange={handleListSelection} value={listSelection}>
-                        <option disabled value={'default'} >Select a list</option>
+                    {/* WEIRD QUIRK: if you want a unselectable default option as your first choice in a select, add attr value='' */}
+                    <select id="list" name="list" required onChange={handleListSelection} value={listSelection} >
+                        <option disabled value="">Select a list</option>
                         {
                             Object.entries(dbList).map(([key, value]) => {
-
                                 return (
                                     <option key={key} value={value.listName}>
                                         {value.listName}
