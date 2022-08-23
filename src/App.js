@@ -14,11 +14,12 @@ function App() {
 // ! States
   // stores user's movie title query
   const [movieInput, setMovieInput] = useState('');
-  // stores api movie results
 
+  // stores api movie results
   const [movieObject, setMovieObject] = useState([]);
+  
   // store movie to send
-  const [sendMovie, setSendMovie] = useState({});
+  const [toSend, setToSend] = useState({});
 
   // store list selection input
   const [listSelection, setListSelection] = useState('');
@@ -102,11 +103,11 @@ function App() {
       <Results 
         movieObject={movieObject} 
         dbList={dbList}
-        setSendMovie={setSendMovie}
+        toSend={toSend}
+        setToSend={setToSend}
         setListSelection={setListSelection}
         listSelection={listSelection} />
-      <Lists 
-        sendMovie={sendMovie}/>
+      <Lists />
       <ListPanel 
         handleListInput={handleListInput}
         list={list}

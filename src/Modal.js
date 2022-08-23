@@ -1,29 +1,33 @@
 import firebase from './firebase';
-import { update, set, push, ref, getDatabase } from 'firebase/database';
+import { push, ref, getDatabase } from 'firebase/database';
+import { useEffect } from 'react';
 
-const Modal = ({ movie, dbList, toggleModal, setSendMovie, setListSelection, listSelection }) => {
-    
+const Modal = ({ dbList, toggleModal, toSend, setToSend, setListSelection, listSelection }) => {
+
     // update sendMovie state with the selected movie
     const handleListSelection = (e) => {
         setListSelection(e.target.value);
+
     }
 
     // update sendMovie state with the selected movie and send to firebase
-    const handleAddMovie = (e, movie, dbList) => {
+    const handleAddMovie = (e, movie) => {
         e.preventDefault();
+
         if (!listSelection) {
             alert('Please select a list')
+
         } else {
-        setSendMovie(movie);
+            for (let listNode in dbList) {
+                if (dbList[listNode].listName === listSelection) {
+                    const database = getDatabase(firebase);
+                    const dbRefNode = ref(database, `/${listNode}`);
+                    
+                    push(dbRefNode, toSend)
+                }
+            }
         }
-
-        // const database = getDatabase(firebase);
-        // const dbRefNode = ref(database, `/${}`);
-
-        // update(dbRefNode, sendMovie)
     }
-
-    { const nodeKey = '' }
 
     return (
         <div className="modal">
@@ -45,11 +49,12 @@ const Modal = ({ movie, dbList, toggleModal, setSendMovie, setListSelection, lis
                             })
                         }
                     </select>
-                    <button onClick={(e) => {handleAddMovie(e, movie)}}>Add to list</button>
+                    <button onClick={(e) => { handleAddMovie(e, toSend) }}>Add to list</button>
                 </form>
                 <button className="modal-close" onClick={toggleModal}>X</button>
             </div>
         </div>
+
     )
 }
 
