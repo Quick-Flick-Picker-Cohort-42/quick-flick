@@ -2,11 +2,10 @@ import './App.css';
 import firebase from './firebase';
 import { getDatabase, ref, push, onValue, remove } from 'firebase/database';
 import { useState, useEffect } from 'react';
+import { Link,  Routes, Route, } from 'react-router-dom';
 import axios from 'axios';
-import Header from './Header.js';
-import Results from './Results.js'
-import Lists from './Lists.js'
-import ListPanel from './ListPanel.js';
+import Home from './Home.js';
+import Lists from './Lists.js';
 
 
 function App() {
@@ -95,7 +94,7 @@ function App() {
 
   return (
     <>
-      <Header 
+      {/* <Header 
         handleMovieInput={handleMovieInput}   
         handleSubmit={handleSubmit} 
         movieInput={movieInput} 
@@ -114,7 +113,28 @@ function App() {
         handleListCreation={handleListCreation}
         dbList={dbList}
         handleRemoveList={handleRemoveList}
-      />
+      /> */}
+
+      <Routes>
+        <Route path="/" element={ 
+          <Home 
+            handleMovieInput={handleMovieInput}   
+            handleSubmit={handleSubmit} 
+            movieInput={movieInput}
+            movieObject={movieObject} 
+            dbList={dbList}
+            toSend={toSend}
+            setToSend={setToSend}
+            setListSelection={setListSelection}
+            listSelection={listSelection}
+            handleListInput={handleListInput}
+            list={list}
+            handleListCreation={handleListCreation}
+            handleRemoveList={handleRemoveList}
+          /> } 
+        />
+        <Route path="/lists" element={ <Lists /> } />
+      </Routes>
     </>
   );
 }

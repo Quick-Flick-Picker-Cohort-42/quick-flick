@@ -24,8 +24,7 @@ const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRe
             </form>
         
             <DisplayList dbList={dbList} handleRemoveList={handleRemoveList} />
-      
-           
+
         </div>
     )
 }

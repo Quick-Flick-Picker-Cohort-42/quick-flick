@@ -37,8 +37,19 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
                 <p>{movie.overview}</p>
                 <p>Release Date: {movie.release_date}</p>
               </div>
-              {modal ? <Modal dbList={dbList} toggleModal={toggleModal} toSend={toSend}
-                setToSend={setToSend} setListSelection={setListSelection} listSelection={listSelection} /> : null}
+              { 
+              modal 
+              ? 
+              <Modal 
+                dbList={dbList} 
+                toggleModal={toggleModal} 
+                toSend={toSend}
+                setToSend={setToSend} 
+                setListSelection={setListSelection} 
+                listSelection={listSelection} /> 
+                : 
+                null 
+                }
             </div>
 
           )

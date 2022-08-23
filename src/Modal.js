@@ -1,6 +1,5 @@
 import firebase from './firebase';
 import { push, ref, getDatabase } from 'firebase/database';
-import { useEffect } from 'react';
 
 const Modal = ({ dbList, toggleModal, toSend, setToSend, setListSelection, listSelection }) => {
 
@@ -21,7 +20,7 @@ const Modal = ({ dbList, toggleModal, toSend, setToSend, setListSelection, listS
             for (let listNode in dbList) {
                 if (dbList[listNode].listName === listSelection) {
                     const database = getDatabase(firebase);
-                    const dbRefNode = ref(database, `/${listNode}`);
+                    const dbRefNode = ref(database, `/${listNode}/movies`);
                     
                     push(dbRefNode, toSend)
                 }
@@ -37,7 +36,12 @@ const Modal = ({ dbList, toggleModal, toSend, setToSend, setListSelection, listS
                 <form>
                     <label htmlFor="list">Save movie to list:</label>
                     {/* WEIRD QUIRK: if you want a unselectable default option as your first choice in a select, add attr value='' */}
-                    <select id="list" name="list" required onChange={handleListSelection} value={listSelection} >
+                    <select 
+                        id="list" 
+                        name="list" 
+                        required onChange={handleListSelection} 
+                        value={listSelection} 
+                    >
                         <option disabled value="">Select a list</option>
                         {
                             Object.entries(dbList).map(([key, value]) => {
