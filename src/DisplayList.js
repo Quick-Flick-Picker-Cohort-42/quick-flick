@@ -10,7 +10,7 @@ const DisplayList = (({ dbList, handleRemoveList, setNodeKey }) => {
                 {
                     Object.entries(dbList).map(([id, value]) => {
                         return (
-                            <Link to={`/list/${value.listName}`}>
+                            <Link to={`/list/${value.listName}`} key={id}>
                                 <li key={id} onClick={ () => {setNodeKey(id)} }>
                                     {value.listName}
                                     <button onClick={() => { handleRemoveList(id) }}>x</button>
