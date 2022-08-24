@@ -29,6 +29,10 @@ function App() {
   // stores lists coming back from firebase
   const [dbList, setdbList] = useState({});
 
+  // stores the unique key from each list in fb
+  const [nodeKey, setNodeKey] = useState('');
+
+
   // handle list input
   const handleListInput = ( (e) => {
     setList( current => {
@@ -131,9 +135,10 @@ function App() {
             list={list}
             handleListCreation={handleListCreation}
             handleRemoveList={handleRemoveList}
+            setNodeKey={setNodeKey}
           /> } 
         />
-        <Route path="/lists" element={ <Lists /> } />
+        <Route path="/list/:listName" element={ <Lists nodeKey={nodeKey} dbList={dbList} /> } />
       </Routes>
     </>
   );

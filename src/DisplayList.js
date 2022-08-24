@@ -1,18 +1,19 @@
 import { Link } from 'react-router-dom';
 
-const DisplayList = (({ dbList, handleRemoveList }) => {
+
+const DisplayList = (({ dbList, handleRemoveList, setNodeKey }) => {
     if (dbList) {
         return (
             <ul>
 
                 {/* function that acts like .map but for objects */}
                 {
-                    Object.entries(dbList).map(([key, value]) => {
+                    Object.entries(dbList).map(([id, value]) => {
                         return (
-                            <Link to={`/${key}`}>
-                                <li key={key}>
+                            <Link to={`/list/${value.listName}`}>
+                                <li key={id} onClick={ () => {setNodeKey(id)} }>
                                     {value.listName}
-                                    <button onClick={() => { handleRemoveList(key) }}>x</button>
+                                    <button onClick={() => { handleRemoveList(id) }}>x</button>
                                 </li>
                             </Link>
                         )

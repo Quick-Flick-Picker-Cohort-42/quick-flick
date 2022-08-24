@@ -16,7 +16,8 @@ const Home = (({
     handleListInput,
     list,
     handleListCreation,
-    handleRemoveList
+    handleRemoveList, 
+    setNodeKey
 }) => {
 
     return (
@@ -40,6 +41,7 @@ const Home = (({
                 handleListCreation={handleListCreation}
                 dbList={dbList}
                 handleRemoveList={handleRemoveList}
+                setNodeKey={setNodeKey}
             />
         </>
     )

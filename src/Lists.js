@@ -1,7 +1,14 @@
-const Lists = () => {
+import { useParams } from 'react-router-dom';
+
+const Lists = ({ nodeKey, dbList }) => {
+
+  const { listName } = useParams();
+  console.log(dbList)
   return (
+
     <section className="">
-      <h1>Lists Section</h1>
+      
+      <h2>{listName}</h2>
       {/* pass in lists as link url in displayList component, and dynamically render the unique list names and movie object titles (map), based on the key that was selected (ie list key) */}
     </section>
 
