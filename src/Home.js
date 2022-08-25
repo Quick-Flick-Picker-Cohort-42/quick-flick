@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import Header from './Header.js';
 import Results from './Results.js'
 import ListPanel from './ListPanel.js';
@@ -22,7 +21,6 @@ const Home = (({
 
     return (
         <>
-            <Link to="/lists">Take me to your list</Link>
             <Header
                 handleMovieInput={handleMovieInput}
                 handleSubmit={handleSubmit}

@@ -2,7 +2,7 @@ import './App.css';
 import firebase from './firebase';
 import { getDatabase, ref, push, onValue, remove } from 'firebase/database';
 import { useState, useEffect } from 'react';
-import { Link,  Routes, Route, } from 'react-router-dom';
+import { Routes, Route, } from 'react-router-dom';
 import axios from 'axios';
 import Home from './Home.js';
 import Lists from './Lists.js';

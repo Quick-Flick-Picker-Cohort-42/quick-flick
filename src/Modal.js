@@ -39,7 +39,8 @@ const Modal = ({ dbList, toggleModal, toSend, setToSend, setListSelection, listS
                     <select 
                         id="list" 
                         name="list" 
-                        required onChange={handleListSelection} 
+                        required 
+                        onChange={handleListSelection} 
                         value={listSelection} 
                     >
                         <option disabled value="">Select a list</option>
