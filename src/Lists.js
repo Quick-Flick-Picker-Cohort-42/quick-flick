@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -14,20 +14,38 @@ const Lists = ({ nodeKey, dbList }) => {
   const [chosenGenre, setChosenGenre] = useState('');
   const [chosenDuration, setChosenDuration] = useState('');
 
-  let moviesMatchedCopy = [];
+  let movieRef = useRef()
 
 
-  const randomMovie = (matchedMovies) => {
-
-    const finalMovie = (Math.floor(Math.random() * matchedMovies.length))
-    console.log(matchedMovies[finalMovie])
 
 
+  //asynchronous function: awaits for API call in each loop, then compares and pushes movie ID to array
+  async function findRandomMovie (genreMatchedMovies, arrayOfMatchedMovies) {
+    for (let movieId of genreMatchedMovies) {
+      await axios({
+        url: `https://api.themoviedb.org/3/movie/${movieId}`,
+        params: {
+          api_key: '636ef606db6eb961991793ba4935ad7e',
+        }
+      }).then((res) => {
+        if (res.data.runtime < parseInt(chosenDuration)) {
+          arrayOfMatchedMovies.push(res.data.id)
+          
+        }
+      })
+    }
+    return(arrayOfMatchedMovies)
   }
 
 
   const handleNLF = (e) => {
+  
     e.preventDefault()
+    const movieList = document.querySelectorAll('li')
+    movieList.forEach((movie)=>{
+      movie.style.opacity = 1
+    })
+
     const genreMatch = [];
     const moviesMatched = [];
 
@@ -39,33 +57,20 @@ const Lists = ({ nodeKey, dbList }) => {
         }
       }
     }
-    genreMatch.forEach((movieId) => {
-      axios({
-        url: `https://api.themoviedb.org/3/movie/${movieId}`,
-        params: {
-          api_key: '636ef606db6eb961991793ba4935ad7e',
-        },
-      }).then((res) => {
-        // console.log(res.data)
-        if (res.data.runtime < parseInt(chosenDuration)) {
-          moviesMatched.push(res.data.id)
-        } else {
-          console.log('movie is too long')
-        }
-      })
+    
+    findRandomMovie(genreMatch, moviesMatched).then((res)=>{
+      const finalMovie = res[(Math.floor(Math.random() * res.length))]
+      console.log(finalMovie)
+
+      //!can come back to this later (change to useRef())
+      document.getElementById(finalMovie).style.opacity = 0.2
+
     })
-    // .then(() => {
-    //   console.log(moviesMatched)
-    // })
-    moviesMatchedCopy = moviesMatched
-    randomMovie(moviesMatchedCopy);
+
   }
-
-
 
   const handleGenreSelection = (e) => {
     setChosenGenre(e.target.value);
-
   }
 
   const handleDurationSelection = (e) => {
@@ -88,6 +93,7 @@ const Lists = ({ nodeKey, dbList }) => {
 
   }, [])
 
+
   return (
 
     <section className="">
@@ -101,7 +107,7 @@ const Lists = ({ nodeKey, dbList }) => {
               {Object.entries(currentList).map((movie) => {
 
                 return (
-                  <li key={movie[1].id}>
+                  <li key={movie[1].id} id={movie[1].id}>
                     <h2>{movie[1].title}</h2>
                     <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
                   </li>
@@ -110,7 +116,7 @@ const Lists = ({ nodeKey, dbList }) => {
 
               })}
             </ul>
-            <form onSubmit={handleNLF}>
+            <form onSubmit={ (e) => handleNLF(e)}>
               <p>I feel like watching a </p>
               <label htmlFor="genre" className="sr-only">Choose a genre</label>
               <select
