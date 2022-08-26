@@ -10,13 +10,13 @@ import Lists from './Lists.js';
 
 function App() {
 
-// ! States
+  // ! States
   // stores user's movie title query
   const [movieInput, setMovieInput] = useState('');
 
   // stores api movie results
   const [movieObject, setMovieObject] = useState([]);
-  
+
   // store movie to send
   const [toSend, setToSend] = useState({});
 
@@ -24,7 +24,7 @@ function App() {
   const [listSelection, setListSelection] = useState('');
 
   // stores lists
-  const [list, setList] = useState({listName:''});
+  const [list, setList] = useState({ listName: '' });
 
   // stores lists coming back from firebase
   const [dbList, setdbList] = useState({});
@@ -34,14 +34,14 @@ function App() {
 
 
   // handle list input
-  const handleListInput = ( (e) => {
-    setList( current => {
+  const handleListInput = ((e) => {
+    setList(current => {
       return { ...current, listName: e.target.value }
     });
   })
 
   // creates the list in firebase
-  const handleListCreation = ( (e) => {
+  const handleListCreation = ((e) => {
     e.preventDefault()
     // console.log(list.listName)
     const database = getDatabase(firebase);
@@ -61,7 +61,7 @@ function App() {
     setMovieInput(e.target.value)
   })
 
-  useEffect( () => {
+  useEffect(() => {
     const database = getDatabase(firebase);
     const dbRef = ref(database);
 
@@ -75,7 +75,7 @@ function App() {
   }, [])
 
   // handle movie title submit
-  const handleSubmit = ( (e) => {
+  const handleSubmit = ((e) => {
     e.preventDefault()
 
     axios({
@@ -90,7 +90,7 @@ function App() {
     }).then((res) => {
       const movieResults = res.data.results;
 
-      
+
       setMovieObject(movieResults);
     })
 
@@ -120,12 +120,12 @@ function App() {
       /> */}
 
       <Routes>
-        <Route path="/" element={ 
-          <Home 
-            handleMovieInput={handleMovieInput}   
-            handleSubmit={handleSubmit} 
+        <Route path="/" element={
+          <Home
+            handleMovieInput={handleMovieInput}
+            handleSubmit={handleSubmit}
             movieInput={movieInput}
-            movieObject={movieObject} 
+            movieObject={movieObject}
             dbList={dbList}
             toSend={toSend}
             setToSend={setToSend}
@@ -136,9 +136,9 @@ function App() {
             handleListCreation={handleListCreation}
             handleRemoveList={handleRemoveList}
             setNodeKey={setNodeKey}
-          /> } 
+          />}
         />
-        <Route path="/list/:listName" element={ <Lists nodeKey={nodeKey} dbList={dbList} /> } />
+        <Route path="/list/:listName" element={<Lists nodeKey={nodeKey} dbList={dbList} />} />
       </Routes>
     </>
   );

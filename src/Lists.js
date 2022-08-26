@@ -11,38 +11,65 @@ const Lists = ({ nodeKey, dbList }) => {
 
   //!states
   const [genres, setGenres] = useState([]);
-  const [chosenGenre, setChosenGenre] = useState('')
+  const [chosenGenre, setChosenGenre] = useState('');
+  const [chosenDuration, setChosenDuration] = useState('');
+
+  let moviesMatchedCopy = [];
+
+
+  const randomMovie = (matchedMovies) => {
+
+    const finalMovie = (Math.floor(Math.random() * matchedMovies.length))
+    console.log(matchedMovies[finalMovie])
+
+
+  }
+
 
   const handleNLF = (e) => {
     e.preventDefault()
+    const genreMatch = [];
+    const moviesMatched = [];
+
     for (let movie in currentList) {
       const movieListGenres = currentList[movie].genre_ids;
       for (let movieListGenre in movieListGenres) {
         if (movieListGenres[movieListGenre] === parseInt(chosenGenre)) {
-          console.log(`this movie matches`)
+          genreMatch.push(currentList[movie].id)
+        }
       }
-      console.log(genres)
-      }
-    
-
-    // e.preventDefault()
-    // axios({
-    //   url: `https://api.themoviedb.org/3/movie/671`,
-    //   params: {
-    //     api_key: '636ef606db6eb961991793ba4935ad7e',
-    //   },
-    // }).then((res) => {
-    //   console.log(res.data)
-    //   // const movieResults = res.data.results;
-    //   // setMovieObject(movieResults);
+    }
+    genreMatch.forEach((movieId) => {
+      axios({
+        url: `https://api.themoviedb.org/3/movie/${movieId}`,
+        params: {
+          api_key: '636ef606db6eb961991793ba4935ad7e',
+        },
+      }).then((res) => {
+        // console.log(res.data)
+        if (res.data.runtime < parseInt(chosenDuration)) {
+          moviesMatched.push(res.data.id)
+        } else {
+          console.log('movie is too long')
+        }
+      })
+    })
+    // .then(() => {
+    //   console.log(moviesMatched)
     // })
+    moviesMatchedCopy = moviesMatched
+    randomMovie(moviesMatchedCopy);
+  }
 
-  }
-  }
+
 
   const handleGenreSelection = (e) => {
     setChosenGenre(e.target.value);
 
+  }
+
+  const handleDurationSelection = (e) => {
+    setChosenDuration(e.target.value);
   }
 
   useEffect(() => {
@@ -59,16 +86,16 @@ const Lists = ({ nodeKey, dbList }) => {
       // setMovieObject(movieResults);
     })
 
-  },[])
+  }, [])
 
   return (
 
     <section className="">
-      
+
       <h2>{listName}</h2>
       {/* NOTE - need to error handle movie dupes in the same list. need to also check what happens if the same movie is in two different lists */}
       {
-        currentList ? 
+        currentList ?
           <>
             <ul>
               {Object.entries(currentList).map((movie) => {
@@ -86,12 +113,12 @@ const Lists = ({ nodeKey, dbList }) => {
             <form onSubmit={handleNLF}>
               <p>I feel like watching a </p>
               <label htmlFor="genre" className="sr-only">Choose a genre</label>
-              <select 
-              name="genre" 
-              id="genre"
-              required 
-              onChange={handleGenreSelection}
-              value={chosenGenre} >
+              <select
+                name="genre"
+                id="genre"
+                required
+                onChange={handleGenreSelection}
+                value={chosenGenre} >
                 <option disabled value="">Select a genre</option>
                 {genres.map((genreObject) => {
                   return (
@@ -101,20 +128,26 @@ const Lists = ({ nodeKey, dbList }) => {
               </select>
               <p>movie, and I have</p>
               <label htmlFor="duration" className="sr-only">Choose a duration</label>
-              <select name="duration" id="duration">
+              <select
+                name="duration"
+                id="duration"
+                required
+                onChange={handleDurationSelection}
+                value={chosenDuration}
+              >
                 <option disabled value="">Select a duration</option>
-                <option value="1.5">Less than 1.5 hours</option>
-                <option value="2">Less than 2 hours</option>
+                <option value="90">Less than 1.5 hours</option>
+                <option value="120">Less than 2 hours</option>
                 <option value="1000">All the time in the world</option>
               </select>
               <button>Submit</button>
             </form>
             <Link to="/">Back</Link>
-          </> 
-          : 
+          </>
+          :
           <p>No movies have been added to this list! Try adding a movie first.</p>
       }
-      
+
 
 
 
