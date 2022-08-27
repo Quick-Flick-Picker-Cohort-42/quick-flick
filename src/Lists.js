@@ -2,44 +2,39 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
-
 const Lists = ({ nodeKey, dbList }) => {
   const { listName } = useParams();
   //! when user refreshes page on a list, program breaks
   const currentList = dbList[nodeKey].movies;
 
-
   //!states
   const [genres, setGenres] = useState([]);
   const [chosenGenre, setChosenGenre] = useState('');
   const [chosenDuration, setChosenDuration] = useState('');
+  const [randomMovie, setRandomMovie] = useState('')
 
-  let movieRef = useRef()
-
-
-
+  // let movieRef = useRef()
 
   //asynchronous function: awaits for API call in each loop, then compares and pushes movie ID to array
   async function findRandomMovie (genreMatchedMovies, arrayOfMatchedMovies) {
     for (let movieId of genreMatchedMovies) {
-      await axios({
-        url: `https://api.themoviedb.org/3/movie/${movieId}`,
-        params: {
-          api_key: '636ef606db6eb961991793ba4935ad7e',
-        }
-      }).then((res) => {
-        if (res.data.runtime < parseInt(chosenDuration)) {
-          arrayOfMatchedMovies.push(res.data.id)
-          
-        }
-      })
+      await
+        axios({
+          url: `https://api.themoviedb.org/3/movie/${movieId}`,
+          params: {
+            api_key: '636ef606db6eb961991793ba4935ad7e',
+          }
+        }).then((res) => {
+          if (res.data.runtime < parseInt(chosenDuration)) {
+            arrayOfMatchedMovies.push(res.data.id)
+            
+          }
+        })
     }
     return(arrayOfMatchedMovies)
   }
 
-
   const handleNLF = (e) => {
-  
     e.preventDefault()
     const movieList = document.querySelectorAll('li')
     movieList.forEach((movie)=>{
@@ -61,12 +56,12 @@ const Lists = ({ nodeKey, dbList }) => {
     findRandomMovie(genreMatch, moviesMatched).then((res)=>{
       const finalMovie = res[(Math.floor(Math.random() * res.length))]
       console.log(finalMovie)
+      console.log(currentList)
 
       //!can come back to this later (change to useRef())
       document.getElementById(finalMovie).style.opacity = 0.2
 
     })
-
   }
 
   const handleGenreSelection = (e) => {
@@ -78,8 +73,7 @@ const Lists = ({ nodeKey, dbList }) => {
   }
 
   useEffect(() => {
-
-    //genre API call
+    //genre API call to populate the genre select with a list of all current genres from TMDB
     axios({
       url: 'https://api.themoviedb.org/3/genre/movie/list',
       params: {
@@ -103,15 +97,18 @@ const Lists = ({ nodeKey, dbList }) => {
       {
         currentList ?
           <>
+            {/* {
+              randomMovieReturned ?
+              <p></p>
+            } */}
             <ul>
               {Object.entries(currentList).map((movie) => {
 
                 return (
                   <li key={movie[1].id} id={movie[1].id}>
-                    <h2>{movie[1].title}</h2>
+                    <h3>{movie[1].title}</h3>
                     <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
                   </li>
-
                 )
 
               })}
@@ -148,16 +145,11 @@ const Lists = ({ nodeKey, dbList }) => {
               </select>
               <button>Submit</button>
             </form>
-            <Link to="/">Back</Link>
+            <Link to="/">Back to Home</Link>
           </>
           :
           <p>No movies have been added to this list! Try adding a movie first.</p>
       }
-
-
-
-
-
       {/* pass in lists as link url in displayList component, and dynamically render the unique list names and movie object titles (map), based on the key that was selected (ie list key) */}
     </section>
 

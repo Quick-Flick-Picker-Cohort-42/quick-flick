@@ -12,14 +12,14 @@ const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRe
                     htmlFor="list-input" 
                     className="sr-only"
                 >
-                    Enter list name
+                    Enter a name for your list
                 </label>
                 <input 
                     onChange={handleListInput} 
                     value={list.listName}
                     type="text" 
                     id="list-input" 
-                    placeholder="Enter list name"
+                    placeholder="e.g., Movies to make me seem cultured"
                 />
                 <button >Create new list</button>
             </form>

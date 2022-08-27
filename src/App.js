@@ -11,25 +11,25 @@ import Lists from './Lists.js';
 function App() {
 
   // ! States
-  // stores user's movie title query
+  // tracks and stores user's movie title query
   const [movieInput, setMovieInput] = useState('');
 
-  // stores api movie results
+  // stores API movie results
   const [movieObject, setMovieObject] = useState([]);
 
-  // store movie to send
+  // stores user's movie selection to add to a list
   const [toSend, setToSend] = useState({});
 
-  // store list selection input
+  // stores list selection input (from dropdown of existing lists)
   const [listSelection, setListSelection] = useState('');
 
-  // stores lists
+  // tracks and stores user's list name input (when creating new list)
   const [list, setList] = useState({ listName: '' });
 
-  // stores lists coming back from firebase
+  // stores lists coming back from Firebase
   const [dbList, setdbList] = useState({});
 
-  // stores the unique key from each list in fb
+  // stores the unique key from each list in Firebase
   const [nodeKey, setNodeKey] = useState('');
 
 
@@ -71,10 +71,9 @@ function App() {
       const data = response.val();
       setdbList(data);
     })
-    // console.log(list)
   }, [])
 
-  // handle movie title submit
+  // handle movie query submit
   const handleSubmit = ((e) => {
     e.preventDefault()
 
@@ -89,8 +88,6 @@ function App() {
       },
     }).then((res) => {
       const movieResults = res.data.results;
-
-
       setMovieObject(movieResults);
     })
 
