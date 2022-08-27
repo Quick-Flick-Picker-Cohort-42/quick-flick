@@ -1,19 +1,40 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Lists = ({ nodeKey, dbList }) => {
+const Lists = ({ nodeKey, setNodeKey, dbList }) => {
   const { listName } = useParams();
   //! when user refreshes page on a list, program breaks
-  const currentList = dbList[nodeKey].movies;
 
   //!states
+  const [currentList, setCurrentList] = useState({})
   const [genres, setGenres] = useState([]);
   const [chosenGenre, setChosenGenre] = useState('');
   const [chosenDuration, setChosenDuration] = useState('');
   const [randomMovie, setRandomMovie] = useState('')
 
   // let movieRef = useRef()
+
+  // console.log(listName)
+  // obtain node key of current list from URL (instead of setting on DisplayList on click)...
+  useEffect(() => {
+    // console.log(dbList)
+    for (let list in dbList) {
+      // console.log(dbList[list].listName);
+      // if list name in URL matches a list name from dbList (list from Firebase), get the Firebase node key of that list
+      if (listName === dbList[list].listName) {
+        console.log(list);
+        setNodeKey(list);
+      }
+    }
+  }, [dbList, listName, setNodeKey])
+
+  // if nodeKey is set, update currentList state so that it stores all of the movie objects from the current list
+  useEffect(() => {
+    if (nodeKey) {
+      setCurrentList(dbList[nodeKey].movies)
+    }
+  }, [nodeKey, dbList])
 
   //asynchronous function: awaits for API call in each loop, then compares and pushes movie ID to array
   async function findRandomMovie (genreMatchedMovies, arrayOfMatchedMovies) {
@@ -54,13 +75,14 @@ const Lists = ({ nodeKey, dbList }) => {
     }
     
     findRandomMovie(genreMatch, moviesMatched).then((res)=>{
+      // generate random movie from the list of movies that match the criteria selected by the user
       const finalMovie = res[(Math.floor(Math.random() * res.length))]
-      console.log(finalMovie)
-      console.log(currentList)
+
+      // set randomMovie state to the random movie title (to be used to render text onto page displaying the suggested movie)
+      setRandomMovie(document.getElementById(finalMovie).textContent);
 
       //!can come back to this later (change to useRef())
       document.getElementById(finalMovie).style.opacity = 0.2
-
     })
   }
 
@@ -97,10 +119,12 @@ const Lists = ({ nodeKey, dbList }) => {
       {
         currentList ?
           <>
-            {/* {
-              randomMovieReturned ?
-              <p></p>
-            } */}
+          {/* if randomMovie has been set, display paragraph to indicate the suggested movie */}
+            {
+              randomMovie ?
+                <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
+              : null
+            }
             <ul>
               {Object.entries(currentList).map((movie) => {
 

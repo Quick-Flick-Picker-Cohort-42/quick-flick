@@ -18,7 +18,8 @@ const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRe
                     onChange={handleListInput} 
                     value={list.listName}
                     type="text" 
-                    id="list-input" 
+                    id="list-input"
+                    required 
                     placeholder="Enter list name"
                 />
                 <button >Create new list</button>

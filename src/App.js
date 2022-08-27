@@ -135,7 +135,8 @@ function App() {
             setNodeKey={setNodeKey}
           />}
         />
-        <Route path="/list/:listName" element={<Lists nodeKey={nodeKey} dbList={dbList} />} />
+        <Route path="/list/:listName" element={<Lists nodeKey={nodeKey} setNodeKey={setNodeKey} dbList={dbList} />} />
+        {/* <Route path="/list/:listName" element={<Lists nodeKey={nodeKey} setNodeKey={setNodeKey} dbList={dbList} />} /> */}
       </Routes>
     </>
   );
