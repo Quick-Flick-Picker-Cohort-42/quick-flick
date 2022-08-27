@@ -1,3 +1,4 @@
+import './Lists.css'
 import { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -90,7 +91,7 @@ const Lists = ({ nodeKey, dbList }) => {
 
   return (
 
-    <section className="">
+    <section className="userList">
 
       <h2>{listName}</h2>
       {/* NOTE - need to error handle movie dupes in the same list. need to also check what happens if the same movie is in two different lists */}
@@ -101,20 +102,8 @@ const Lists = ({ nodeKey, dbList }) => {
               randomMovieReturned ?
               <p></p>
             } */}
-            <ul>
-              {Object.entries(currentList).map((movie) => {
-
-                return (
-                  <li key={movie[1].id} id={movie[1].id}>
-                    <h3>{movie[1].title}</h3>
-                    <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
-                  </li>
-                )
-
-              })}
-            </ul>
-            <form onSubmit={ (e) => handleNLF(e)}>
-              <p>I feel like watching a </p>
+            <form onSubmit={(e) => handleNLF(e)}>
+              <p>I feel like watching a/an </p>
               <label htmlFor="genre" className="sr-only">Choose a genre</label>
               <select
                 name="genre"
@@ -145,6 +134,22 @@ const Lists = ({ nodeKey, dbList }) => {
               </select>
               <button>Submit</button>
             </form>
+            <Link to="/">Back to Home</Link>
+            <ul>
+              {Object.entries(currentList).map((movie) => {
+
+                return (
+                  <li key={movie[1].id} id={movie[1].id}>
+                    <div className="imgContainer">
+                      <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
+                    </div>
+                    <h3>{movie[1].title}</h3>
+                  </li>
+                )
+
+              })}
+            </ul>
+            
             <Link to="/">Back to Home</Link>
           </>
           :

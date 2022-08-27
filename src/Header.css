@@ -1,0 +1,20 @@
+
+header p {
+  font-weight: bold;
+  background-color: var(--blue);
+  padding: 15px;
+  border-radius: 10px;
+  line-height: 1.3rem;
+  width: 85%;
+  margin: 0 auto;
+  font-size: clamp(1rem, 2vw, 1.4rem)
+}
+
+header form {
+  margin: 10px;
+}
+
+header input {
+  width: 75%;
+  margin:0 auto;
+}
