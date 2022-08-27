@@ -19,7 +19,7 @@ const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRe
                     value={list.listName}
                     type="text" 
                     id="list-input" 
-                    placeholder="e.g., Movies to make me seem cultured"
+                    placeholder="Enter list name"
                 />
                 <button >Create new list</button>
             </form>

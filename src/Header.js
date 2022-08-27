@@ -15,6 +15,7 @@ const Header = (({handleMovieInput, handleSubmit, movieInput}) => {
                     value={movieInput}
                     type="text" 
                     id="movie-input" 
+                    required
                     placeholder="Search for a movie" 
                 />
                 <button>Find a flick!</button>
