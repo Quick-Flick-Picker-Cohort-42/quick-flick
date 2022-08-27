@@ -282,3 +282,13 @@ template {
   top: 10px;
   right: 10px;
 }
+
+body.active-modal {
+  overflow-y: hidden;
+}
+
+.hidden {
+  /* color: transparent; */
+  visibility: hidden;
+  display: none;
+}

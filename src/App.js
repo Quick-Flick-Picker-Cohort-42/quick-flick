@@ -2,40 +2,46 @@ import './App.css';
 import firebase from './firebase';
 import { getDatabase, ref, push, onValue, remove } from 'firebase/database';
 import { useState, useEffect } from 'react';
+import { Routes, Route, } from 'react-router-dom';
 import axios from 'axios';
-import Header from './Header.js';
-import Results from './Results.js'
-import Lists from './Lists.js'
-import ListPanel from './ListPanel.js';
+import Home from './Home.js';
+import Lists from './Lists.js';
 
 
 function App() {
 
-// ! States
+  // ! States
   // stores user's movie title query
   const [movieInput, setMovieInput] = useState('');
+
   // stores api movie results
-
   const [movieObject, setMovieObject] = useState([]);
-  //store movie to send
-  const [sendMovie, setSendMovie] = useState({});
 
+  // store movie to send
+  const [toSend, setToSend] = useState({});
+
+  // store list selection input
+  const [listSelection, setListSelection] = useState('');
 
   // stores lists
-  const [list, setList] = useState({listName:''});
+  const [list, setList] = useState({ listName: '' });
 
   // stores lists coming back from firebase
   const [dbList, setdbList] = useState({});
 
+  // stores the unique key from each list in fb
+  const [nodeKey, setNodeKey] = useState('');
+
+
   // handle list input
-  const handleListInput = ( (e) => {
-    setList( current => {
+  const handleListInput = ((e) => {
+    setList(current => {
       return { ...current, listName: e.target.value }
     });
   })
 
   // creates the list in firebase
-  const handleListCreation = ( (e) => {
+  const handleListCreation = ((e) => {
     e.preventDefault()
     // console.log(list.listName)
     const database = getDatabase(firebase);
@@ -55,7 +61,7 @@ function App() {
     setMovieInput(e.target.value)
   })
 
-  useEffect( () => {
+  useEffect(() => {
     const database = getDatabase(firebase);
     const dbRef = ref(database);
 
@@ -69,7 +75,7 @@ function App() {
   }, [])
 
   // handle movie title submit
-  const handleSubmit = ( (e) => {
+  const handleSubmit = ((e) => {
     e.preventDefault()
 
     axios({
@@ -84,40 +90,56 @@ function App() {
     }).then((res) => {
       const movieResults = res.data.results;
 
-      
+
       setMovieObject(movieResults);
     })
 
   })
 
-
-
-  //add movie to one of the lhe lists in list component
-  const addMovie = (e, movie) => {
-    e.preventDefault()
-    setSendMovie(movie)
-
-  }
   return (
     <>
-      <Header 
+      {/* <Header 
         handleMovieInput={handleMovieInput}   
         handleSubmit={handleSubmit} 
         movieInput={movieInput} 
       />
       <Results 
         movieObject={movieObject} 
-        addMovie={addMovie}
-        dbList={dbList}/>
-      <Lists 
-        sendMovie={sendMovie}/>
+        dbList={dbList}
+        toSend={toSend}
+        setToSend={setToSend}
+        setListSelection={setListSelection}
+        listSelection={listSelection} />
+      <Lists />
       <ListPanel 
         handleListInput={handleListInput}
         list={list}
         handleListCreation={handleListCreation}
         dbList={dbList}
         handleRemoveList={handleRemoveList}
-      />
+      /> */}
+
+      <Routes>
+        <Route path="/" element={
+          <Home
+            handleMovieInput={handleMovieInput}
+            handleSubmit={handleSubmit}
+            movieInput={movieInput}
+            movieObject={movieObject}
+            dbList={dbList}
+            toSend={toSend}
+            setToSend={setToSend}
+            setListSelection={setListSelection}
+            listSelection={listSelection}
+            handleListInput={handleListInput}
+            list={list}
+            handleListCreation={handleListCreation}
+            handleRemoveList={handleRemoveList}
+            setNodeKey={setNodeKey}
+          />}
+        />
+        <Route path="/list/:listName" element={<Lists nodeKey={nodeKey} dbList={dbList} />} />
+      </Routes>
     </>
   );
 }

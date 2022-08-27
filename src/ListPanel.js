@@ -1,6 +1,6 @@
 import DisplayList from './DisplayList';
 
-const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRemoveList }) => {
+const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRemoveList, setNodeKey }) => {
                 
     return (
         <div>
@@ -11,7 +11,8 @@ const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRe
                 <label 
                     htmlFor="list-input" 
                     className="sr-only"
-                    >Enter list name
+                >
+                    Enter list name
                 </label>
                 <input 
                     onChange={handleListInput} 
@@ -23,9 +24,12 @@ const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRe
                 <button >Create new list</button>
             </form>
         
-            <DisplayList dbList={dbList} handleRemoveList={handleRemoveList} />
-      
-           
+            <DisplayList 
+                dbList={dbList} 
+                handleRemoveList={handleRemoveList} 
+                setNodeKey={setNodeKey}
+            />
+
         </div>
     )
 }
