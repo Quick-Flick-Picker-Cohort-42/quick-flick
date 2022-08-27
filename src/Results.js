@@ -20,7 +20,6 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
   return (
     <section>
       <div>
-        <h2>Results</h2>
         {movieObject.map((movie) => {
           return (
             <div className="movieContainer" key={movie.id}>
