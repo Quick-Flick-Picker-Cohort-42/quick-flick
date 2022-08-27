@@ -6,6 +6,7 @@ import { Routes, Route, } from 'react-router-dom';
 import axios from 'axios';
 import Home from './Home.js';
 import Lists from './Lists.js';
+import ErrorPage from './ErrorPage.js'
 
 
 function App() {
@@ -136,7 +137,7 @@ function App() {
           />}
         />
         <Route path="/list/:listName" element={<Lists nodeKey={nodeKey} setNodeKey={setNodeKey} dbList={dbList} />} />
-        {/* <Route path="/list/:listName" element={<Lists nodeKey={nodeKey} setNodeKey={setNodeKey} dbList={dbList} />} /> */}
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   );

@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import ErrorPage from './ErrorPage';
 
 const Lists = ({ nodeKey, setNodeKey, dbList }) => {
   const { listName } = useParams();
   //! when user refreshes page on a list, program breaks
 
   //!states
-  const [currentList, setCurrentList] = useState({})
+  const [currentList, setCurrentList] = useState({});
+  const [listExists, setListExists] = useState(false);
   const [genres, setGenres] = useState([]);
   const [chosenGenre, setChosenGenre] = useState('');
   const [chosenDuration, setChosenDuration] = useState('');
@@ -23,8 +25,9 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
       // console.log(dbList[list].listName);
       // if list name in URL matches a list name from dbList (list from Firebase), get the Firebase node key of that list
       if (listName === dbList[list].listName) {
-        console.log(list);
+        // console.log(list);
         setNodeKey(list);
+        setListExists(true)
       }
     }
   }, [dbList, listName, setNodeKey])
@@ -48,8 +51,11 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
         }).then((res) => {
           if (res.data.runtime < parseInt(chosenDuration)) {
             arrayOfMatchedMovies.push(res.data.id)
-            
           }
+          // else {
+          //   return (alert('No movies on your list match this movie length. Please select another movie length.'))
+          // }
+          
         })
     }
     return(arrayOfMatchedMovies)
@@ -70,6 +76,9 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
       for (let movieListGenre in movieListGenres) {
         if (movieListGenres[movieListGenre] === parseInt(chosenGenre)) {
           genreMatch.push(currentList[movie].id)
+        } 
+        else {
+          return (alert('No movies on your list match this genre. Please select another genre.'))
         }
       }
     }
@@ -109,74 +118,80 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
 
   }, [])
 
-
+  
   return (
-
-    <section className="">
-
-      <h2>{listName}</h2>
-      {/* NOTE - need to error handle movie dupes in the same list. need to also check what happens if the same movie is in two different lists */}
+    <>
       {
-        currentList ?
-          <>
-          {/* if randomMovie has been set, display paragraph to indicate the suggested movie */}
-            {
-              randomMovie ?
-                <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
-              : null
-            }
-            <ul>
-              {Object.entries(currentList).map((movie) => {
+        listExists ? 
+        <section className="">
+          <h2>{listName}</h2>
+          {/* NOTE - need to error handle movie dupes in the same list. need to also check what happens if the same movie is in two different lists */}
+          {
+            currentList ?
+              <>
+              {/* if randomMovie has been set, display paragraph to indicate the suggested movie */}
+                {
+                  randomMovie ?
+                    <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
+                  : null
+                }
+                <ul>
+                  {Object.entries(currentList).map((movie) => {
 
-                return (
-                  <li key={movie[1].id} id={movie[1].id}>
-                    <h3>{movie[1].title}</h3>
-                    <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
-                  </li>
-                )
+                    return (
+                      <li key={movie[1].id} id={movie[1].id}>
+                        <h3>{movie[1].title}</h3>
+                        <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
+                      </li>
+                    )
 
-              })}
-            </ul>
-            <form onSubmit={ (e) => handleNLF(e)}>
-              <p>I feel like watching a </p>
-              <label htmlFor="genre" className="sr-only">Choose a genre</label>
-              <select
-                name="genre"
-                id="genre"
-                required
-                onChange={handleGenreSelection}
-                value={chosenGenre} >
-                <option disabled value="">Select a genre</option>
-                {genres.map((genreObject) => {
-                  return (
-                    <option key={genreObject.id} value={genreObject.id}>{genreObject.name}</option>
-                  )
-                })}
-              </select>
-              <p>movie, and I have</p>
-              <label htmlFor="duration" className="sr-only">Choose a duration</label>
-              <select
-                name="duration"
-                id="duration"
-                required
-                onChange={handleDurationSelection}
-                value={chosenDuration}
-              >
-                <option disabled value="">Select a duration</option>
-                <option value="90">Less than 1.5 hours</option>
-                <option value="120">Less than 2 hours</option>
-                <option value="1000">All the time in the world</option>
-              </select>
-              <button>Submit</button>
-            </form>
-            <Link to="/">Back to Home</Link>
-          </>
-          :
-          <p>No movies have been added to this list! Try adding a movie first.</p>
+                  })}
+                </ul>
+                <form onSubmit={ (e) => handleNLF(e)}>
+                  <p>I feel like watching a </p>
+                  <label htmlFor="genre" className="sr-only">Choose a genre</label>
+                  <select
+                    name="genre"
+                    id="genre"
+                    required
+                    onChange={handleGenreSelection}
+                    value={chosenGenre} >
+                    <option disabled value="">Select a genre</option>
+                    {genres.map((genreObject) => {
+                      return (
+                        <option key={genreObject.id} value={genreObject.id}>{genreObject.name}</option>
+                      )
+                    })}
+                  </select>
+                  <p>movie, and I have</p>
+                  <label htmlFor="duration" className="sr-only">Choose a duration</label>
+                  <select
+                    name="duration"
+                    id="duration"
+                    required
+                    onChange={handleDurationSelection}
+                    value={chosenDuration}
+                  >
+                    <option disabled value="">Select a duration</option>
+                    <option value="90">Less than 1.5 hours</option>
+                    <option value="120">Less than 2 hours</option>
+                    <option value="1000">All the time in the world</option>
+                  </select>
+                  <button>Submit</button>
+                </form>
+                <Link to="/">Back to Home</Link>
+              </>
+              :
+              <>
+                <p>No movies have been added to this list! Try adding a movie first.</p>
+                <Link to="/">Back to Home</Link>
+              </>
+          }
+          {/* pass in lists as link url in displayList component, and dynamically render the unique list names and movie object titles (map), based on the key that was selected (ie list key) */}
+        </section>
+        : <ErrorPage />
       }
-      {/* pass in lists as link url in displayList component, and dynamically render the unique list names and movie object titles (map), based on the key that was selected (ie list key) */}
-    </section>
-
+    </>
   )
 }
 
