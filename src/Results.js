@@ -44,7 +44,6 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
                 dbList={dbList} 
                 toggleModal={toggleModal} 
                 toSend={toSend}
-                setToSend={setToSend} 
                 setListSelection={setListSelection} 
                 listSelection={listSelection} /> 
                 : 
