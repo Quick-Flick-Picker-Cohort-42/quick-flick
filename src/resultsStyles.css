@@ -1,0 +1,16 @@
+.movieContainer {
+    display: flex;
+    align-items: center;
+}
+
+.moviePoster {
+    min-width: 50%;
+}
+
+.movieInformation p {
+    padding: 10px 0px;
+}
+
+.movieInformation span {
+    text-shadow: 1px 1px var(--sage)
+}
