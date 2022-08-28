@@ -1,4 +1,12 @@
-const Header = (({handleMovieInput, handleSubmit, movieInput}) => {
+import { useEffect } from "react";
+
+const Header = ({ handleMovieInput, handleSubmit, movieInput, newMovieInput, movieObject }) => {
+
+    useEffect(() => {
+        // empty out input so that new search term can be entered
+        const newMovieInputCurrent = newMovieInput.current;
+        newMovieInputCurrent.value = '';
+    }, [newMovieInput, movieObject])
 
     return (
         <header>
@@ -11,7 +19,8 @@ const Header = (({handleMovieInput, handleSubmit, movieInput}) => {
                     >Search for a movie
                 </label>
                 <input 
-                    onChange={handleMovieInput} 
+                    onChange={handleMovieInput}
+                    ref={newMovieInput} 
                     value={movieInput}
                     type="text" 
                     id="movie-input" 
@@ -22,6 +31,6 @@ const Header = (({handleMovieInput, handleSubmit, movieInput}) => {
             </form>
         </header>
     )
-})
+}
 
 export default Header;

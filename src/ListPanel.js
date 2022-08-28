@@ -1,7 +1,14 @@
+import { useEffect } from 'react';
 import DisplayList from './DisplayList';
 
-const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRemoveList, setNodeKey }) => {
-                
+const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRemoveList, setNodeKey, newListName, movieInput }) => {
+
+    useEffect (() => {
+        // empty out input so that new list names can be added
+        const newListNameInput = newListName.current;
+        newListNameInput.value = '';
+    }, [dbList, newListName, movieInput])
+    
     return (
         <div>
             <form 
@@ -17,6 +24,7 @@ const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRe
                 <input 
                     onChange={handleListInput} 
                     value={list.listName}
+                    ref={newListName}
                     type="text" 
                     id="list-input"
                     required 
