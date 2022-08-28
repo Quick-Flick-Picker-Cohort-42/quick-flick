@@ -111,7 +111,7 @@ const Lists = ({ nodeKey, dbList }) => {
                 required
                 onChange={handleGenreSelection}
                 value={chosenGenre} >
-                <option disabled value="">Select a genre</option>
+                <option disabled value="">choose a genre</option>
                 {genres.map((genreObject) => {
                   return (
                     <option key={genreObject.id} value={genreObject.id}>{genreObject.name}</option>
@@ -127,7 +127,7 @@ const Lists = ({ nodeKey, dbList }) => {
                 onChange={handleDurationSelection}
                 value={chosenDuration}
               >
-                <option disabled value="">Select a duration</option>
+                <option disabled value="">choose a duration</option>
                 <option value="90">Less than 1.5 hours</option>
                 <option value="120">Less than 2 hours</option>
                 <option value="1000">All the time in the world</option>
@@ -149,8 +149,6 @@ const Lists = ({ nodeKey, dbList }) => {
 
               })}
             </ul>
-            
-            <Link to="/">Back to Home</Link>
           </>
           :
           <p>No movies have been added to this list! Try adding a movie first.</p>
