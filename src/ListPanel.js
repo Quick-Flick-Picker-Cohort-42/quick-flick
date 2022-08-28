@@ -1,13 +1,6 @@
-import { useEffect } from 'react';
 import DisplayList from './DisplayList';
 
-const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRemoveList, setNodeKey, newListName, movieInput }) => {
-
-    useEffect (() => {
-        // empty out input so that new list names can be added
-        const newListNameInput = newListName.current;
-        newListNameInput.value = '';
-    }, [dbList, newListName, movieInput])
+const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRemoveList, setNodeKey, newListName, movieInput, movieObject }) => {
     
     return (
         <div>

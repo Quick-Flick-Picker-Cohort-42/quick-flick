@@ -1,12 +1,4 @@
-import { useEffect } from "react";
-
-const Header = ({ handleMovieInput, handleSubmit, movieInput, newMovieInput, movieObject }) => {
-
-    useEffect(() => {
-        // empty out input so that new search term can be entered
-        const newMovieInputCurrent = newMovieInput.current;
-        newMovieInputCurrent.value = '';
-    }, [newMovieInput, movieObject])
+const Header = ({ handleMovieInput, handleSubmit, movieInput, newMovieInput }) => {
 
     return (
         <header>

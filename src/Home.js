@@ -17,8 +17,6 @@ const Home = (({
     handleListCreation,
     handleRemoveList, 
     setNodeKey,
-    newListName,
-    newMovieInput,
 }) => {
 
     return (
@@ -27,8 +25,8 @@ const Home = (({
                 handleMovieInput={handleMovieInput}
                 handleSubmit={handleSubmit}
                 movieInput={movieInput}
-                newMovieInput={newMovieInput}
                 movieObject={movieObject}
+                dbList={dbList}
             />
             <Results
                 movieObject={movieObject}
@@ -44,8 +42,6 @@ const Home = (({
                 dbList={dbList}
                 handleRemoveList={handleRemoveList}
                 setNodeKey={setNodeKey}
-                newListName={newListName}
-                movieInput={movieInput}
             />
         </>
     )

@@ -1,7 +1,7 @@
 import './App.css';
 import firebase from './firebase';
 import { getDatabase, ref, push, onValue, remove } from 'firebase/database';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, } from 'react-router-dom';
 import axios from 'axios';
 import Home from './Home.js';
@@ -33,9 +33,6 @@ function App() {
   // stores the unique key from each list in Firebase
   const [nodeKey, setNodeKey] = useState('');
 
-  const newListName = useRef(null);
-  const newMovieInput = useRef(null)
-
   // handle list input
   const handleListInput = ((e) => {
     setList(current => {
@@ -51,6 +48,8 @@ function App() {
     const dbRef = ref(database);
     // creating node with unique key representing the entire list
     push(dbRef, list);
+    // empty out input so that new list name can be entered
+    setList({ listName: '' })
   })
 
   const handleRemoveList = (node) => {
@@ -94,11 +93,11 @@ function App() {
           const movieResults = res.data.results;
           if (movieResults.length !== 0) {
           setMovieObject(movieResults);
+          // empty out input so that new search term can be entered
+          setMovieInput('')
           } else {
             alert("Looks like your search didn't yield any results 😕 Try searching using another search term.");
-            // empty out input so that new search term can be entered
-            const newMovieInputCurrent = newMovieInput.current;
-            newMovieInputCurrent.value = '';
+            setMovieInput('')
           }
         })
     } catch (error) {
@@ -146,8 +145,6 @@ function App() {
             handleListCreation={handleListCreation}
             handleRemoveList={handleRemoveList}
             setNodeKey={setNodeKey}
-            newListName={newListName}
-            newMovieInput={newMovieInput}
           />}
         />
         <Route path="/list/:listName" element={<Lists nodeKey={nodeKey} setNodeKey={setNodeKey} dbList={dbList} />} />
