@@ -94,15 +94,14 @@ function App() {
           if (movieResults.length !== 0) {
           setMovieObject(movieResults);
           // empty out input so that new search term can be entered
-          setMovieInput('')
           } else {
             alert("Looks like your search didn't yield any results 😕 Try searching using another search term.");
-            setMovieInput('')
           }
         })
     } catch (error) {
       alert('Something seems to have gone wrong...try searching again')
     }
+    setMovieInput('')
   })
 
   return (
