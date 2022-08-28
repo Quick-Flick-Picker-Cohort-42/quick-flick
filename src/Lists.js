@@ -51,11 +51,7 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
         }).then((res) => {
           if (res.data.runtime < parseInt(chosenDuration)) {
             arrayOfMatchedMovies.push(res.data.id)
-          }
-          // else {
-          //   return (alert('No movies on your list match this movie length. Please select another movie length.'))
-          // }
-          
+          }       
         })
     }
     return(arrayOfMatchedMovies)
@@ -63,6 +59,7 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
 
   const handleNLF = (e) => {
     e.preventDefault()
+    // on submit, reset the styling on the previously suggested movie
     const movieList = document.querySelectorAll('li')
     movieList.forEach((movie)=>{
       movie.style.opacity = 1
@@ -70,28 +67,37 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
 
     const genreMatch = [];
     const moviesMatched = [];
-
     for (let movie in currentList) {
       const movieListGenres = currentList[movie].genre_ids;
       for (let movieListGenre in movieListGenres) {
         if (movieListGenres[movieListGenre] === parseInt(chosenGenre)) {
           genreMatch.push(currentList[movie].id)
         } 
-        else {
-          return (alert('No movies on your list match this genre. Please select another genre.'))
-        }
       }
     }
-    
+
     findRandomMovie(genreMatch, moviesMatched).then((res)=>{
-      // generate random movie from the list of movies that match the criteria selected by the user
-      const finalMovie = res[(Math.floor(Math.random() * res.length))]
+      // if there are movies that match both the genre and length, select a random movie; otherwise display alerts
 
-      // set randomMovie state to the random movie title (to be used to render text onto page displaying the suggested movie)
-      setRandomMovie(document.getElementById(finalMovie).textContent);
+      console.log(genreMatch.length)
+      console.log(moviesMatched.length)
+      if (genreMatch.length !== 0 && moviesMatched.length !== 0) {
+        // generate random movie from the list of movies that match the criteria selected by the user
+        const finalMovie = res[(Math.floor(Math.random() * res.length))]
 
-      //!can come back to this later (change to useRef())
-      document.getElementById(finalMovie).style.opacity = 0.2
+        // set randomMovie state to the random movie title (to be used to render text onto page displaying the suggested movie)
+        setRandomMovie(document.getElementById(finalMovie).textContent);
+
+        //!can come back to this later (change to useRef())
+        // styling for the suggested movie
+        document.getElementById(finalMovie).style.opacity = 0.2
+      } else if (genreMatch.length === 0 && moviesMatched.length === 0) {
+        alert('No movies on your list match this genre and/or length. Please select another genre and/or movie length.')
+      } else if (moviesMatched.length === 0) {
+        alert('No movies on your list match this length. Please select another movie length.')
+      } else if (genreMatch.length === 0) {
+        alert('No movies on your list match this genre. Please select another genre.')
+      }
     })
   }
 
@@ -130,11 +136,6 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
             currentList ?
               <>
               {/* if randomMovie has been set, display paragraph to indicate the suggested movie */}
-                {
-                  randomMovie ?
-                    <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
-                  : null
-                }
                 <ul>
                   {Object.entries(currentList).map((movie) => {
 
@@ -142,9 +143,13 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
                       <li key={movie[1].id} id={movie[1].id}>
                         <h3>{movie[1].title}</h3>
                         <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
+                        {
+                          randomMovie ?
+                            <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
+                          : null
+                        }
                       </li>
                     )
-
                   })}
                 </ul>
                 <form onSubmit={ (e) => handleNLF(e)}>
