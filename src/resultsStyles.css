@@ -1,10 +1,15 @@
 .movieContainer {
     display: flex;
     align-items: center;
+    margin-top: 50px;
 }
 
 .moviePoster {
-    min-width: 50%;
+    min-width: 40%;
+}
+
+.movieInformation {
+    margin-left: 30px;
 }
 
 .movieInformation p {
