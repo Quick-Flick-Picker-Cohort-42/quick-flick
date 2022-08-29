@@ -6,6 +6,7 @@
 
 .moviePoster {
     min-width: 40%;
+    filter: drop-shadow(0 0 1rem var(--blue));
 }
 
 .movieInformation {

@@ -1,5 +1,6 @@
 import firebase from './firebase';
 import { push, ref, getDatabase } from 'firebase/database';
+import modalStyles from './modalStyles.css'
 
 const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection }) => {
     // QUESTIONS FOR GROUP : 
@@ -37,6 +38,7 @@ const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection })
                             // push movie to firebase and close the modal
                             push(dbRefNode, toSend)
                             // maybe render <p> This movie is now added to list ____ <p> before closing the modal?
+                            alert(`Successfully added ${toSend.original_title} to list!`)
                             toggleModal()
                         }
                     }
@@ -76,7 +78,7 @@ const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection })
                             })
                         }
                     </select>
-                    <button onClick={(e) => { handleAddMovie(e)}}>Add to list</button>
+                    <button onClick={(e) => { handleAddMovie(e) }}>Add to list</button>
                 </form>
                 <button className="modal-close" onClick={toggleModal}>X</button>
             </div>
