@@ -3,6 +3,7 @@ import Modal from './Modal.js';
 import resultsStyles from './resultsStyles.css'
 
 
+
 const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, listSelection }) => {
   //on button click, take the information from that movie and send it to the list section
   const [modal, setModal] = useState(false);
