@@ -357,6 +357,54 @@ h4 {
   margin: 0;
 }
 
+
+/* HEADER COMPONENT STYLING */
+header p {
+  font-weight: bold;
+  background-color: var(--blue);
+  padding: 15px;
+  border-radius: 10px;
+  line-height: 1.3rem;
+  width: 85%;
+  margin: 0 auto;
+  font-size: clamp(1rem, 2vw, 1.4rem)
+}
+
+header form {
+  margin: 10px;
+}
+
+header input {
+  width: 75%;
+  margin: 0 auto;
+}
+
+/* RESULTS STYLING */
+.movieContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.moviePoster {
+  min-width: 40%;
+  filter: drop-shadow(0 0 1rem var(--blue));
+}
+
+.movieInformation {
+  margin-left: 30px;
+  margin: 0 auto;
+}
+
+.movieInformation p {
+  padding: 10px 0px;
+  text-align: center;
+}
+
+.movieInformation span {
+  text-shadow: 1px 1px var(--sage)
+}
+
 /* LIST PANEL / DISPLAY LIST COMPONENT STYLING */
 
 .listSection {
@@ -512,13 +560,52 @@ input[type=checkbox]:checked~.listPanelToggle>.diagonal.part-2 {
   margin-top: -9px;
 }
 
-@media (max-width: 380px) {
+/* lIST STYLING */
 
-  .listSection li:hover,
-  .listSection li:focus {
-    letter-spacing: initial;
-  }
+.userList form {
+  margin-bottom: 20px;
 }
+
+.userList form p {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  display: inline;
+  font-weight: bold;
+}
+
+.userList form select {
+  min-width: 200px;
+}
+
+.userList form select,
+.userList form button {
+  font-size: clamp(.9rem, 3vw, 1.2rem)
+}
+
+.userList ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.listPoster {
+  margin: 15px;
+  padding: 20px;
+  background-color: var(--blue);
+  border-radius: 10px;
+  width: 30%;
+}
+
+li img {
+  min-width: 100%;
+  border-radius: 10px;
+  ;
+}
+
+li h3 {
+  font-size: clamp(1rem, 2vw, 1.5rem)
+}
+
+
 
 
 /* MODAL STYLING */
@@ -538,7 +625,14 @@ input[type=checkbox]:checked~.listPanelToggle>.diagonal.part-2 {
   background-color: rgba(49, 49, 49, 0.8);
 }
 
-.modal-content {
+.modalContentContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+.modalContent {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -551,18 +645,62 @@ input[type=checkbox]:checked~.listPanelToggle>.diagonal.part-2 {
   z-index: 999;
 }
 
-.modal-close {
+.modalContent h1 {
+  line-height: 70px;
+}
+
+.modalContent img {
+  width: 20%;
+}
+
+.modalClose {
   position: absolute;
   top: 10px;
   right: 10px;
 }
 
-body.active-modal {
+
+body.activeModal {
   overflow-y: hidden;
 }
 
 .hidden {
-  /* color: transparent; */
   visibility: hidden;
   display: none;
+}
+
+/* FOOTER STYLING */
+footer {
+  margin: 60px 0px 10px 0px;
+  letter-spacing: 1.25px;
+  line-height: 1.6rem;
+
+}
+
+
+footer a {
+  background-color: var(--sage);
+}
+
+
+/* MEDIQ QUERIES */
+
+@media (max-width: 900px) {
+  li {
+    width: 45%;
+  }
+}
+
+@media (max-width: 550px) {
+  li {
+    width: 90%;
+  }
+}
+
+@media (max-width: 380px) {
+
+  .listSection li:hover,
+  .listSection li:focus {
+    letter-spacing: initial;
+  }
 }

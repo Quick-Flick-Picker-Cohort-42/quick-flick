@@ -1,4 +1,4 @@
-import './Lists.css'
+
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -175,21 +175,19 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                   <Link to="/">Back to Home</Link>
                   <ul>
                     {Object.entries(currentList).map((movie) => {
-
                       return (
-                        <li key={movie[1].id} id={movie[1].id}>
+                        <li className='listPoster' key={movie[1].id} id={movie[1].id}>
                           <h3>{movie[1].title}</h3>
                           <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
-                          {
-                            randomMovie ?
-                              <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
-                              : null
-                          }
                         </li>
                       )
                     })}
                   </ul>
-
+                  {
+                    randomMovie ?
+                      <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
+                      : null
+                  }
                 </>
                 :
                 <>
@@ -201,6 +199,14 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
           </section>
           : <ErrorPage />
       }
+      <ListPanel
+        handleListInput={handleListInput}
+        list={list}
+        handleListCreation={handleListCreation}
+        dbList={dbList}
+        handleRemoveList={handleRemoveList}
+        setNodeKey={setNodeKey}
+      />
     </>
   )
 }
