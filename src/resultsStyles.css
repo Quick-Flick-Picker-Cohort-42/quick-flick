@@ -11,10 +11,12 @@
 
 .movieInformation {
     margin-left: 30px;
+    margin: 0 auto;
 }
 
 .movieInformation p {
     padding: 10px 0px;
+    text-align: center;
 }
 
 .movieInformation span {
