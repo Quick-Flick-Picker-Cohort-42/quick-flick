@@ -1,6 +1,7 @@
 import Header from './Header.js';
 import Results from './Results.js'
 import ListPanel from './ListPanel.js';
+import Footer from './Footer.js';
 
 const Home = (({
     handleMovieInput,
@@ -43,6 +44,7 @@ const Home = (({
                 handleRemoveList={handleRemoveList}
                 setNodeKey={setNodeKey}
             />
+            <Footer />
         </>
     )
 

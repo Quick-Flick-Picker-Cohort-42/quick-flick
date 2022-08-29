@@ -1,4 +1,6 @@
+import './Header.css'
 const Header = ({ handleMovieInput, handleSubmit, movieInput, newMovieInput }) => {
+
 
     return (
         <header>

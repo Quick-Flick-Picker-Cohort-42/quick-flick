@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import './Lists.css'
+import { useEffect, useState} from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import ErrorPage from './ErrorPage';
+import ListPanel from './ListPanel';
 
-const Lists = ({ nodeKey, setNodeKey, dbList }) => {
+
+const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, handleRemoveList, setNodeKey }) => {
   const { listName } = useParams();
   //! when user refreshes page on a list, program breaks
 
@@ -13,7 +16,7 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
   const [genres, setGenres] = useState([]);
   const [chosenGenre, setChosenGenre] = useState('');
   const [chosenDuration, setChosenDuration] = useState('');
-  const [randomMovie, setRandomMovie] = useState('')
+  
 
   // let movieRef = useRef()
 
@@ -124,35 +127,19 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
 
   }, [])
 
-  
+
   return (
     <>
       {
         listExists ? 
-        <section className="">
+          <section className="userList">
           <h2>{listName}</h2>
           {/* NOTE - need to error handle movie dupes in the same list. need to also check what happens if the same movie is in two different lists */}
           {
             currentList ?
               <>
               {/* if randomMovie has been set, display paragraph to indicate the suggested movie */}
-                <ul>
-                  {Object.entries(currentList).map((movie) => {
-
-                    return (
-                      <li key={movie[1].id} id={movie[1].id}>
-                        <h3>{movie[1].title}</h3>
-                        <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
-                        {
-                          randomMovie ?
-                            <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
-                          : null
-                        }
-                      </li>
-                    )
-                  })}
-                </ul>
-                <form onSubmit={ (e) => handleNLF(e)}>
+                <form onSubmit={(e) => handleNLF(e)}>
                   <p>I feel like watching a </p>
                   <label htmlFor="genre" className="sr-only">Choose a genre</label>
                   <select
@@ -185,6 +172,23 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
                   <button>Submit</button>
                 </form>
                 <Link to="/">Back to Home</Link>
+                <ul>
+                  {Object.entries(currentList).map((movie) => {
+
+                    return (
+                      <li key={movie[1].id} id={movie[1].id}>
+                        <h3>{movie[1].title}</h3>
+                        <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
+                        {
+                          randomMovie ?
+                            <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
+                          : null
+                        }
+                      </li>
+                    )
+                  })}
+                </ul>
+                
               </>
               :
               <>
