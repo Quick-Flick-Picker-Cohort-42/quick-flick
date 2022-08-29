@@ -1,8 +1,8 @@
 import './Lists.css'
-import { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import ErrorPage from './ErrorPage';
+
 
 const Lists = ({ nodeKey, setNodeKey, dbList }) => {
   const { listName } = useParams();
@@ -10,11 +10,10 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
 
   //!states
   const [currentList, setCurrentList] = useState({});
-  const [listExists, setListExists] = useState(false);
   const [genres, setGenres] = useState([]);
   const [chosenGenre, setChosenGenre] = useState('');
   const [chosenDuration, setChosenDuration] = useState('');
-  const [randomMovie, setRandomMovie] = useState('')
+  
 
   // let movieRef = useRef()
 
@@ -28,7 +27,7 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
       if (listName === dbList[list].listName) {
         // console.log(list);
         setNodeKey(list);
-        setListExists(true)
+        
       }
     }
   }, [dbList, listName, setNodeKey])
@@ -86,9 +85,6 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
         // generate random movie from the list of movies that match the criteria selected by the user
         const finalMovie = res[(Math.floor(Math.random() * res.length))]
 
-        // set randomMovie state to the random movie title (to be used to render text onto page displaying the suggested movie)
-        setRandomMovie(document.getElementById(finalMovie).textContent);
-
         //!can come back to this later (change to useRef())
         // styling for the suggested movie
         document.getElementById(finalMovie).style.opacity = 0.2
@@ -128,80 +124,65 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
   
   return (
 
-    <>
-      {
-        listExists ? 
-        <section className="userList">
-          <h2>{listName}</h2>
-          {/* NOTE - need to error handle movie dupes in the same list. need to also check what happens if the same movie is in two different lists */}
-          {
-            currentList ?
-              <>
-                  <form onSubmit={(e) => handleNLF(e)}>
-                    <p>I feel like watching a </p>
-                    <label htmlFor="genre" className="sr-only">Choose a genre</label>
-                    <select
-                      name="genre"
-                      id="genre"
-                      required
-                      onChange={handleGenreSelection}
-                      value={chosenGenre} >
-                      <option disabled value="">Select a genre</option>
-                      {genres.map((genreObject) => {
-                        return (
-                          <option key={genreObject.id} value={genreObject.id}>{genreObject.name}</option>
-                        )
-                      })}
-                    </select>
-                    <p>movie, and I have</p>
-                    <label htmlFor="duration" className="sr-only">Choose a duration</label>
-                    <select
-                      name="duration"
-                      id="duration"
-                      required
-                      onChange={handleDurationSelection}
-                      value={chosenDuration}
-                    >
-                      <option disabled value="">Select a duration</option>
-                      <option value="90">Less than 1.5 hours</option>
-                      <option value="120">Less than 2 hours</option>
-                      <option value="1000">All the time in the world</option>
-                    </select>
-                    <button>Submit</button>
-                  </form>
-                  <Link to="/">Back to Home</Link>
-                {/* if randomMovie has been set, display paragraph to indicate the suggested movie */}
-                <ul>
-                  {Object.entries(currentList).map((movie) => {
+    <section className="userList">
 
-                    return (
-                      <li key={movie[1].id} id={movie[1].id}>
-                        <h3>{movie[1].title}</h3>
-                        <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
-                        {
-                          randomMovie ?
-                            <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
-                          : null
-                        }
-                      </li>
-                    )
-                  })}
-                </ul>
-                
-                <Link to="/">Back to Home</Link>
-              </>
-              :
-              <>
-                <p>No movies have been added to this list! Try adding a movie first.</p>
-                <Link to="/">Back to Home</Link>
-              </>
-          }
-          {/* pass in lists as link url in displayList component, and dynamically render the unique list names and movie object titles (map), based on the key that was selected (ie list key) */}
-        </section>
-        : <ErrorPage />
+      <h2>{listName}</h2>
+        {currentList ?
+          <>
+            <form onSubmit={(e) => handleNLF(e)}>
+              <p>I feel like watching a/an </p>
+              <label htmlFor="genre" className="sr-only">Choose a genre</label>
+              <select
+                name="genre"
+                id="genre"
+                required
+                onChange={handleGenreSelection}
+                value={chosenGenre} >
+                <option disabled value="">Select a genre</option>
+                {genres.map((genreObject) => {
+                  return (
+                    <option key={genreObject.id} value={genreObject.id}>{genreObject.name}</option>
+                  )
+                })}
+              </select>
+              <p>movie, and I have</p>
+              <label htmlFor="duration" className="sr-only">Choose a duration</label>
+              <select
+                name="duration"
+                id="duration"
+                required
+                onChange={handleDurationSelection}
+                value={chosenDuration}
+              >
+                <option disabled value="">Select a duration</option>
+                <option value="90">Less than 1.5 hours</option>
+                <option value="120">Less than 2 hours</option>
+                <option value="1000">All the time in the world</option>
+              </select>
+              <button>Submit</button>
+            </form>
+            <Link to="/">Back to Home</Link>
+            <ul>
+              {Object.entries(currentList).map((movie) => {
 
-      }
-    </>
+                return (
+                  <li key={movie[1].id} id={movie[1].id}>
+                    <div className="imgContainer">
+                      <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
+                    </div>
+                    <h3>{movie[1].title}</h3>
+                  </li>
+                )
+
+              })}
+            </ul>
+            
+            <Link to="/">Back to Home</Link>
+          </>
+          :
+          <p>No movies have been added to this list! Try adding a movie first.</p>
+        }
+      </section>
   )
 }
 
