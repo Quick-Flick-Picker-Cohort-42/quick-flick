@@ -1,7 +1,7 @@
 import DisplayList from './DisplayList';
 
-const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRemoveList, setNodeKey }) => {
-                
+const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRemoveList, setNodeKey, newListName, movieInput, movieObject }) => {
+    
     return (
         <div>
             <form 
@@ -17,8 +17,10 @@ const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRe
                 <input 
                     onChange={handleListInput} 
                     value={list.listName}
+                    ref={newListName}
                     type="text" 
-                    id="list-input" 
+                    id="list-input"
+                    required 
                     placeholder="Enter list name"
                 />
                 <button >Create new list</button>

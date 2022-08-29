@@ -1,4 +1,6 @@
-const Header = (({handleMovieInput, handleSubmit, movieInput}) => {
+import './Header.css'
+const Header = ({ handleMovieInput, handleSubmit, movieInput, newMovieInput }) => {
+
 
     return (
         <header>
@@ -11,7 +13,8 @@ const Header = (({handleMovieInput, handleSubmit, movieInput}) => {
                     >Search for a movie
                 </label>
                 <input 
-                    onChange={handleMovieInput} 
+                    onChange={handleMovieInput}
+                    ref={newMovieInput} 
                     value={movieInput}
                     type="text" 
                     id="movie-input" 
@@ -22,6 +25,6 @@ const Header = (({handleMovieInput, handleSubmit, movieInput}) => {
             </form>
         </header>
     )
-})
+}
 
 export default Header;

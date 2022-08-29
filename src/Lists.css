@@ -1,0 +1,54 @@
+.userList form {
+  margin-bottom: 20px;
+}
+
+.userList form p {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  display: inline;
+  font-weight: bold;
+}
+
+.userList form select {
+  min-width: 200px;
+}
+
+.userList form select, .userList form button{
+  font-size: clamp(.9rem, 3vw, 1.2rem)
+}
+
+.userList ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+li {
+  margin: 15px;
+  padding: 20px;
+  background-color: var(--blue);
+  border-radius: 10px;
+  width: 30%;
+}
+
+li img {
+  min-width: 100%;
+  border-radius: 10px;;
+}
+
+li h3{
+  font-size: clamp(1rem, 2vw, 1.5rem)
+
+}
+
+@media (max-width: 900px) {
+  li {
+    width: 45%;
+  }
+}
+
+@media (max-width: 550px) {
+  li {
+    width: 90%;
+  }
+}
+

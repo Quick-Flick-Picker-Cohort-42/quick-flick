@@ -1,6 +1,7 @@
 import Header from './Header.js';
 import Results from './Results.js'
 import ListPanel from './ListPanel.js';
+import Footer from './Footer.js';
 
 const Home = (({
     handleMovieInput,
@@ -16,7 +17,7 @@ const Home = (({
     list,
     handleListCreation,
     handleRemoveList, 
-    setNodeKey
+    setNodeKey,
 }) => {
 
     return (
@@ -25,6 +26,8 @@ const Home = (({
                 handleMovieInput={handleMovieInput}
                 handleSubmit={handleSubmit}
                 movieInput={movieInput}
+                movieObject={movieObject}
+                dbList={dbList}
             />
             <Results
                 movieObject={movieObject}
@@ -41,6 +44,7 @@ const Home = (({
                 handleRemoveList={handleRemoveList}
                 setNodeKey={setNodeKey}
             />
+            <Footer />
         </>
     )
 

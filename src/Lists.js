@@ -1,19 +1,43 @@
-import { useEffect, useState, useRef } from 'react';
+import './Lists.css'
+import { useEffect, useState} from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Lists = ({ nodeKey, dbList }) => {
+
+const Lists = ({ nodeKey, setNodeKey, dbList }) => {
   const { listName } = useParams();
   //! when user refreshes page on a list, program breaks
-  const currentList = dbList[nodeKey].movies;
 
   //!states
+  const [currentList, setCurrentList] = useState({});
   const [genres, setGenres] = useState([]);
   const [chosenGenre, setChosenGenre] = useState('');
   const [chosenDuration, setChosenDuration] = useState('');
-  const [randomMovie, setRandomMovie] = useState('')
+  
 
   // let movieRef = useRef()
+
+  // console.log(listName)
+  // obtain node key of current list from URL (instead of setting on DisplayList on click)...
+  useEffect(() => {
+    // console.log(dbList)
+    for (let list in dbList) {
+      // console.log(dbList[list].listName);
+      // if list name in URL matches a list name from dbList (list from Firebase), get the Firebase node key of that list
+      if (listName === dbList[list].listName) {
+        // console.log(list);
+        setNodeKey(list);
+        
+      }
+    }
+  }, [dbList, listName, setNodeKey])
+
+  // if nodeKey is set, update currentList state so that it stores all of the movie objects from the current list
+  useEffect(() => {
+    if (nodeKey) {
+      setCurrentList(dbList[nodeKey].movies)
+    }
+  }, [nodeKey, dbList])
 
   //asynchronous function: awaits for API call in each loop, then compares and pushes movie ID to array
   async function findRandomMovie (genreMatchedMovies, arrayOfMatchedMovies) {
@@ -27,8 +51,7 @@ const Lists = ({ nodeKey, dbList }) => {
         }).then((res) => {
           if (res.data.runtime < parseInt(chosenDuration)) {
             arrayOfMatchedMovies.push(res.data.id)
-            
-          }
+          }       
         })
     }
     return(arrayOfMatchedMovies)
@@ -36,6 +59,7 @@ const Lists = ({ nodeKey, dbList }) => {
 
   const handleNLF = (e) => {
     e.preventDefault()
+    // on submit, reset the styling on the previously suggested movie
     const movieList = document.querySelectorAll('li')
     movieList.forEach((movie)=>{
       movie.style.opacity = 1
@@ -43,24 +67,34 @@ const Lists = ({ nodeKey, dbList }) => {
 
     const genreMatch = [];
     const moviesMatched = [];
-
     for (let movie in currentList) {
       const movieListGenres = currentList[movie].genre_ids;
       for (let movieListGenre in movieListGenres) {
         if (movieListGenres[movieListGenre] === parseInt(chosenGenre)) {
           genreMatch.push(currentList[movie].id)
-        }
+        } 
       }
     }
-    
+
     findRandomMovie(genreMatch, moviesMatched).then((res)=>{
-      const finalMovie = res[(Math.floor(Math.random() * res.length))]
-      console.log(finalMovie)
-      console.log(currentList)
+      // if there are movies that match both the genre and length, select a random movie; otherwise display alerts
 
-      //!can come back to this later (change to useRef())
-      document.getElementById(finalMovie).style.opacity = 0.2
+      console.log(genreMatch.length)
+      console.log(moviesMatched.length)
+      if (genreMatch.length !== 0 && moviesMatched.length !== 0) {
+        // generate random movie from the list of movies that match the criteria selected by the user
+        const finalMovie = res[(Math.floor(Math.random() * res.length))]
 
+        //!can come back to this later (change to useRef())
+        // styling for the suggested movie
+        document.getElementById(finalMovie).style.opacity = 0.2
+      } else if (genreMatch.length === 0 && moviesMatched.length === 0) {
+        alert('No movies on your list match this genre and/or length. Please select another genre and/or movie length.')
+      } else if (moviesMatched.length === 0) {
+        alert('No movies on your list match this length. Please select another movie length.')
+      } else if (genreMatch.length === 0) {
+        alert('No movies on your list match this genre. Please select another genre.')
+      }
     })
   }
 
@@ -87,34 +121,16 @@ const Lists = ({ nodeKey, dbList }) => {
 
   }, [])
 
-
+  
   return (
 
-    <section className="">
+    <section className="userList">
 
       <h2>{listName}</h2>
-      {/* NOTE - need to error handle movie dupes in the same list. need to also check what happens if the same movie is in two different lists */}
-      {
-        currentList ?
+        {currentList ?
           <>
-            {/* {
-              randomMovieReturned ?
-              <p></p>
-            } */}
-            <ul>
-              {Object.entries(currentList).map((movie) => {
-
-                return (
-                  <li key={movie[1].id} id={movie[1].id}>
-                    <h3>{movie[1].title}</h3>
-                    <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
-                  </li>
-                )
-
-              })}
-            </ul>
-            <form onSubmit={ (e) => handleNLF(e)}>
-              <p>I feel like watching a </p>
+            <form onSubmit={(e) => handleNLF(e)}>
+              <p>I feel like watching a/an </p>
               <label htmlFor="genre" className="sr-only">Choose a genre</label>
               <select
                 name="genre"
@@ -146,13 +162,27 @@ const Lists = ({ nodeKey, dbList }) => {
               <button>Submit</button>
             </form>
             <Link to="/">Back to Home</Link>
+            <ul>
+              {Object.entries(currentList).map((movie) => {
+
+                return (
+                  <li key={movie[1].id} id={movie[1].id}>
+                    <div className="imgContainer">
+                      <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
+                    </div>
+                    <h3>{movie[1].title}</h3>
+                  </li>
+                )
+
+              })}
+            </ul>
+            
+            <Link to="/">Back to Home</Link>
           </>
           :
           <p>No movies have been added to this list! Try adding a movie first.</p>
-      }
-      {/* pass in lists as link url in displayList component, and dynamically render the unique list names and movie object titles (map), based on the key that was selected (ie list key) */}
-    </section>
-
+        }
+      </section>
   )
 }
 
