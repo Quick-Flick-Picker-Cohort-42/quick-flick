@@ -38,7 +38,6 @@ const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection })
                             // push movie to firebase and close the modal
                             push(dbRefNode, toSend)
                             // maybe render <p> This movie is now added to list ____ <p> before closing the modal?
-                            alert(`Successfully added ${toSend.original_title} to list!`)
                             toggleModal()
                         }
                     }
@@ -57,6 +56,11 @@ const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection })
             <div className="overlay" onClick={toggleModal}></div>
             <div className="modal-content">
                 <h1>Add this Movie: </h1>
+                <div className="modal-content-container">
+                    <h3>{toSend.original_title}</h3>
+                    <img src={`https://image.tmdb.org/t/p/w200${toSend.poster_path}`} alt={`A poster of the movie ${toSend.original_title}`} />`
+                </div>
+
                 <form>
                     <label htmlFor="list">Save movie to list:</label>
                     {/* WEIRD QUIRK: if you want a unselectable default option as your first choice in a select, add attr value='' */}
