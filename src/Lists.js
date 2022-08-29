@@ -4,6 +4,8 @@ import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import ErrorPage from './ErrorPage';
 import ListPanel from './ListPanel';
+import firebase from './firebase';
+import { getDatabase, ref, remove } from 'firebase/database';
 
 
 const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, handleRemoveList, setNodeKey }) => {
@@ -113,6 +115,12 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
     setChosenDuration(e.target.value);
   }
 
+  const handleRemoveFromList = (movie)=> {
+    const database = getDatabase(firebase);
+    const dbRef = ref(database, `/${nodeKey}/movies/${movie[0]}`);
+    remove(dbRef)
+  }
+
   useEffect(() => {
     //genre API call to populate the genre select with a list of all current genres from TMDB
     axios({
@@ -179,12 +187,13 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                       return (
                         <li key={movie[1].id} id={movie[1].id}>
                           <h3>{movie[1].title}</h3>
-                          <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
+                          <img src={movie[1].poster_path ?`https://image.tmdb.org/t/p/w500${movie[1].poster_path}` : '../noMoviePoster.png'} alt={`A poster of the movie ${movie[1].original_title}`} />
                           {
                             randomMovie ?
                               <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
                               : null
                           }
+                          <button onClick={() => handleRemoveFromList(movie)}>Remove from list</button>
                         </li>
                       )
                     })}

@@ -27,7 +27,7 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
             <div className="movieContainer" key={movie.id}>
 
               <div className="moviePoster">
-                <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={`A poster of the movie ${movie.original_title}`} />
+                <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : '../noMoviePoster.png'} alt={`A poster of the movie ${movie.original_title}`} />
                 {/* <button className="addMovie" onClick={() =>
                   toggleModal(movie)} >Add this Movie</button> */}
               </div>

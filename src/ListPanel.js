@@ -5,7 +5,7 @@ const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRe
     return (
         <>
             <input type="checkbox" id="openListPanel"></input>
-            <label for="openListPanel" className="listPanelToggle">
+            <label htmlFor="openListPanel" className="listPanelToggle">
                     <div className='spinner diagonal part-1'></div>
                     <div className='spinner horizontal'></div>
                     <div className='spinner diagonal part-2'></div>
