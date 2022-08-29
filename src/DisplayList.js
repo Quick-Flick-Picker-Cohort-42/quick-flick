@@ -10,12 +10,12 @@ const DisplayList = (({ dbList, handleRemoveList, setNodeKey }) => {
                         {
                             Object.entries(dbList).map(([id, value]) => {
                                 return (
-                                    <Link to={`/list/${value.listName}`} key={id}>
-                                        <li key={id} onClick={() => { setNodeKey(id) }}>
+                                    <li key={id} onClick={() => { setNodeKey(id) }}>
+                                        <Link to={`/list/${value.listName}`}>
                                             {value.listName}
-                                            <button className='deleteList' onClick={() => { handleRemoveList(id) }}>x</button>
-                                        </li>
-                                    </Link>
+                                        </Link>
+                                        <button className='deleteList' onClick={() => { handleRemoveList(id) }}>x</button>
+                                    </li>
                                 )
                             })
                         }

@@ -56,6 +56,8 @@ function App() {
           push(dbRef, list)
         }
     }
+    // empty out input so that new list name can be entered
+    setList({ listName: '' })
   })
 
   const handleRemoveList = (node) => {
@@ -158,6 +160,7 @@ function App() {
                 
                 handleRemoveList={handleRemoveList}
                 setNodeKey={setNodeKey} />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   );
