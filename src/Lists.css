@@ -3,7 +3,7 @@
 }
 
 .userList form p {
-  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-size: clamp(1rem, 3vw, 1.2rem);
   display: inline;
   font-weight: bold;
 }
@@ -13,7 +13,7 @@
 }
 
 .userList form select, .userList form button{
-  font-size: clamp(.8rem, 3vw, 1.3rem)
+  font-size: clamp(.9rem, 3vw, 1.2rem)
 }
 
 .userList ul {
