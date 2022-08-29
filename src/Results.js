@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Modal from './Modal.js';
+import resultsStyles from './resultsStyles.css'
 
 
 
@@ -20,35 +21,37 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
 
   return (
     <section>
-      <div>
+      <div className="movieWrapper">
         {movieObject.map((movie) => {
           return (
             <div className="movieContainer" key={movie.id}>
 
               <div className="moviePoster">
                 <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={`A poster of the movie ${movie.original_title}`} />
-                <button className="addMovie" onClick={ () =>
-                  toggleModal(movie)} >Add this Movie</button>
+                {/* <button className="addMovie" onClick={() =>
+                  toggleModal(movie)} >Add this Movie</button> */}
               </div>
 
               <div className="movieInformation">
                 <h2>{movie.original_title}</h2>
                 <h3>Description</h3>
                 <p>{movie.overview}</p>
-                <p>Release Date: {movie.release_date}</p>
+                <p><span>Release Date: </span>{movie.release_date}</p>
+                <button className="addMovie" onClick={() =>
+                  toggleModal(movie)} >Add this Movie</button>
               </div>
-              { 
-              modal 
-              ? 
-              <Modal 
-                dbList={dbList} 
-                toggleModal={toggleModal} 
-                toSend={toSend}
-                setListSelection={setListSelection} 
-                listSelection={listSelection} /> 
-                : 
-                null 
-                }
+              {
+                modal
+                  ?
+                  <Modal
+                    dbList={dbList}
+                    toggleModal={toggleModal}
+                    toSend={toSend}
+                    setListSelection={setListSelection}
+                    listSelection={listSelection} />
+                  :
+                  null
+              }
             </div>
 
           )

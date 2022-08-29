@@ -1,5 +1,6 @@
 import firebase from './firebase';
 import { push, ref, getDatabase } from 'firebase/database';
+import modalStyles from './modalStyles.css'
 
 const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection }) => {
     // QUESTIONS FOR GROUP : 
@@ -55,6 +56,11 @@ const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection })
             <div className="overlay" onClick={toggleModal}></div>
             <div className="modal-content">
                 <h1>Add this Movie: </h1>
+                <div className="modal-content-container">
+                    <h3>{toSend.original_title}</h3>
+                    <img src={`https://image.tmdb.org/t/p/w200${toSend.poster_path}`} alt={`A poster of the movie ${toSend.original_title}`} />`
+                </div>
+
                 <form>
                     <label htmlFor="list">Save movie to list:</label>
                     {/* WEIRD QUIRK: if you want a unselectable default option as your first choice in a select, add attr value='' */}
@@ -76,7 +82,7 @@ const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection })
                             })
                         }
                     </select>
-                    <button onClick={(e) => { handleAddMovie(e)}}>Add to list</button>
+                    <button onClick={(e) => { handleAddMovie(e) }}>Add to list</button>
                 </form>
                 <button className="modal-close" onClick={toggleModal}>X</button>
             </div>

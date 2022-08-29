@@ -1,0 +1,17 @@
+.modal-content h1 {
+
+    line-height: 70px;
+
+}
+
+.modal-content-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+.modal-content img {
+    /* height: 40vh; */
+    width: 20%;
+}
