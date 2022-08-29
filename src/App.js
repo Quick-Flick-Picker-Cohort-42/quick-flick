@@ -43,13 +43,19 @@ function App() {
   // creates the list in firebase
   const handleListCreation = ((e) => {
     e.preventDefault()
-    // console.log(list.listName)
     const database = getDatabase(firebase);
     const dbRef = ref(database);
-    // creating node with unique key representing the entire list
-    push(dbRef, list);
-    // empty out input so that new list name can be entered
-    setList({ listName: '' })
+
+    if (dbList) {
+        const listArray = Object.values(dbList).map((listObject) => {
+          return listObject.listName
+        })
+        if (listArray.includes(list.listName)){
+          alert('There is already a list with this name!')
+        } else {
+          push(dbRef, list)
+        }
+    }
   })
 
   const handleRemoveList = (node) => {
@@ -146,8 +152,12 @@ function App() {
             setNodeKey={setNodeKey}
           />}
         />
-        <Route path="/list/:listName" element={<Lists nodeKey={nodeKey} setNodeKey={setNodeKey} dbList={dbList} />} />
-        <Route path="*" element={<ErrorPage />} />
+        <Route path="/list/:listName" element={<Lists nodeKey={nodeKey} dbList={dbList} handleListInput={handleListInput}
+                list={list}
+                handleListCreation={handleListCreation}
+                
+                handleRemoveList={handleRemoveList}
+                setNodeKey={setNodeKey} />} />
       </Routes>
     </>
   );

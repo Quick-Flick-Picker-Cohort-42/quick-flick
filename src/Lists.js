@@ -2,9 +2,10 @@ import './Lists.css'
 import { useEffect, useState} from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import ListPanel from './ListPanel';
 
 
-const Lists = ({ nodeKey, setNodeKey, dbList }) => {
+const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, handleRemoveList, setNodeKey }) => {
   const { listName } = useParams();
   //! when user refreshes page on a list, program breaks
 
@@ -181,8 +182,18 @@ const Lists = ({ nodeKey, setNodeKey, dbList }) => {
           </>
           :
           <p>No movies have been added to this list! Try adding a movie first.</p>
-        }
-      </section>
+      }
+      {/* pass in lists as link url in displayList component, and dynamically render the unique list names and movie object titles (map), based on the key that was selected (ie list key) */}
+      <ListPanel
+                handleListInput={handleListInput}
+                list={list}
+                handleListCreation={handleListCreation}
+                dbList={dbList}
+                handleRemoveList={handleRemoveList}
+                setNodeKey={setNodeKey}
+            />
+    </section>
+
   )
 }
 
