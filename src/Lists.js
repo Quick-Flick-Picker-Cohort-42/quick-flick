@@ -84,19 +84,37 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
 
     findRandomMovie(genreMatch, moviesMatched).then((res) => {
       // if there are movies that match both the genre and length, select a random movie; otherwise display alerts
-
+      
       console.log(genreMatch.length)
       console.log(moviesMatched.length)
       if (genreMatch.length !== 0 && moviesMatched.length !== 0) {
         // generate random movie from the list of movies that match the criteria selected by the user
         const finalMovie = res[(Math.floor(Math.random() * res.length))]
-        console.log(finalMovie)
+      
+        const allMovies = document.querySelectorAll('.listPoster');
+        allMovies.forEach( (movie) => {
+          movie.style.backgroundColor = 'var(--blue)';
+        })
+        
+        if ( document.querySelector('.winningText') ) {
+          document.querySelector('.winningText').remove()
+        }
+        
+        let winningMovie = document.createElement('p');
+        winningMovie.classList.add('winningText')
+        winningMovie.textContent = 'Try This!';
+          
+          
+        document.getElementById(finalMovie).append(winningMovie);
+
         // set randomMovie state to the random movie title (to be used to render text onto page displaying the suggested movie)
         setRandomMovie(document.getElementById(finalMovie).textContent);
 
         //!can come back to this later (change to useRef())
         // styling for the suggested movie
-        document.getElementById(finalMovie).style.opacity = 0.2
+        document.getElementById(finalMovie).style.backgroundColor = `red`;
+        document.getElementById(finalMovie).scrollIntoView()
+
       } else if (genreMatch.length === 0 && moviesMatched.length === 0) {
         alert('No movies on your list match this genre and/or length. Please select another genre and/or movie length.')
       } else if (moviesMatched.length === 0) {
@@ -139,6 +157,7 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
 
   return (
     <>
+        
       {
         listExists ?
           <section className="userList">
@@ -148,6 +167,11 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
               currentList ?
                 <>
                   {/* if randomMovie has been set, display paragraph to indicate the suggested movie */}
+                  {
+                            randomMovie ?
+                              <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
+                              : null
+                          }
                   <form onSubmit={(e) => handleNLF(e)}>
                     <p>I feel like watching a </p>
                     <label htmlFor="genre" className="sr-only">choose a genre</label>
@@ -187,16 +211,13 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                         <li className='listPoster' key={movie[1].id} id={movie[1].id}>
                           <h3>{movie[1].title}</h3>
                           <img src={movie[1].poster_path ? `https://image.tmdb.org/t/p/w500${movie[1].poster_path}` : '../noMoviePoster.png'} alt={`A poster of the movie ${movie[1].original_title}`} />
-                          {
-                            randomMovie ?
-                              <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
-                              : null
-                          }
+
                           <button className='listButton' onClick={() => handleRemoveFromList(movie)}>Remove from list</button>
                         </li>
                       )
                     })}
                   </ul>
+               
 
                 </>
                 :
