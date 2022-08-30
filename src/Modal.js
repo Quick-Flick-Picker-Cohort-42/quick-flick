@@ -55,7 +55,7 @@ const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection })
         <div className="modal">
             <div className="overlay" onClick={toggleModal}></div>
             <div className="modalContent">
-                <h1>Add this Movie: </h1>
+                <h3>Add this Movie: </h3>
                 <div className="modalContentContainer">
                     <h3>{toSend.original_title}</h3>
                     <img src={toSend.poster_path ? `https://image.tmdb.org/t/p/w200${toSend.poster_path}` : './noMoviePoster.png'} alt={`A poster of the movie ${toSend.original_title}`} />`

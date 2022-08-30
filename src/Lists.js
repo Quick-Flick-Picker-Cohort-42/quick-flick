@@ -6,7 +6,7 @@ import ErrorPage from './ErrorPage';
 import ListPanel from './ListPanel';
 import firebase from './firebase';
 import { getDatabase, ref, remove } from 'firebase/database';
-
+import Footer from './Footer.js';
 
 const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, handleRemoveList, setNodeKey }) => {
   const { listName } = useParams();
@@ -90,7 +90,7 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
       if (genreMatch.length !== 0 && moviesMatched.length !== 0) {
         // generate random movie from the list of movies that match the criteria selected by the user
         const finalMovie = res[(Math.floor(Math.random() * res.length))]
-
+        console.log(finalMovie)
         // set randomMovie state to the random movie title (to be used to render text onto page displaying the suggested movie)
         setRandomMovie(document.getElementById(finalMovie).textContent);
 
@@ -115,7 +115,7 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
     setChosenDuration(e.target.value);
   }
 
-  const handleRemoveFromList = (movie)=> {
+  const handleRemoveFromList = (movie) => {
     const database = getDatabase(firebase);
     const dbRef = ref(database, `/${nodeKey}/movies/${movie[0]}`);
     remove(dbRef)
@@ -180,19 +180,19 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                     </select>
                     <button>Submit</button>
                   </form>
-                  <Link to="/">Back to Home</Link>
+                  <Link to="/"><span className='homeLink'>Back to Home</span></Link>
                   <ul>
                     {Object.entries(currentList).map((movie) => {
                       return (
                         <li className='listPoster' key={movie[1].id} id={movie[1].id}>
                           <h3>{movie[1].title}</h3>
-                          <img src={movie[1].poster_path ?`https://image.tmdb.org/t/p/w500${movie[1].poster_path}` : '../noMoviePoster.png'} alt={`A poster of the movie ${movie[1].original_title}`} />
+                          <img src={movie[1].poster_path ? `https://image.tmdb.org/t/p/w500${movie[1].poster_path}` : '../noMoviePoster.png'} alt={`A poster of the movie ${movie[1].original_title}`} />
                           {
                             randomMovie ?
                               <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
                               : null
                           }
-                          <button onClick={() => handleRemoveFromList(movie)}>Remove from list</button>
+                          <button className='listButton' onClick={() => handleRemoveFromList(movie)}>Remove from list</button>
                         </li>
                       )
                     })}
@@ -217,6 +217,8 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
         handleRemoveList={handleRemoveList}
         setNodeKey={setNodeKey}
       />
+
+      <Footer />
     </>
   )
 }
