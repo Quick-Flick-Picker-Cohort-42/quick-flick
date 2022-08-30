@@ -264,7 +264,6 @@ html {
   width: 80%;
 }
 
-/* colours */
 :root {
   --sage: #ABBEBA;
   --blue: #B3D5DF;
@@ -291,6 +290,9 @@ button:focus {
 }
 
 select {
+  font-size: clamp(0.8rem, 3vw, 1rem);
+  font-family: inherit;
+  text-align: center;
   background-color: var(--sage);
   border: none;
   border-radius: 15px;
@@ -299,6 +301,7 @@ select {
 }
 
 input {
+  font-size: clamp(0.8rem, 3vw, 1rem);
   border-radius: 15px;
   padding: 5px 15px;
   margin: 5px;
@@ -324,23 +327,18 @@ img {
 
 h1,
 h2,
-h3,
-p {
+h3, 
+h4 {
+  font-family: 'Josefin Sans', sans-serif;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 2px var(--blue);
   padding: 0;
   margin: 0;
 }
 
-h1,
-h2,
-h3 {
-  font-family: 'Josefin Sans', sans-serif;
-  text-transform: uppercase;
-  text-shadow: 2px 2px 2px var(--blue);
-}
-
 h1 {
-  font-size: clamp(1.5rem, 9vw, 4rem);
-  margin: 60px 0;
+  font-size: clamp(1.5rem, 7vw, 4rem);
+  margin: 60px 0 40px;
 }
 
 h2 {
@@ -353,8 +351,58 @@ h3 {
   margin: 10px 0;
 }
 
-h4 {
+p {
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
+  padding: 0;
   margin: 0;
+}
+
+/* HEADER COMPONENT STYLING */
+
+header p {
+  font-weight: bold;
+  /* background-color: var(--blue); */
+  padding: 15px;
+  border-radius: 10px;
+  line-height: 1.3rem;
+  width: 85%;
+  margin: 0 auto;
+}
+
+header form {
+  margin: 10px;
+}
+
+header input {
+  width: 75%;
+  margin: 0 auto;
+}
+
+/* RESULTS STYLING */
+
+.movieContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.moviePoster {
+  min-width: 40%;
+  filter: drop-shadow(0 0 1rem var(--blue));
+}
+
+.movieInformation {
+  margin-left: 30px;
+  margin: 0 auto;
+}
+
+.movieInformation p {
+  padding: 10px 0px;
+  text-align: center;
+}
+
+.movieInformation span {
+  text-shadow: 1px 1px var(--sage)
 }
 
 /* LIST PANEL / DISPLAY LIST COMPONENT STYLING */
@@ -369,7 +417,7 @@ h4 {
   font-size: clamp(0.8rem, 4vw, 1rem);
   border-bottom: 1px solid transparent;
   border-top: 1px solid transparent;
-  transition: 0.3s linear all;
+  transition: 0.4s linear all;
 }
 
 .listSection li:hover,
@@ -389,7 +437,6 @@ h4 {
 .listSection li:hover:after {
   transform: scaleX(1);
   transform-origin: 100% 50%;
-  font-weight: bold;
 }
 
 .createList {
@@ -474,16 +521,10 @@ input[type=checkbox] {
   transition: 0.3s all;
   position: relative;
   width: 135px;
-  top: -20px;
+  top: -18px;
   margin-left: 40px;
-  text-transform: uppercase;
   font-weight: bold;
   text-align: left;
-}
-
-.listLabel:hover,
-.listLabel:focus {
-  text-shadow: 1px 1px 1px var(--blue);
 }
 
 input[type=checkbox]:checked~.listPanelToggle {
@@ -491,7 +532,7 @@ input[type=checkbox]:checked~.listPanelToggle {
 }
 
 input[type=checkbox]:checked~.listPanelToggle>.listLabel {
-  top: -16px;
+  top: -14px;
   background-color: var(--sage);
 }
 
@@ -512,14 +553,45 @@ input[type=checkbox]:checked~.listPanelToggle>.diagonal.part-2 {
   margin-top: -9px;
 }
 
-@media (max-width: 380px) {
+/* lIST STYLING */
 
-  .listSection li:hover,
-  .listSection li:focus {
-    letter-spacing: initial;
-  }
+.userList form {
+  margin-bottom: 20px;
 }
 
+.userList form p {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  display: inline;
+  font-weight: bold;
+}
+
+.userList form select {
+  min-width: 200px;
+}
+
+.userList ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.listPoster {
+  margin: 15px;
+  padding: 20px;
+  background-color: var(--blue);
+  border-radius: 10px;
+  width: 30%;
+}
+
+li img {
+  min-width: 100%;
+  border-radius: 10px;
+  ;
+}
+
+li h3 {
+  font-size: clamp(1rem, 2vw, 1.5rem)
+}
 
 /* MODAL STYLING */
 
@@ -538,7 +610,14 @@ input[type=checkbox]:checked~.listPanelToggle>.diagonal.part-2 {
   background-color: rgba(49, 49, 49, 0.8);
 }
 
-.modal-content {
+.modalContentContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+.modalContent {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -551,18 +630,105 @@ input[type=checkbox]:checked~.listPanelToggle>.diagonal.part-2 {
   z-index: 999;
 }
 
-.modal-close {
+.modalContent h1 {
+  line-height: 70px;
+}
+
+.modalContent img {
+  width: 20%;
+}
+
+.modalClose {
   position: absolute;
   top: 10px;
   right: 10px;
 }
 
-body.active-modal {
+body.activeModal {
   overflow-y: hidden;
 }
 
 .hidden {
-  /* color: transparent; */
   visibility: hidden;
   display: none;
+}
+
+/* FOOTER STYLING */
+
+footer {
+  margin: 60px 0px 10px;
+  padding: 5px 0;
+  letter-spacing: 1.25px;
+  line-height: 1.2rem;
+} 
+
+footer p {
+  font-size: clamp(0.8rem, 4vw, 0.9rem);
+}
+
+footer a {
+  display: inline-block;
+  position: relative;
+}
+
+footer a:not(:first-child) {
+  padding-left: 4px;
+}
+
+footer a::before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: 2px;
+  width: 0px;
+  height: 1px;
+  background: black none repeat scroll;
+  transition: width .6s ease 0s;
+}
+
+footer a:hover::before {
+  width: 100%;
+}
+
+
+
+/* MEDIQ QUERIES */
+
+@media (max-width:1079px) {
+  .movieContainer h1 {
+    line-height: 50px;
+    margin: 10px 0;
+  }
+
+  .movieContainer,
+  .modalContentContainer {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+  }
+
+
+  .modalContentContainer img {
+    width: 50%;
+  }
+}
+
+@media (max-width: 900px) {
+  li {
+    width: 45%;
+  }
+}
+
+@media (max-width: 550px) {
+  li {
+    width: 90%;
+  }
+}
+
+@media (max-width: 380px) {
+
+  .listSection li:hover,
+  .listSection li:focus {
+    letter-spacing: initial;
+  }
 }

@@ -1,4 +1,4 @@
-import './Lists.css'
+
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -142,14 +142,14 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                   {/* if randomMovie has been set, display paragraph to indicate the suggested movie */}
                   <form onSubmit={(e) => handleNLF(e)}>
                     <p>I feel like watching a </p>
-                    <label htmlFor="genre" className="sr-only">Choose a genre</label>
+                    <label htmlFor="genre" className="sr-only">choose a genre</label>
                     <select
                       name="genre"
                       id="genre"
                       required
                       onChange={handleGenreSelection}
                       value={chosenGenre} >
-                      <option disabled value="">Select a genre</option>
+                      <option disabled value="">select a genre</option>
                       {genres.map((genreObject) => {
                         return (
                           <option key={genreObject.id} value={genreObject.id}>{genreObject.name}</option>
@@ -157,7 +157,7 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                       })}
                     </select>
                     <p>movie, and I have</p>
-                    <label htmlFor="duration" className="sr-only">Choose a duration</label>
+                    <label htmlFor="duration" className="sr-only">choose a duration</label>
                     <select
                       name="duration"
                       id="duration"
@@ -165,7 +165,7 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                       onChange={handleDurationSelection}
                       value={chosenDuration}
                     >
-                      <option disabled value="">Select a duration</option>
+                      <option disabled value="">select a duration</option>
                       <option value="90">Less than 1.5 hours</option>
                       <option value="120">Less than 2 hours</option>
                       <option value="1000">All the time in the world</option>
@@ -175,21 +175,19 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                   <Link to="/">Back to Home</Link>
                   <ul>
                     {Object.entries(currentList).map((movie) => {
-
                       return (
-                        <li key={movie[1].id} id={movie[1].id}>
+                        <li className='listPoster' key={movie[1].id} id={movie[1].id}>
                           <h3>{movie[1].title}</h3>
                           <img src={`https://image.tmdb.org/t/p/w500${movie[1].poster_path}`} alt={`A poster of the movie ${movie[1].original_title}`} />
-                          {
-                            randomMovie ?
-                              <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
-                              : null
-                          }
                         </li>
                       )
                     })}
                   </ul>
-
+                  {
+                    randomMovie ?
+                      <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
+                      : null
+                  }
                 </>
                 :
                 <>
@@ -201,6 +199,14 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
           </section>
           : <ErrorPage />
       }
+      <ListPanel
+        handleListInput={handleListInput}
+        list={list}
+        handleListCreation={handleListCreation}
+        dbList={dbList}
+        handleRemoveList={handleRemoveList}
+        setNodeKey={setNodeKey}
+      />
     </>
   )
 }

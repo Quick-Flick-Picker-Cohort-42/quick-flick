@@ -1,25 +1,25 @@
-import './Header.css'
+
 const Header = ({ handleMovieInput, handleSubmit, movieInput, newMovieInput }) => {
 
 
     return (
         <header>
-            <h1>Quick Flick Picker</h1>
-            <p>Search for a movie, create a personalized movie list, and add movies to it, and then pick your genre and movie length and let us pick a quick flick for you!</p>
-            <form action="" onSubmit={handleSubmit}>
-                <label 
-                    htmlFor="movie-input" 
+            <h1 className="animate__animated animate__fadeInUp">Quick Flick Picker</h1>
+            <p className="animate__animated animate__fadeInUp">Search for a movie, create a personalized movie list, and add movies to it, and then pick your genre and movie length and let us pick a quick flick for you!</p>
+            <form action="" onSubmit={handleSubmit} className="animate__animated animate__fadeInUp">
+                <label
+                    htmlFor="movie-input"
                     className="sr-only"
-                    >Search for a movie
+                >Search for a movie
                 </label>
-                <input 
+                <input
                     onChange={handleMovieInput}
-                    ref={newMovieInput} 
+                    ref={newMovieInput}
                     value={movieInput}
-                    type="text" 
-                    id="movie-input" 
+                    type="text"
+                    id="movie-input"
                     required
-                    placeholder="Search for a movie" 
+                    placeholder="Search for a movie"
                 />
                 <button>Find a flick!</button>
             </form>
