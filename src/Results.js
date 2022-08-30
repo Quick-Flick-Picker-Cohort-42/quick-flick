@@ -33,7 +33,7 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
 
               <div className="movieInformation">
                 <h2>{movie.original_title}</h2>
-                <h3>Description</h3>
+
                 <p>{movie.overview}</p>
                 <p><span>Release Date: </span>{movie.release_date}</p>
                 <button className="addMovie" onClick={() =>

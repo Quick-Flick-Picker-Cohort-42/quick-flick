@@ -142,14 +142,14 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                   {/* if randomMovie has been set, display paragraph to indicate the suggested movie */}
                   <form onSubmit={(e) => handleNLF(e)}>
                     <p>I feel like watching a </p>
-                    <label htmlFor="genre" className="sr-only">Choose a genre</label>
+                    <label htmlFor="genre" className="sr-only">choose a genre</label>
                     <select
                       name="genre"
                       id="genre"
                       required
                       onChange={handleGenreSelection}
                       value={chosenGenre} >
-                      <option disabled value="">Select a genre</option>
+                      <option disabled value="">select a genre</option>
                       {genres.map((genreObject) => {
                         return (
                           <option key={genreObject.id} value={genreObject.id}>{genreObject.name}</option>
@@ -157,7 +157,7 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                       })}
                     </select>
                     <p>movie, and I have</p>
-                    <label htmlFor="duration" className="sr-only">Choose a duration</label>
+                    <label htmlFor="duration" className="sr-only">choose a duration</label>
                     <select
                       name="duration"
                       id="duration"
@@ -165,7 +165,7 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                       onChange={handleDurationSelection}
                       value={chosenDuration}
                     >
-                      <option disabled value="">Select a duration</option>
+                      <option disabled value="">select a duration</option>
                       <option value="90">Less than 1.5 hours</option>
                       <option value="120">Less than 2 hours</option>
                       <option value="1000">All the time in the world</option>
