@@ -55,6 +55,8 @@ function App() {
         } else {
           push(dbRef, list)
         }
+    } else {
+      push(dbRef, list)
     }
     // empty out input so that new list name can be entered
     setList({ listName: '' })
