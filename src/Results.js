@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Modal from './Modal.js';
-import resultsStyles from './resultsStyles.css'
 
 
 
@@ -14,9 +13,9 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
   }
 
   if (modal) {
-    document.body.classList.add('active-modal')
+    document.body.classList.add('activeModal')
   } else {
-    document.body.classList.remove('active-modal')
+    document.body.classList.remove('activeModal')
   }
 
   return (
@@ -34,7 +33,7 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
 
               <div className="movieInformation">
                 <h2>{movie.original_title}</h2>
-                <h3>Description</h3>
+
                 <p>{movie.overview}</p>
                 <p><span>Release Date: </span>{movie.release_date}</p>
                 <button className="addMovie" onClick={() =>

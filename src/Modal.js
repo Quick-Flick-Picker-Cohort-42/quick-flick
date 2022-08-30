@@ -1,6 +1,6 @@
 import firebase from './firebase';
 import { push, ref, getDatabase } from 'firebase/database';
-import modalStyles from './modalStyles.css'
+
 
 const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection }) => {
     // QUESTIONS FOR GROUP : 
@@ -54,9 +54,9 @@ const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection })
     return (
         <div className="modal">
             <div className="overlay" onClick={toggleModal}></div>
-            <div className="modal-content">
+            <div className="modalContent">
                 <h1>Add this Movie: </h1>
-                <div className="modal-content-container">
+                <div className="modalContentContainer">
                     <h3>{toSend.original_title}</h3>
                     <img src={toSend.poster_path ? `https://image.tmdb.org/t/p/w200${toSend.poster_path}` : './noMoviePoster.png'} alt={`A poster of the movie ${toSend.original_title}`} />`
                 </div>
@@ -84,7 +84,7 @@ const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection })
                     </select>
                     <button onClick={(e) => { handleAddMovie(e) }}>Add to list</button>
                 </form>
-                <button className="modal-close" onClick={toggleModal}>X</button>
+                <button className="modalClose" onClick={toggleModal}>X</button>
             </div>
         </div>
 
