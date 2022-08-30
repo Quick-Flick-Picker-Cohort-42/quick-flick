@@ -685,6 +685,27 @@ footer a {
 
 /* MEDIQ QUERIES */
 
+@media (max-width:1079px) {
+  .movieContainer h1 {
+    line-height: 50px;
+    margin: 10px 0;
+  }
+
+  .movieContainer,
+  .modalContentContainer {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+  }
+
+
+  .modalContentContainer img {
+    width: 50%;
+  }
+
+
+}
+
 @media (max-width: 900px) {
   li {
     width: 45%;
