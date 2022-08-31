@@ -17,7 +17,7 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
   const [genres, setGenres] = useState([]);
   const [chosenGenre, setChosenGenre] = useState('');
   const [chosenDuration, setChosenDuration] = useState('');
-  const [randomMovie, setRandomMovie] = useState('');
+  // const [randomMovie, setRandomMovie] = useState('');
 
 
 
