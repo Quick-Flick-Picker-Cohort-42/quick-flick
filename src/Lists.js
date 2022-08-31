@@ -61,28 +61,43 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
           console.log(res.data)
         })
     }
-    
+
     return (arrayOfMatchedMovies)
   }
 
   const handleNLF = (e) => {
     e.preventDefault()
     // on submit, reset the styling on the previously suggested movie
-    const movieList = document.querySelectorAll('li')
-    movieList.forEach((movie) => {
-      movie.style.opacity = 1
-    })
-
     const genreMatch = [];
     const moviesMatched = [];
+
+
     for (let movie in currentList) {
-      const movieListGenres = currentList[movie].genre_ids;
-      for (let movieListGenre in movieListGenres) {
-        if (movieListGenres[movieListGenre] === parseInt(chosenGenre)) {
+      // console.log(currentList[movie].genres);
+      const genreList = currentList[movie].genres;
+      for (let movieGenre of genreList) {
+        console.log(movieGenre.id)
+        if ((movieGenre.id) === parseInt(chosenGenre)) {
           genreMatch.push(currentList[movie].id)
         }
       }
     }
+    // const movieListGenres = currentList[movie].genre_ids;
+
+    // console.log(movieListGenres);
+
+
+    //   for (let movieListGenre in movieListGenres) {
+    //     console.log(movieListGenres[movieListGenre]);
+    //     console.log(parseInt(chosenGenre));
+    //     if (movieListGenres[movieListGenre] === parseInt(chosenGenre)) {
+    //       genreMatch.push(currentList[movie].id)
+
+    //     }
+
+    //   }
+    // }
+
 
     findRandomMovie(genreMatch, moviesMatched).then((res) => {
       // if there are movies that match both the genre and length, select a random movie; otherwise display alerts
@@ -111,15 +126,13 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
         document.getElementById(finalMovie).append(winningMovie);
 
         // set randomMovie state to the random movie title (to be used to render text onto page displaying the suggested movie)
-        setRandomMovie(document.getElementById(finalMovie).textContent);
-
+        setRandomMovie(document.getElementById((finalMovie).textContent));
+        console.log(document.getElementById(finalMovie));
         //!can come back to this later (change to useRef())
         // styling for the suggested movie
 
         document.getElementById(finalMovie).style.backgroundColor = `var(--beige)`;
         document.getElementById(finalMovie).style.boxShadow = `0 0 40px 10px orange`;
-
-
         document.getElementById(finalMovie).scrollIntoView({ block: "center" })
 
       } else if (genreMatch.length === 0 && moviesMatched.length === 0) {
@@ -174,11 +187,11 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
               currentList ?
                 <>
                   {/* if randomMovie has been set, display paragraph to indicate the suggested movie */}
-                  {
+                  {/* {
                     randomMovie ?
-                      <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
+                      <p className="sr-only">Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
                       : null
-                  }
+                  } */}
                   <form onSubmit={(e) => handleNLF(e)}>
                     <p>I feel like watching a </p>
                     <label htmlFor="genre" className="sr-only">choose a genre</label>
