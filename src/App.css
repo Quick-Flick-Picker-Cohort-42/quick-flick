@@ -256,6 +256,7 @@ html {
   font-family: 'Lato', sans-serif;
   text-align: center;
   background-color: var(--light-sage);
+  scroll-behavior: smooth;
 }
 
 .wrapper {
@@ -470,6 +471,7 @@ header input {
 }
 
 .listPanel {
+  background-color: var(--sage);
   height: 100%;
   position: fixed;
   left: 0;
@@ -477,8 +479,7 @@ header input {
   width: 320;
   padding-top: 60px;
   z-index: 10;
-  background-color: var(--sage);
-  transform: translateX(-320px);
+  transform: translateX(-335px);
   transition: transform 0.5s ease-in-out;
   overflow-y: auto;
 }
@@ -541,15 +542,20 @@ input[type=checkbox] {
   display: block;
   transition: 0.3s all;
   position: fixed;
-  width: 140px;
+  top: 18px;
+  width: 142px;
   background-color: var(--beige);
+  border: 1px solid var(--sage);
+  border-radius: 15px;
   margin-left: 40px;
+  padding-top: 3px;
   font-weight: bold;
   text-align: center;
 }
 
 input[type=checkbox]:checked~.listPanelToggle>.listLabel {
   background-color: var(--sage);
+  border: 1px solid var(--beige);
 }
 
 input[type=checkbox]:checked~.listPanelToggle>.horizontal {
