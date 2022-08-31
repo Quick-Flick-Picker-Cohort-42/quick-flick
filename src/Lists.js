@@ -58,8 +58,10 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
           if (res.data.runtime < parseInt(chosenDuration)) {
             arrayOfMatchedMovies.push(res.data.id)
           }
+          console.log(res.data)
         })
     }
+    
     return (arrayOfMatchedMovies)
   }
 
