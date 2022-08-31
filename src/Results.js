@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import Modal from './Modal.js';
 
 
@@ -35,14 +35,14 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
                 {movie.credits.crew.length !== 0 ? <p>Directed by: {movie.credits.crew.map((crewMember) => {
                   if (crewMember.department === "Directing") {
                     return (
-                      <p key={crewMember.id}> {crewMember.name}</p>
+                      <span key={crewMember.credit_id}> {crewMember.name},</span>
                     )
                   } else {
                     return null
                   }
                 })}</p> : null}
 
-                {movie.credits.cast.length !== 0 ? <p>Cast: {movie.credits.cast.map((castMember, index) => {
+                {movie.credits.cast.length !== 0 ? <p key={`${movie.id}castParagraph`}>Cast: {movie.credits.cast.map((castMember, index) => {
                   if (index < 4) {
                     return (
                       <span key={castMember.credit_id}>{castMember.name}, </span>
@@ -55,7 +55,23 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
                     return null
                   }
                 })}</p> : null}
-                {/* {movie.videos} */}
+                {
+                
+                movie.videos.results.length !== 0 ? 
+                  
+                    <p className="resultsTrailer">{`Trailer(s):`}{movie.videos.results.map((video,index) => {
+                    if ((video.type === "Trailer") && (video.site === "YouTube") ) {
+                      return(
+                        <Fragment key={`${movie.id}fragment${index}`}>
+                          <br /><a href={`https://www.youtube.com/watch?v=${video.key}`}key={video.id}>{video.name}</a>
+                        </Fragment>
+                      )
+                    } else {
+                      return null
+                    }
+
+                  })}
+                  </p> : <a href={`https://www.youtube.com/results?search_query=${movie.title}+trailer`}>Search Trailer</a>}
                 <p>{movie.overview}</p>
                 <p><span>Release Date: </span>{movie.release_date}</p>
                 <button className="addMovie" onClick={() =>
