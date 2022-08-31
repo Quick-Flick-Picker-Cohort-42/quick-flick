@@ -10,7 +10,6 @@ import Footer from './Footer.js';
 
 const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, handleRemoveList, setNodeKey }) => {
   const { listName } = useParams();
-  //! when user refreshes page on a list, program breaks
 
   //!states
   const [currentList, setCurrentList] = useState({});
@@ -21,17 +20,12 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
   const [randomMovie, setRandomMovie] = useState('');
 
 
-  // let movieRef = useRef()
 
-  // console.log(listName)
   // obtain node key of current list from URL (instead of setting on DisplayList on click)...
   useEffect(() => {
-    // console.log(dbList)
     for (let list in dbList) {
-      // console.log(dbList[list].listName);
       // if list name in URL matches a list name from dbList (list from Firebase), get the Firebase node key of that list
       if (listName === dbList[list].listName) {
-        // console.log(list);
         setNodeKey(list);
         setListExists(true)
       }
@@ -58,7 +52,6 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
           if (res.data.runtime < parseInt(chosenDuration)) {
             arrayOfMatchedMovies.push(res.data.id)
           }
-          console.log(res.data)
         })
     }
 
@@ -73,37 +66,18 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
 
 
     for (let movie in currentList) {
-      // console.log(currentList[movie].genres);
       const genreList = currentList[movie].genres;
       for (let movieGenre of genreList) {
-        console.log(movieGenre.id)
+
         if ((movieGenre.id) === parseInt(chosenGenre)) {
           genreMatch.push(currentList[movie].id)
         }
       }
     }
-    // const movieListGenres = currentList[movie].genre_ids;
-
-    // console.log(movieListGenres);
-
-
-    //   for (let movieListGenre in movieListGenres) {
-    //     console.log(movieListGenres[movieListGenre]);
-    //     console.log(parseInt(chosenGenre));
-    //     if (movieListGenres[movieListGenre] === parseInt(chosenGenre)) {
-    //       genreMatch.push(currentList[movie].id)
-
-    //     }
-
-    //   }
-    // }
-
 
     findRandomMovie(genreMatch, moviesMatched).then((res) => {
       // if there are movies that match both the genre and length, select a random movie; otherwise display alerts
 
-      console.log(genreMatch.length)
-      console.log(moviesMatched.length)
       if (genreMatch.length !== 0 && moviesMatched.length !== 0) {
         // generate random movie from the list of movies that match the criteria selected by the user
         const finalMovie = res[(Math.floor(Math.random() * res.length))]
@@ -126,11 +100,9 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
         document.getElementById(finalMovie).append(winningMovie);
 
         // set randomMovie state to the random movie title (to be used to render text onto page displaying the suggested movie)
-        setRandomMovie(document.getElementById((finalMovie).textContent));
-        console.log(document.getElementById(finalMovie));
-        //!can come back to this later (change to useRef())
-        // styling for the suggested movie
+        document.getElementById((finalMovie).textContent)
 
+        // styling for the suggested movie
         document.getElementById(finalMovie).style.backgroundColor = `var(--beige)`;
         document.getElementById(finalMovie).style.boxShadow = `0 0 40px 10px orange`;
         document.getElementById(finalMovie).scrollIntoView({ block: "center" })
@@ -168,8 +140,6 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
       },
     }).then((res) => {
       setGenres(res.data.genres)
-      // const movieResults = res.data.results;
-      // setMovieObject(movieResults);
     })
 
   }, [])
@@ -182,16 +152,18 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
         listExists ?
           <section className="userList">
             <h2>{listName}</h2>
-            {/* NOTE - need to error handle movie dupes in the same list. need to also check what happens if the same movie is in two different lists */}
             {
               currentList ?
                 <>
                   {/* if randomMovie has been set, display paragraph to indicate the suggested movie */}
+
                   {/* {
                     randomMovie ?
                       <p className="sr-only">Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
                       : null
                   } */}
+
+
                   <form onSubmit={(e) => handleNLF(e)}>
                     <p>I feel like watching a </p>
                     <label htmlFor="genre" className="sr-only">choose a genre</label>
@@ -246,7 +218,6 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                   <Link to="/">Back to Home</Link>
                 </>
             }
-            {/* pass in lists as link url in displayList component, and dynamically render the unique list names and movie object titles (map), based on the key that was selected (ie list key) */}
           </section>
           : <ErrorPage />
       }
@@ -263,7 +234,4 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
     </>
   )
 }
-
-// probably going to need to nest user generated list components inside this component and then route it on click, and then in those lists, send my movie data to this section here
-
 export default Lists;

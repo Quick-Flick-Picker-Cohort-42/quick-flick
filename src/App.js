@@ -33,7 +33,7 @@ function App() {
   // stores the unique key from each list in Firebase
   const [nodeKey, setNodeKey] = useState('');
 
- 
+
 
   // handle list input
   const handleListInput = ((e) => {
@@ -49,14 +49,14 @@ function App() {
     const dbRef = ref(database);
 
     if (dbList) {
-        const listArray = Object.values(dbList).map((listObject) => {
-          return listObject.listName
-        })
-        if (listArray.includes(list.listName)){
-          alert('There is already a list with this name!')
-        } else {
-          push(dbRef, list)
-        }
+      const listArray = Object.values(dbList).map((listObject) => {
+        return listObject.listName
+      })
+      if (listArray.includes(list.listName)) {
+        alert('There is already a list with this name!')
+      } else {
+        push(dbRef, list)
+      }
     } else {
       push(dbRef, list)
     }
@@ -102,27 +102,26 @@ function App() {
       }).then((res) => {
         const movieResults = res.data.results;
         if (movieResults.length !== 0) {
-          
+
           // empty out input so that new search term can be entered
-          return(movieResults)
+          return (movieResults)
         } else {
           alert("Looks like your search didn't yield any results 😕 Try searching using another search term.");
         }
       }).then((res) => { //!get additional credits and video data for each movie
-          for (let movie of res) {
-            // console.log (movie.id)
-            axios({
-              url: `https://api.themoviedb.org/3/movie/${movie.id}`,
-              params: {
-                api_key: '636ef606db6eb961991793ba4935ad7e',
-                append_to_response: 'videos,credits',
-              }
-            }).then((res)=>{
+        for (let movie of res) {
+          axios({
+            url: `https://api.themoviedb.org/3/movie/${movie.id}`,
+            params: {
+              api_key: '636ef606db6eb961991793ba4935ad7e',
+              append_to_response: 'videos,credits',
+            }
+          }).then((res) => {
 
-              collectMovieInfo(res.data)
+            collectMovieInfo(res.data)
 
-            })
-          }
+          })
+        }
       })
     } catch (error) {
       alert('Something seems to have gone wrong...try searching again')
@@ -141,7 +140,7 @@ function App() {
     setMovieObject([])
     getMovies()
     setMovieInput('')
-    
+
   })
 
   return (
@@ -166,11 +165,11 @@ function App() {
           />}
         />
         <Route path="/list/:listName" element={<Lists nodeKey={nodeKey} dbList={dbList} handleListInput={handleListInput}
-                list={list}
-                handleListCreation={handleListCreation}
-                
-                handleRemoveList={handleRemoveList}
-                setNodeKey={setNodeKey} />} />
+          list={list}
+          handleListCreation={handleListCreation}
+
+          handleRemoveList={handleRemoveList}
+          setNodeKey={setNodeKey} />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>

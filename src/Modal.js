@@ -3,9 +3,6 @@ import { push, ref, getDatabase } from 'firebase/database';
 
 
 const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection }) => {
-    // QUESTIONS FOR GROUP : 
-    // 1. Do we need to pass this function the movie object, if it is never used? 
-    // 2. Do we need to pass setToSend in Modal if we never use it?
 
     // update sendMovie state with the selected movie
     const handleListSelection = (e) => {
@@ -37,7 +34,6 @@ const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection })
                         } else {
                             // push movie to firebase and close the modal
                             push(dbRefNode, toSend)
-                            // maybe render <p> This movie is now added to list ____ <p> before closing the modal?
                             toggleModal()
                         }
                     }
@@ -63,7 +59,7 @@ const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection })
 
                 <form>
                     <label htmlFor="list">Save movie to list:</label>
-                    {/* WEIRD QUIRK: if you want a unselectable default option as your first choice in a select, add attr value='' */}
+
                     <select
                         id="list"
                         name="list"
