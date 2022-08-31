@@ -329,7 +329,7 @@ img {
 
 h1,
 h2,
-h3, 
+h3,
 h4 {
   font-family: 'Josefin Sans', sans-serif;
   text-transform: uppercase;
@@ -619,6 +619,15 @@ li h3 {
   padding: 5px;
 }
 
+.winningText {
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 10px;
+  font-size: clamp(1rem, 1vw, 1.5rem);
+  font-family: 'Josefin Sans', sans-serif;
+  text-shadow: 2px 2px 2px var(--blue);
+}
+
 /* MODAL STYLING */
 
 .modal,
@@ -686,7 +695,7 @@ footer {
   padding: 5px 0;
   letter-spacing: 1.25px;
   line-height: 1.2rem;
-} 
+}
 
 footer p {
   font-size: clamp(0.8rem, 4vw, 0.9rem);
@@ -733,7 +742,7 @@ footer a:hover::before {
     padding-bottom: 0;
   }
 
-  .movieInformation, 
+  .movieInformation,
   .movieInformation p {
     text-align: center;
   }
@@ -757,7 +766,7 @@ footer a:hover::before {
 
 @media (max-width: 550px) {
 
-  .movieInformation, 
+  .movieInformation,
   .movieInformation p {
     text-align: left;
     margin-left: 0;

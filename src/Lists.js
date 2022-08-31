@@ -84,27 +84,28 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
 
     findRandomMovie(genreMatch, moviesMatched).then((res) => {
       // if there are movies that match both the genre and length, select a random movie; otherwise display alerts
-      
+
       console.log(genreMatch.length)
       console.log(moviesMatched.length)
       if (genreMatch.length !== 0 && moviesMatched.length !== 0) {
         // generate random movie from the list of movies that match the criteria selected by the user
         const finalMovie = res[(Math.floor(Math.random() * res.length))]
-      
+
         const allMovies = document.querySelectorAll('.listPoster');
-        allMovies.forEach( (movie) => {
+        allMovies.forEach((movie) => {
           movie.style.backgroundColor = 'var(--blue)';
+          movie.style.boxShadow = "none";
         })
-        
-        if ( document.querySelector('.winningText') ) {
+
+        if (document.querySelector('.winningText')) {
           document.querySelector('.winningText').remove()
         }
-        
+
         let winningMovie = document.createElement('p');
         winningMovie.classList.add('winningText')
         winningMovie.textContent = 'Try This!';
-          
-          
+
+
         document.getElementById(finalMovie).append(winningMovie);
 
         // set randomMovie state to the random movie title (to be used to render text onto page displaying the suggested movie)
@@ -112,8 +113,12 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
 
         //!can come back to this later (change to useRef())
         // styling for the suggested movie
-        document.getElementById(finalMovie).style.backgroundColor = `red`;
-        document.getElementById(finalMovie).scrollIntoView()
+
+        document.getElementById(finalMovie).style.backgroundColor = `var(--beige)`;
+        document.getElementById(finalMovie).style.boxShadow = `0 0 40px 10px orange`;
+
+
+        document.getElementById(finalMovie).scrollIntoView({ block: "center" })
 
       } else if (genreMatch.length === 0 && moviesMatched.length === 0) {
         alert('No movies on your list match this genre and/or length. Please select another genre and/or movie length.')
@@ -157,7 +162,7 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
 
   return (
     <>
-        
+
       {
         listExists ?
           <section className="userList">
@@ -168,10 +173,10 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                 <>
                   {/* if randomMovie has been set, display paragraph to indicate the suggested movie */}
                   {
-                            randomMovie ?
-                              <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
-                              : null
-                          }
+                    randomMovie ?
+                      <p>Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
+                      : null
+                  }
                   <form onSubmit={(e) => handleNLF(e)}>
                     <p>I feel like watching a </p>
                     <label htmlFor="genre" className="sr-only">choose a genre</label>
@@ -217,7 +222,7 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                       )
                     })}
                   </ul>
-               
+
 
                 </>
                 :
