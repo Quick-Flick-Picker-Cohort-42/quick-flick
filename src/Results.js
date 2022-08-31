@@ -25,9 +25,11 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
           console.log(movie)
           return (
             <div className="movieContainer" key={movie.id}>
-            
+
               <div className="moviePoster">
-                <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : '../noMoviePoster.png'} alt={`A poster of the movie ${movie.original_title}`} />
+                <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : '../noMoviePosterFound.png'} alt={`A poster of the movie ${movie.original_title}`} />
+                {/* <button className="addMovie" onClick={() =>
+                  toggleModal(movie)} >Add this Movie</button> */}
               </div>
 
               <div className="movieInformation">
@@ -56,22 +58,22 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
                   }
                 })}</p> : null}
                 {
-                
-                movie.videos.results.length !== 0 ? 
-                  
-                    <p className="resultsTrailer">{`Trailer(s):`}{movie.videos.results.map((video,index) => {
-                    if ((video.type === "Trailer") && (video.site === "YouTube") ) {
-                      return(
-                        <Fragment key={`${movie.id}fragment${index}`}>
-                          <br /><a href={`https://www.youtube.com/watch?v=${video.key}`}key={video.id}>{video.name}</a>
-                        </Fragment>
-                      )
-                    } else {
-                      return null
-                    }
 
-                  })}
-                  </p> : <a href={`https://www.youtube.com/results?search_query=${movie.title}+trailer`}>Search Trailer</a>}
+                  movie.videos.results.length !== 0 ?
+
+                    <p className="resultsTrailer">{`Trailer(s):`}{movie.videos.results.map((video, index) => {
+                      if ((video.type === "Trailer") && (video.site === "YouTube")) {
+                        return (
+                          <Fragment key={`${movie.id}fragment${index}`}>
+                            <br /><a href={`https://www.youtube.com/watch?v=${video.key}`} key={video.id}>{video.name}</a>
+                          </Fragment>
+                        )
+                      } else {
+                        return null
+                      }
+
+                    })}
+                    </p> : <a href={`https://www.youtube.com/results?search_query=${movie.title}+trailer`}>Search Trailer</a>}
                 <p>{movie.overview}</p>
                 <p><span>Release Date: </span>{movie.release_date}</p>
                 <button className="addMovie" onClick={() =>

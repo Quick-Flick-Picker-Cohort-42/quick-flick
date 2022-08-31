@@ -256,6 +256,7 @@ html {
   font-family: 'Lato', sans-serif;
   text-align: center;
   background-color: var(--light-sage);
+  scroll-behavior: smooth;
 }
 
 .wrapper {
@@ -272,6 +273,7 @@ html {
 }
 
 button {
+  font-size: clamp(0.8rem, 1vw, 1rem);
   border: 2px solid var(--sage);
   border-radius: 15px;
   padding: 5px 15px;
@@ -301,7 +303,7 @@ select {
 }
 
 input {
-  font-size: clamp(0.8rem, 3vw, 1rem);
+  font-size: clamp(0.8rem, 1vw, 1rem);
   border-radius: 15px;
   padding: 5px 15px;
   margin: 5px;
@@ -327,7 +329,7 @@ img {
 
 h1,
 h2,
-h3, 
+h3,
 h4 {
   font-family: 'Josefin Sans', sans-serif;
   text-transform: uppercase;
@@ -343,7 +345,7 @@ h1 {
 
 h2 {
   font-size: clamp(1.3rem, 6vw, 2.5rem);
-  margin: 40px 0;
+  margin: 80px 0 20px;
 }
 
 h3 {
@@ -351,10 +353,22 @@ h3 {
   margin: 10px 0;
 }
 
+h4 {
+  text-shadow: none;
+}
+
 p {
   font-size: clamp(0.9rem, 3vw, 1.1rem);
   padding: 0;
   margin: 0;
+}
+
+.homeLink {
+  background-color: var(--sage);
+  border: solid 1px var(--beige);
+  border-radius: 15px;
+  padding: 5px 10px;
+  font-size: clamp(0.8rem, 1vw, 1rem);
 }
 
 /* HEADER COMPONENT STYLING */
@@ -387,18 +401,22 @@ header input {
 }
 
 .moviePoster {
-  min-width: 40%;
+  min-width: 50%;
   filter: drop-shadow(0 0 1rem var(--blue));
 }
 
 .movieInformation {
   margin-left: 30px;
-  margin: 0 auto;
+  text-align: left;
 }
 
 .movieInformation p {
   padding: 10px 0px;
-  text-align: center;
+  text-align: left;
+}
+
+.addMovie {
+  margin-left: 0;
 }
 
 .movieInformation span {
@@ -453,6 +471,7 @@ header input {
 }
 
 .listPanel {
+  background-color: var(--sage);
   height: 100%;
   position: fixed;
   left: 0;
@@ -460,8 +479,7 @@ header input {
   width: 320;
   padding-top: 60px;
   z-index: 10;
-  background-color: var(--sage);
-  transform: translateX(-320px);
+  transform: translateX(-335px);
   transition: transform 0.5s ease-in-out;
   overflow-y: auto;
 }
@@ -483,57 +501,61 @@ input[type=checkbox] {
   top: 22px;
   left: 15px;
   width: 25px;
+  background-color: var(--light-sage);
 }
 
 .spinner {
   transition: 0.3s all;
-  position: absolute;
+  position: fixed;
   height: 3px;
-  width: 100%;
+  width: 25px;
   background-color: black;
 }
 
 .horizontal {
   transition: 0.3s all;
-  position: relative;
+  position: fixed;
   margin-right: auto;
   margin-left: 0;
   margin-top: 3px;
+  top: 27px;
 }
 
 .diagonal.part-1 {
   transition: 0.3s all;
-  position: relative;
+  position: fixed;
   margin-right: auto;
   margin-left: 0;
+  top: 24px;
 }
 
 .diagonal.part-2 {
   transition: 0.3s all;
-  position: relative;
+  position: fixed;
   margin-right: auto;
   margin-left: 0;
   margin-top: 3px;
+  top: 33px;
 }
 
 .listLabel {
   display: block;
   transition: 0.3s all;
-  position: relative;
-  width: 135px;
-  top: -18px;
+  position: fixed;
+  top: 18px;
+  width: 142px;
+  background-color: var(--beige);
+  border: 1px solid var(--sage);
+  border-radius: 15px;
   margin-left: 40px;
+  padding-top: 3px;
   font-weight: bold;
-  text-align: left;
-}
-
-input[type=checkbox]:checked~.listPanelToggle {
-  background-color: var(--sage);
+  text-align: center;
 }
 
 input[type=checkbox]:checked~.listPanelToggle>.listLabel {
-  top: -14px;
   background-color: var(--sage);
+  border: 1px solid var(--beige);
 }
 
 input[type=checkbox]:checked~.listPanelToggle>.horizontal {
@@ -544,13 +566,13 @@ input[type=checkbox]:checked~.listPanelToggle>.horizontal {
 input[type=checkbox]:checked~.listPanelToggle>.diagonal.part-1 {
   transition: all 0.3s;
   transform: rotate(135deg);
-  margin-top: 8px;
+  margin-top: 5px;
 }
 
 input[type=checkbox]:checked~.listPanelToggle>.diagonal.part-2 {
   transition: all 0.3s;
   transform: rotate(-135deg);
-  margin-top: -9px;
+  margin-top: -4px;
 }
 
 /* lIST STYLING */
@@ -591,6 +613,19 @@ li img {
 
 li h3 {
   font-size: clamp(1rem, 2vw, 1.5rem)
+}
+
+.listButton {
+  padding: 5px;
+}
+
+.winningText {
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 10px;
+  font-size: clamp(1rem, 1vw, 1.5rem);
+  font-family: 'Josefin Sans', sans-serif;
+  text-shadow: 2px 2px 2px var(--blue);
 }
 
 /* MODAL STYLING */
@@ -660,7 +695,7 @@ footer {
   padding: 5px 0;
   letter-spacing: 1.25px;
   line-height: 1.2rem;
-} 
+}
 
 footer p {
   font-size: clamp(0.8rem, 4vw, 0.9rem);
@@ -707,6 +742,10 @@ footer a:hover::before {
     padding-bottom: 0;
   }
 
+  .movieInformation,
+  .movieInformation p {
+    text-align: center;
+  }
 
   .modalContentContainer img {
     width: 50%;
@@ -714,14 +753,27 @@ footer a:hover::before {
 }
 
 @media (max-width: 900px) {
-  li {
-    width: 45%;
+
+  .listPoster {
+    width: 100%;
+    margin: 15px 0;
+  }
+
+  .userList ul {
+    flex-direction: column;
   }
 }
 
 @media (max-width: 550px) {
-  li {
-    width: 90%;
+
+  .movieInformation,
+  .movieInformation p {
+    text-align: left;
+    margin-left: 0;
+  }
+
+  .addMovie {
+    margin-left: 0;
   }
 }
 
