@@ -26,7 +26,7 @@ const ListPanel = ({ dbList, setNodeKey, listName }) => {
             const listArray = Object.values(dbList).map((listObject) => {
                 return listObject.listName
             })
-            if (listArray.includes(list.listName)) {
+            if (listArray.includes(list.listName.toLowerCase()) || (listArray.includes(list.listName.toUpperCase()))) {
                 alert('There is already a list with this name!')
             } else {
                 push(dbRef, list)
