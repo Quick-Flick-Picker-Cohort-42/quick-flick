@@ -6,7 +6,7 @@ function Footer() {
                 <a href="https://kchin.dev/" target="blank" rel="noopener noreferrer">Kevin</a>, 
                 <a href="https://www.jeremychai.com" target="blank" rel="noopener noreferrer">Jeremy</a>, 
                 and
-                <a href="https://alicetsai.netlify.app/" target="blank" rel="noopener noreferrer">Alice</a></p>
+                <a href="https://alicetsai.ca" target="blank" rel="noopener noreferrer">Alice</a></p>
         </footer>
     )
 }

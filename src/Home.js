@@ -2,23 +2,26 @@ import Header from './Header.js';
 import Results from './Results.js'
 import ListPanel from './ListPanel.js';
 import Footer from './Footer.js';
+import { useState, useEffect } from 'react';
 
 const Home = (({
     handleMovieInput,
     handleSubmit,
     movieInput,
-    movieObject,
     dbList,
     toSend,
     setToSend,
     setListSelection,
     listSelection,
-    handleListInput,
-    list,
-    handleListCreation,
-    handleRemoveList, 
-    setNodeKey,
+    setNodeKey
 }) => {
+
+    // stores API movie results
+    const [movieObject, setMovieObject] = useState([]);
+
+    useEffect(() => {
+        setMovieObject([]);
+    }, [])
 
     return (
         <>
@@ -28,6 +31,7 @@ const Home = (({
                 movieInput={movieInput}
                 movieObject={movieObject}
                 dbList={dbList}
+                setMovieObject={setMovieObject}
             />
             <Results
                 movieObject={movieObject}
@@ -35,13 +39,10 @@ const Home = (({
                 toSend={toSend}
                 setToSend={setToSend}
                 setListSelection={setListSelection}
-                listSelection={listSelection} />
+                listSelection={listSelection}   
+            />
             <ListPanel
-                handleListInput={handleListInput}
-                list={list}
-                handleListCreation={handleListCreation}
                 dbList={dbList}
-                handleRemoveList={handleRemoveList}
                 setNodeKey={setNodeKey}
             />
             <Footer />

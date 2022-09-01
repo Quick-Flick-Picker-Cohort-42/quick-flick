@@ -62,7 +62,7 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
                       if ((video.type === "Trailer") && (video.site === "YouTube")) {
                         return (
                           <Fragment key={`${movie.id}fragment${index}`}>
-                            <br /><a href={`https://www.youtube.com/watch?v=${video.key}`} key={video.id}>{video.name}</a>
+                            <br /><a href={`https://www.youtube.com/watch?v=${video.key}`} key={video.id} className="trailerLinks">{video.name}</a>
                           </Fragment>
                         )
                       } else {
@@ -70,7 +70,7 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
                       }
 
                     })}
-                    </p> : <a href={`https://www.youtube.com/results?search_query=${movie.title}+trailer`}>Search Trailer</a>}
+                    </p> : <a href={`https://www.youtube.com/results?search_query=${movie.title}+trailer`} className="trailerLinks">Search Trailer</a>}
                 <p>{movie.overview}</p>
                 <p><span>Release Date: </span>{movie.release_date}</p>
                 <button className="addMovie" onClick={() =>

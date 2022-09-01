@@ -367,6 +367,7 @@ p {
   background-color: var(--sage);
   border: solid 1px var(--beige);
   border-radius: 15px;
+  margin-top: 10px;
   padding: 5px 10px;
   font-size: clamp(0.8rem, 1vw, 1rem);
 }
@@ -375,7 +376,6 @@ p {
 
 header p {
   font-weight: bold;
-  /* background-color: var(--blue); */
   padding: 15px;
   border-radius: 10px;
   line-height: 1.3rem;
@@ -421,6 +421,17 @@ header input {
 
 .movieInformation span {
   text-shadow: 1px 1px var(--sage)
+}
+
+.trailerLinks {
+  transition: 0.3s linear all;
+}
+
+.trailerLinks:hover,
+.trailerLinks:focus {
+  background-color: var(--sage);
+  border-radius: 15px;
+  padding: 0px 15px;
 }
 
 /* LIST PANEL / DISPLAY LIST COMPONENT STYLING */
@@ -501,7 +512,13 @@ input[type=checkbox] {
   top: 22px;
   left: 15px;
   width: 25px;
+}
+
+.spinnerBackground {
+  height: 22px;
+  width: 25px;
   background-color: var(--light-sage);
+  opacity: 0;
 }
 
 .spinner {
@@ -556,6 +573,10 @@ input[type=checkbox] {
 input[type=checkbox]:checked~.listPanelToggle>.listLabel {
   background-color: var(--sage);
   border: 1px solid var(--beige);
+}
+
+input[type=checkbox]:checked~.listPanelToggle>.spinnerBackground {
+  background-color: var(--sage);
 }
 
 input[type=checkbox]:checked~.listPanelToggle>.horizontal {
@@ -626,6 +647,10 @@ li h3 {
   font-size: clamp(1rem, 1vw, 1.5rem);
   font-family: 'Josefin Sans', sans-serif;
   text-shadow: 2px 2px 2px var(--blue);
+}
+
+.marginBottom {
+  margin-bottom: 10px;
 }
 
 /* MODAL STYLING */

@@ -8,7 +8,7 @@ import firebase from './firebase';
 import { getDatabase, ref, remove } from 'firebase/database';
 import Footer from './Footer.js';
 
-const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, handleRemoveList, setNodeKey }) => {
+const Lists = ({ nodeKey, dbList, setNodeKey }) => {
   const { listName } = useParams();
 
   //!states
@@ -17,8 +17,7 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
   const [genres, setGenres] = useState([]);
   const [chosenGenre, setChosenGenre] = useState('');
   const [chosenDuration, setChosenDuration] = useState('');
-  // const [randomMovie, setRandomMovie] = useState('');
-
+  const [randomMovie, setRandomMovie] = useState('');
 
 
   // obtain node key of current list from URL (instead of setting on DisplayList on click)...
@@ -38,6 +37,7 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
       setCurrentList(dbList[nodeKey].movies)
     }
   }, [nodeKey, dbList])
+  
 
   //asynchronous function: awaits for API call in each loop, then compares and pushes movie ID to array
   async function findRandomMovie(genreMatchedMovies, arrayOfMatchedMovies) {
@@ -100,7 +100,8 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
         document.getElementById(finalMovie).append(winningMovie);
 
         // set randomMovie state to the random movie title (to be used to render text onto page displaying the suggested movie)
-        document.getElementById((finalMovie).textContent)
+        // document.getElementById((finalMovie).textContent)
+        setRandomMovie(document.getElementById((finalMovie)).firstChild.textContent)
 
         // styling for the suggested movie
         document.getElementById(finalMovie).style.backgroundColor = `var(--beige)`;
@@ -157,12 +158,11 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                 <>
                   {/* if randomMovie has been set, display paragraph to indicate the suggested movie */}
 
-                  {/* {
+                  {
                     randomMovie ?
-                      <p className="sr-only">Quick Flick Picker picks <span>{randomMovie}</span> for you to watch!</p>
+                      <p className='sr-only'>Quick Flick Picker picks <span>'{randomMovie}'</span> for you to watch!</p>
                       : null
-                  } */}
-
+                  }
 
                   <form onSubmit={(e) => handleNLF(e)}>
                     <p>I feel like watching a </p>
@@ -202,7 +202,7 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                       return (
                         <li className='listPoster' key={movie[1].id} id={movie[1].id}>
                           <h3>{movie[1].title}</h3>
-                          <img src={movie[1].poster_path ? `https://image.tmdb.org/t/p/w500${movie[1].poster_path}` : '../noMoviePoster.png'} alt={`A poster of the movie ${movie[1].original_title}`} />
+                          <img src={movie[1].poster_path ? `https://image.tmdb.org/t/p/w500${movie[1].poster_path}` : '../noMoviePosterFound.png'} alt={`A poster of the movie ${movie[1].original_title}`} />
 
                           <button className='listButton' onClick={() => handleRemoveFromList(movie)}>Remove from list</button>
                         </li>
@@ -214,20 +214,17 @@ const Lists = ({ nodeKey, dbList, handleListInput, list, handleListCreation, han
                 </>
                 :
                 <>
-                  <p>No movies have been added to this list! Try adding a movie first.</p>
-                  <Link to="/">Back to Home</Link>
+                  <p className="marginBottom">No movies have been added to this list! Try adding a movie first.</p>
+                  <Link to="/"><span className="homeLink">Back to Home</span></Link>
                 </>
             }
           </section>
           : <ErrorPage />
       }
       <ListPanel
-        handleListInput={handleListInput}
-        list={list}
-        handleListCreation={handleListCreation}
         dbList={dbList}
-        handleRemoveList={handleRemoveList}
         setNodeKey={setNodeKey}
+        listName={listName}
       />
 
       <Footer />

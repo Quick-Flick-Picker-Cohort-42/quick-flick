@@ -1,11 +1,55 @@
 import DisplayList from './DisplayList';
+import { useState } from 'react';
+import { getDatabase, ref, remove, push } from 'firebase/database';
+import firebase from './firebase';
 
-const ListPanel = ({ handleListInput, list, handleListCreation, dbList, handleRemoveList, setNodeKey }) => {
+const ListPanel = ({ dbList, setNodeKey, listName }) => {
+
+    //!states
+    // tracks and stores user's list name input (when creating new list)
+    const [list, setList] = useState({ listName: '' });
+
+    // handle list input
+    const handleListInput = ((e) => {
+        setList(current => {
+            return { ...current, listName: e.target.value }
+        });
+    })
+
+    // creates the list in firebase
+    const handleListCreation = ((e) => {
+        e.preventDefault()
+        const database = getDatabase(firebase);
+        const dbRef = ref(database);
+
+        if (dbList) {
+            const listArray = Object.values(dbList).map((listObject) => {
+                return listObject.listName
+            })
+            if (listArray.includes(list.listName)) {
+                alert('There is already a list with this name!')
+            } else {
+                push(dbRef, list)
+            }
+        } else {
+            push(dbRef, list)
+        }
+        // empty out input so that new list name can be entered
+        setList({ listName: '' })
+    })
+
+    const handleRemoveList = (node) => {
+        const database = getDatabase(firebase);
+        const dbRef = ref(database, `/${node}`);
+        remove(dbRef);
+        setNodeKey('');
+    }    
 
     return (
         <>
             <input type="checkbox" id="openListPanel"></input>
             <label htmlFor="openListPanel" className="listPanelToggle">
+                <div className='spinnerBackground'></div>
                 <div className='spinner diagonal part-1'></div>
                 <div className='spinner horizontal'></div>
                 <div className='spinner diagonal part-2'></div>
