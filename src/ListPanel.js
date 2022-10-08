@@ -53,7 +53,7 @@ const ListPanel = ({ dbList, setNodeKey, listName }) => {
                 <div className='spinner diagonal part-1'></div>
                 <div className='spinner horizontal'></div>
                 <div className='spinner diagonal part-2'></div>
-                <div className='listLabel'><h4>movie Lists</h4></div>
+                <div className='listLabel'><h4>Movie Lists</h4></div>
             </label>
 
             <div className='listPanel'>
@@ -74,10 +74,10 @@ const ListPanel = ({ dbList, setNodeKey, listName }) => {
                         id="list-input"
                         required
                         maxLength='20'
-                        placeholder="Enter list name"
+                        placeholder="Enter List Name"
                         className='createList'
                     />
-                    <button className='createList'>Create a new list!</button>
+                    <button className='createList'>Add List</button>
                 </form>
 
                 <DisplayList

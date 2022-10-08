@@ -12,7 +12,9 @@ const DisplayList = (({ dbList, handleRemoveList, setNodeKey }) => {
                                 <Link to={`/list/${value.listName}`}>
                                     {value.listName}
                                 </Link>
-                                <button className='deleteList' onClick={() => { handleRemoveList(id) }}>x</button>
+                                <button className='deleteList' onClick={() => { handleRemoveList(id) }}>
+                                    <div>x</div>
+                                </button>
                             </li>
                         )
                     })

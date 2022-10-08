@@ -474,11 +474,18 @@ header input {
 }
 
 .deleteList {
-  padding: 4px 6px;
+  padding: 1px 6px;
+  border-radius: 50%;
   font-size: 0.8rem;
   background-color: var(--sage);
   border: 2px solid var(--beige);
   transition: 0.3s linear all;
+}
+
+.deleteList div {
+  position: relative;
+  right: 0.5px;
+  bottom: 0.5px;
 }
 
 .listPanel {
@@ -556,18 +563,17 @@ input[type=checkbox] {
 }
 
 .listLabel {
+  white-space: nowrap;
   display: block;
   transition: 0.3s all;
   position: fixed;
-  top: 18px;
-  width: 142px;
+  top: 12px;
   background-color: var(--beige);
   border: 1px solid var(--sage);
+  padding: 5px 15px;
+  padding-top: 9px;
   border-radius: 15px;
   margin-left: 40px;
-  padding-top: 3px;
-  font-weight: bold;
-  text-align: center;
 }
 
 input[type=checkbox]:checked~.listPanelToggle>.listLabel {
