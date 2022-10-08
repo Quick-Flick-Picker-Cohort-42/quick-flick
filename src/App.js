@@ -1,11 +1,11 @@
-import './App.css';
-import firebase from './firebase';
+import './styles/App.css';
+import firebase from './components/firebase.js';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from './Home.js';
-import Lists from './Lists.js';
-import ErrorPage from './ErrorPage.js'
+import Home from './components/Home.js';
+import Lists from './components/Lists.js';
+import ErrorPage from './components/ErrorPage.js'
 
 
 function App() {
