@@ -17,7 +17,6 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
   } else {
     document.body.classList.remove('activeModal')
   }
-
   return (
     <section>
       <div className="movieWrapper">
@@ -31,7 +30,7 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
 
               <div className="movieInformation">
                 <h2>{movie.original_title}</h2>
-                {movie.credits.crew.length !== 0 ? <p>Directed by: {movie.credits.crew.map((crewMember) => {
+                {movie.credits.crew.length !== 0 ? <p><span className="directedBy">Directed by:</span> {movie.credits.crew.map((crewMember) => {
                   if (crewMember.department === "Directing") {
                     return (
                       <span key={crewMember.credit_id}> {crewMember.name},</span>
@@ -41,7 +40,7 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
                   }
                 })}</p> : null}
 
-                {movie.credits.cast.length !== 0 ? <p key={`${movie.id}castParagraph`}>Cast: {movie.credits.cast.map((castMember, index) => {
+                {movie.credits.cast.length !== 0 ? <p key={`${movie.id}castParagraph`}> <span className="cast">Cast:</span> {movie.credits.cast.map((castMember, index) => {
                   if (index < 4) {
                     return (
                       <span key={castMember.credit_id}>{castMember.name}, </span>
@@ -58,7 +57,7 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
 
                   movie.videos.results.length !== 0 ?
 
-                    <p className="resultsTrailer">{`Trailer(s):`}{movie.videos.results.map((video, index) => {
+                    <p ><span className="resultsTrailer">Trailer(s):</span>{movie.videos.results.map((video, index) => {
                       if ((video.type === "Trailer") && (video.site === "YouTube")) {
                         return (
                           <Fragment key={`${movie.id}fragment${index}`}>
@@ -70,9 +69,11 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
                       }
 
                     })}
-                    </p> : <a href={`https://www.youtube.com/results?search_query=${movie.title}+trailer`} className="trailerLinks">Search Trailer</a>}
-                <p>{movie.overview}</p>
-                <p><span>Release Date: </span>{movie.release_date}</p>
+                    </p> : <a href={`https://www.youtube.com/results?search_query=${movie.title}+trailer`} className="trailerLinks">Youtube Search</a>}
+                <p>
+                  { movie.overview.length > 400 ? movie.overview.slice(0, 400) + `...`: movie.overview}
+                </p>
+                <p><span className="releaseDate">Release Date: </span>{movie.release_date}</p>
                 <button className="addMovie" onClick={() =>
                   toggleModal(movie)} >Add this Movie</button>
               </div>
