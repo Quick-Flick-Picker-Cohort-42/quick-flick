@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const Header = ({ newMovieInput, setMovieObject }) => {
+const Header = ({ setMovieObject }) => {
 
     // tracks and stores user's movie title query
     const [movieInput, setMovieInput] = useState('');
@@ -78,7 +78,6 @@ const Header = ({ newMovieInput, setMovieObject }) => {
                 </label>
                 <input
                     onChange={handleMovieInput}
-                    ref={newMovieInput}
                     value={movieInput}
                     type="text"
                     id="movie-input"

@@ -3,7 +3,10 @@ import firebase from './firebase';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from './Home.js';
+import Header from './Header.js';
+import Results from './Results.js'
+import ListPanel from './ListPanel.js';
+import Footer from './Footer.js';
 import Lists from './Lists.js';
 import ErrorPage from './ErrorPage.js'
 
@@ -23,7 +26,14 @@ function App() {
   // stores the unique key from each list in Firebase
   const [nodeKey, setNodeKey] = useState('');
 
+  // stores API movie results
+  const [movieObject, setMovieObject] = useState([]);
+
+
+
   useEffect(() => {
+    setMovieObject([]);
+
     const database = getDatabase(firebase);
     const dbRef = ref(database);
 
@@ -37,15 +47,27 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={
-          <Home
-            dbList={dbList}
-            toSend={toSend}
-            setToSend={setToSend}
-            setListSelection={setListSelection}
-            listSelection={listSelection}
-            setNodeKey={setNodeKey}
-          />}
+        <Route path="/"
+          element={
+            <>
+              <ListPanel
+                dbList={dbList}
+                setNodeKey={setNodeKey}
+              />
+              <Header
+                setMovieObject={setMovieObject}
+              />
+              <Results
+                movieObject={movieObject}
+                dbList={dbList}
+                toSend={toSend}
+                setToSend={setToSend}
+                setListSelection={setListSelection}
+                listSelection={listSelection}
+              />
+              <Footer />
+            </>
+          }
         />
         <Route path="/list/:listName" element={<Lists nodeKey={nodeKey} dbList={dbList}
           setNodeKey={setNodeKey} />} />

@@ -3,11 +3,15 @@ import { useState } from 'react';
 import { getDatabase, ref, remove, push } from 'firebase/database';
 import firebase from './firebase';
 
-const ListPanel = ({ dbList, setNodeKey, listName }) => {
+const ListPanel = ({ dbList, setNodeKey }) => {
 
     //!states
     // tracks and stores user's list name input (when creating new list)
     const [list, setList] = useState({ listName: '' });
+
+    // click the button to set the state to change horizontal bars
+    const [listButton, setListButton] = useState(false);
+
 
     // handle list input
     const handleListInput = ((e) => {
@@ -15,6 +19,10 @@ const ListPanel = ({ dbList, setNodeKey, listName }) => {
             return { ...current, listName: e.target.value }
         });
     })
+
+    const openListPanel = () => {
+        listButton ? setListButton(false) : setListButton(true)
+    }
 
     // creates the list in firebase
     const handleListCreation = ((e) => {
@@ -43,20 +51,18 @@ const ListPanel = ({ dbList, setNodeKey, listName }) => {
         const dbRef = ref(database, `/${node}`);
         remove(dbRef);
         setNodeKey('');
-    }    
+    }
 
     return (
         <>
-            <input type="checkbox" id="openListPanel"></input>
-            <label htmlFor="openListPanel" className="listPanelToggle">
-                <div className='spinnerBackground'></div>
+            <button className='listPanelToggle' onClick={openListPanel}>
                 <div className='spinner diagonal part-1'></div>
                 <div className='spinner horizontal'></div>
                 <div className='spinner diagonal part-2'></div>
                 <div className='listLabel'><h4>movie Lists</h4></div>
-            </label>
+            </button>
 
-            <div className='listPanel'>
+            <div className={listButton ? 'listPanel panelActive' : 'listPanel'} tabIndex={listButton ? 0 : -1}>
                 <form
                     className='listSection'
                     onSubmit={handleListCreation}
@@ -83,7 +89,6 @@ const ListPanel = ({ dbList, setNodeKey, listName }) => {
                 <DisplayList
                     dbList={dbList}
                     handleRemoveList={handleRemoveList}
-                    setNodeKey={setNodeKey}
                 />
 
             </div>

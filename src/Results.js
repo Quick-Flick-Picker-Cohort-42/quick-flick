@@ -20,10 +20,10 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
 
   return (
     <section>
-      <div className="movieWrapper">
+      <ul>
         {movieObject.map((movie) => {
           return (
-            <div className="movieContainer" key={movie.id}>
+            <li className="movieContainer" key={movie.id}>
 
               <div className="moviePoster">
                 <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : '../noMoviePosterFound.png'} alt={`A poster of the movie ${movie.original_title}`} />
@@ -78,23 +78,21 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
               </div>
               {
                 modal
-                  ?
-                  <Modal
-                    dbList={dbList}
-                    toggleModal={toggleModal}
-                    toSend={toSend}
-                    setListSelection={setListSelection}
-                    listSelection={listSelection} />
-                  :
-                  null
+                &&
+                <Modal
+                  dbList={dbList}
+                  toggleModal={toggleModal}
+                  toSend={toSend}
+                  setListSelection={setListSelection}
+                  listSelection={listSelection} />
               }
-            </div>
+            </li>
 
           )
 
 
         })}
-      </div>
+      </ul>
     </section>
 
   )
