@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import Modal from './Modal.js';
-
+import FocusLock from 'react-focus-lock';
 
 
 const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, listSelection }) => {
@@ -79,12 +79,14 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
               {
                 modal
                 &&
-                <Modal
-                  dbList={dbList}
-                  toggleModal={toggleModal}
-                  toSend={toSend}
-                  setListSelection={setListSelection}
-                  listSelection={listSelection} />
+                <FocusLock>
+                  <Modal
+                    dbList={dbList}
+                    toggleModal={toggleModal}
+                    toSend={toSend}
+                    setListSelection={setListSelection}
+                    listSelection={listSelection} />
+                </FocusLock>
               }
             </li>
 

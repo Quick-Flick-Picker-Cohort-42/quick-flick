@@ -3,16 +3,11 @@ import { useState } from 'react';
 import { getDatabase, ref, remove, push } from 'firebase/database';
 import firebase from './firebase';
 
-const React = require('react');
-const ListPanel = React.forwardRef(({ dbList, setNodeKey, listButton, setListButton }) => {
+const ListPanel = ({ dbList, setNodeKey, listButton, setListButton }) => {
 
     //!states
     // tracks and stores user's list name input (when creating new list)
     const [list, setList] = useState({ listName: '' });
-
-    // // click the button to set the state to change horizontal bars
-    // const [listButton, setListButton] = useState(false);
-
 
     // handle list input
     const handleListInput = ((e) => {
@@ -55,7 +50,7 @@ const ListPanel = React.forwardRef(({ dbList, setNodeKey, listButton, setListBut
     }
 
     return (
-        <div ref={ref}>
+        <div>
             {/* when listButton is clicked, change horizontal bars */}
             <button className='listPanelToggle' onClick={openListPanel}>
                 <div className={listButton ? 'line1Active spinner diagonal part-1' : 'spinner diagonal part-1'}></div>
@@ -64,7 +59,7 @@ const ListPanel = React.forwardRef(({ dbList, setNodeKey, listButton, setListBut
                 <div className='listLabel'><h4>movie Lists</h4></div>
             </button>
 
-            <div className={listButton ? 'listPanel panelActive' : 'listPanel'} tabIndex={listButton ? 0 : -1}>
+            <div className={listButton ? 'listPanel panelActive' : 'listPanel listHidden'}>
                 <form
                     className='listSection'
                     onSubmit={handleListCreation}
@@ -96,6 +91,6 @@ const ListPanel = React.forwardRef(({ dbList, setNodeKey, listButton, setListBut
             </div>
         </div>
     )
-})
+}
 
 export default ListPanel;

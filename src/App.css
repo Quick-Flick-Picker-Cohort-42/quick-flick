@@ -520,6 +520,10 @@ header input {
   border: 1px solid var(--beige);
 }
 
+.listHidden {
+  visibility: hidden;
+}
+
 .spinner {
   transition: 0.3s all;
   position: fixed;

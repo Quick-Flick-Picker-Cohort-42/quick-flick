@@ -9,7 +9,7 @@ import ListPanel from './ListPanel.js';
 import Footer from './Footer.js';
 import Lists from './Lists.js';
 import ErrorPage from './ErrorPage.js'
-import FocusTrap from 'focus-trap-react';
+import FocusLock from 'react-focus-lock';
 
 
 function App() {
@@ -33,7 +33,6 @@ function App() {
   // stores state of list open/close button
   const [listButton, setListButton] = useState(false);
 
-
   useEffect(() => {
     setMovieObject([]);
 
@@ -47,24 +46,30 @@ function App() {
     })
   }, [])
 
-  useEffect(() => {
-
-  }, [listButton])
-
   return (
     <div className='mainContainer'>
       <Routes>
         <Route path="/"
           element={
             <>
-              <FocusTrap>
+              {listButton
+                ?
+                <FocusLock>
+                  <ListPanel
+                    dbList={dbList}
+                    setNodeKey={setNodeKey}
+                    listButton={listButton}
+                    setListButton={setListButton}
+                  />
+                </FocusLock>
+                :
                 <ListPanel
                   dbList={dbList}
                   setNodeKey={setNodeKey}
                   listButton={listButton}
                   setListButton={setListButton}
                 />
-              </FocusTrap>
+              }
               <Header
                 setMovieObject={setMovieObject}
               />
