@@ -501,7 +501,7 @@ header input {
 
 .listPanelToggle {
   transition: 0.3s all;
-  position: absolute;
+  position: fixed;
   cursor: pointer;
   background: transparent;
   border: none;
@@ -583,13 +583,13 @@ header input {
   opacity: 0;
 }
 
-.line1Active {
+.diagonal.line1Active {
   transition: all 0.3s;
   transform: rotate(135deg);
   margin-top: 5px;
 }
 
-.line2Active {
+.diagonal.line2Active {
   transition: all 0.3s;
   transform: rotate(-135deg);
   margin-top: -4px;

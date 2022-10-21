@@ -8,7 +8,7 @@ import firebase from './firebase';
 import { getDatabase, ref, remove } from 'firebase/database';
 import Footer from './Footer.js';
 
-const Lists = ({ nodeKey, dbList, setNodeKey }) => {
+const Lists = ({ nodeKey, dbList, setNodeKey, listButton, setListButton }) => {
   const { listName } = useParams();
 
   //!states
@@ -37,7 +37,7 @@ const Lists = ({ nodeKey, dbList, setNodeKey }) => {
       setCurrentList(dbList[nodeKey].movies)
     }
   }, [nodeKey, dbList])
-  
+
 
   //asynchronous function: awaits for API call in each loop, then compares and pushes movie ID to array
   async function findRandomMovie(genreMatchedMovies, arrayOfMatchedMovies) {
@@ -225,6 +225,8 @@ const Lists = ({ nodeKey, dbList, setNodeKey }) => {
         dbList={dbList}
         setNodeKey={setNodeKey}
         listName={listName}
+        listButton={listButton}
+        setListButton={setListButton}
       />
 
       <Footer />

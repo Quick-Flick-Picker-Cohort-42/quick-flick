@@ -9,6 +9,7 @@ import ListPanel from './ListPanel.js';
 import Footer from './Footer.js';
 import Lists from './Lists.js';
 import ErrorPage from './ErrorPage.js'
+import FocusTrap from 'focus-trap-react';
 
 
 function App() {
@@ -29,6 +30,8 @@ function App() {
   // stores API movie results
   const [movieObject, setMovieObject] = useState([]);
 
+  // stores state of list open/close button
+  const [listButton, setListButton] = useState(false);
 
 
   useEffect(() => {
@@ -44,16 +47,24 @@ function App() {
     })
   }, [])
 
+  useEffect(() => {
+
+  }, [listButton])
+
   return (
-    <>
+    <div className='mainContainer'>
       <Routes>
         <Route path="/"
           element={
             <>
-              <ListPanel
-                dbList={dbList}
-                setNodeKey={setNodeKey}
-              />
+              <FocusTrap>
+                <ListPanel
+                  dbList={dbList}
+                  setNodeKey={setNodeKey}
+                  listButton={listButton}
+                  setListButton={setListButton}
+                />
+              </FocusTrap>
               <Header
                 setMovieObject={setMovieObject}
               />
@@ -69,11 +80,15 @@ function App() {
             </>
           }
         />
-        <Route path="/list/:listName" element={<Lists nodeKey={nodeKey} dbList={dbList}
+        <Route path="/list/:listName" element={<Lists
+          nodeKey={nodeKey}
+          dbList={dbList}
+          listButton={listButton}
+          setListButton={setListButton}
           setNodeKey={setNodeKey} />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
