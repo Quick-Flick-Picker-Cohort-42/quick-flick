@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import ErrorPage from './ErrorPage';
 import ListPanel from './ListPanel';
-import firebase from './firebase';
+import firebase from '../firebase';
 import { getDatabase, ref, remove } from 'firebase/database';
 import Header from './Header.js';
 import Footer from './Footer.js';

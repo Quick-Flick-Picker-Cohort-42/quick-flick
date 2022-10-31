@@ -3,14 +3,14 @@ import firebase from './firebase';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Header from './Header.js';
-import Results from './Results.js'
-import ListPanel from './ListPanel.js';
-import Footer from './Footer.js';
-import Lists from './Lists.js';
-import ErrorPage from './ErrorPage.js'
+import Header from './components/Header.js';
+import Results from './components/Results.js'
+import ListPanel from './components/ListPanel.js';
+import Footer from './components/Footer.js';
+import Lists from './components/Lists.js';
+import ErrorPage from './components/ErrorPage.js'
 import FocusLock from 'react-focus-lock';
-import SearchForm from './SearchForm.js'
+import SearchForm from './components/SearchForm.js'
 
 
 function App() {

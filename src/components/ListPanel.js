@@ -1,7 +1,7 @@
 import DisplayList from './DisplayList';
 import { useState } from 'react';
 import { getDatabase, ref, remove, push } from 'firebase/database';
-import firebase from './firebase';
+import firebase from '../firebase';
 
 const ListPanel = ({ dbList, setNodeKey, listButton, setListButton }) => {
 

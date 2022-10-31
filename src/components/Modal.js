@@ -1,4 +1,4 @@
-import firebase from './firebase';
+import firebase from '../firebase';
 import { push, ref, getDatabase } from 'firebase/database';
 import {useEffect} from 'react';
 
@@ -8,7 +8,6 @@ const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection, s
     //close modal on escape keystroke
     useEffect (() => {
         const keyDownHandler = (event) => {
-            console.log(event.key)
 
             if (event.key === 'Escape') {   //cover all OS
                 event.preventDefault();
