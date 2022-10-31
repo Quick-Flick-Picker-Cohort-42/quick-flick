@@ -76,25 +76,24 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
                 <button className="addMovie" onClick={() =>
                   toggleModal(movie)} >Add this Movie</button>
               </div>
-              {
-                modal
-                &&
-                <FocusLock>
-                  <Modal
-                    dbList={dbList}
-                    toggleModal={toggleModal}
-                    toSend={toSend}
-                    setListSelection={setListSelection}
-                    listSelection={listSelection} />
-                </FocusLock>
-              }
             </li>
-
           )
-
-
         })}
       </ul>
+
+      {
+        modal
+        &&
+        <FocusLock>
+          <Modal
+            setModal={setModal}
+            dbList={dbList}
+            toggleModal={toggleModal}
+            toSend={toSend}
+            setListSelection={setListSelection}
+            listSelection={listSelection} />
+        </FocusLock>
+      }
     </section>
 
   )

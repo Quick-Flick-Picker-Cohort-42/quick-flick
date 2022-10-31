@@ -10,6 +10,7 @@ import Footer from './Footer.js';
 import Lists from './Lists.js';
 import ErrorPage from './ErrorPage.js'
 import FocusLock from 'react-focus-lock';
+import SearchForm from './SearchForm.js'
 
 
 function App() {
@@ -70,9 +71,8 @@ function App() {
                   setListButton={setListButton}
                 />
               }
-              <Header
-                setMovieObject={setMovieObject}
-              />
+              <Header/>
+              <SearchForm setMovieObject={setMovieObject} />
               <Results
                 movieObject={movieObject}
                 dbList={dbList}

@@ -6,6 +6,7 @@ import ErrorPage from './ErrorPage';
 import ListPanel from './ListPanel';
 import firebase from './firebase';
 import { getDatabase, ref, remove } from 'firebase/database';
+import Header from './Header.js';
 import Footer from './Footer.js';
 
 const Lists = ({ nodeKey, dbList, setNodeKey, listButton, setListButton }) => {
@@ -148,7 +149,7 @@ const Lists = ({ nodeKey, dbList, setNodeKey, listButton, setListButton }) => {
 
   return (
     <>
-
+      <Header />
       {
         listExists ?
           <section className="userList">
