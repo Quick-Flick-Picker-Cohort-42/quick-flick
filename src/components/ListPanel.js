@@ -1,9 +1,9 @@
 import DisplayList from './DisplayList';
 import { useState } from 'react';
 import { getDatabase, ref, remove, push } from 'firebase/database';
-import firebase from './firebase';
+import firebase from '../firebase';
 
-const ListPanel = ({ dbList, setNodeKey, listName }) => {
+const ListPanel = ({ dbList, setNodeKey, listButton, setListButton }) => {
 
     //!states
     // tracks and stores user's list name input (when creating new list)
@@ -15,6 +15,10 @@ const ListPanel = ({ dbList, setNodeKey, listName }) => {
             return { ...current, listName: e.target.value }
         });
     })
+
+    const openListPanel = () => {
+        listButton ? setListButton(false) : setListButton(true)
+    }
 
     // creates the list in firebase
     const handleListCreation = ((e) => {
@@ -43,20 +47,19 @@ const ListPanel = ({ dbList, setNodeKey, listName }) => {
         const dbRef = ref(database, `/${node}`);
         remove(dbRef);
         setNodeKey('');
-    }    
+    }
 
     return (
-        <>
-            <input type="checkbox" id="openListPanel"></input>
-            <label htmlFor="openListPanel" className="listPanelToggle">
-                <div className='spinnerBackground'></div>
-                <div className='spinner diagonal part-1'></div>
-                <div className='spinner horizontal'></div>
-                <div className='spinner diagonal part-2'></div>
+        <div>
+            {/* when listButton is clicked, change horizontal bars */}
+            <button className='listPanelToggle' onClick={openListPanel}>
+                <div className={listButton ? 'line1Active spinner diagonal part-1' : 'spinner diagonal part-1'}></div>
+                <div className={listButton ? 'diagonalActive spinner horizontal' : 'spinner horizontal'}></div>
+                <div className={listButton ? 'line2Active spinner diagonal part-2' : 'spinner diagonal part-2'}></div>
                 <div className='listLabel'><h4>movie Lists</h4></div>
-            </label>
+            </button>
 
-            <div className='listPanel'>
+            <div className={listButton ? 'listPanel panelActive' : 'listPanel listHidden'}>
                 <form
                     className='listSection'
                     onSubmit={handleListCreation}
@@ -83,11 +86,10 @@ const ListPanel = ({ dbList, setNodeKey, listName }) => {
                 <DisplayList
                     dbList={dbList}
                     handleRemoveList={handleRemoveList}
-                    setNodeKey={setNodeKey}
                 />
 
             </div>
-        </>
+        </div>
     )
 }
 

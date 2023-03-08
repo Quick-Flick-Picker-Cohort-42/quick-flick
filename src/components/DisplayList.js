@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 
-const DisplayList = (({ dbList, handleRemoveList, setNodeKey }) => {
+const DisplayList = (({ dbList, handleRemoveList }) => {
     if (dbList) {
         return (
             <ul className='listSection'>

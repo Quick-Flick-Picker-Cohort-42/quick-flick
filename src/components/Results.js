@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import Modal from './Modal.js';
-
+import FocusLock from 'react-focus-lock';
 
 
 const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, listSelection }) => {
@@ -20,10 +20,10 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
 
   return (
     <section>
-      <div className="movieWrapper">
+      <ul>
         {movieObject.map((movie) => {
           return (
-            <div className="movieContainer" key={movie.id}>
+            <li className="movieContainer" key={movie.id}>
 
               <div className="moviePoster">
                 <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : '../noMoviePosterFound.png'} alt={`A poster of the movie ${movie.original_title}`} />
@@ -76,25 +76,24 @@ const Results = ({ movieObject, dbList, toSend, setToSend, setListSelection, lis
                 <button className="addMovie" onClick={() =>
                   toggleModal(movie)} >Add this Movie</button>
               </div>
-              {
-                modal
-                  ?
-                  <Modal
-                    dbList={dbList}
-                    toggleModal={toggleModal}
-                    toSend={toSend}
-                    setListSelection={setListSelection}
-                    listSelection={listSelection} />
-                  :
-                  null
-              }
-            </div>
-
+            </li>
           )
-
-
         })}
-      </div>
+      </ul>
+
+      {
+        modal
+        &&
+        <FocusLock>
+          <Modal
+            setModal={setModal}
+            dbList={dbList}
+            toggleModal={toggleModal}
+            toSend={toSend}
+            setListSelection={setListSelection}
+            listSelection={listSelection} />
+        </FocusLock>
+      }
     </section>
 
   )

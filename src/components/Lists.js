@@ -4,11 +4,12 @@ import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import ErrorPage from './ErrorPage';
 import ListPanel from './ListPanel';
-import firebase from './firebase';
+import firebase from '../firebase';
 import { getDatabase, ref, remove } from 'firebase/database';
+import Header from './Header.js';
 import Footer from './Footer.js';
 
-const Lists = ({ nodeKey, dbList, setNodeKey }) => {
+const Lists = ({ nodeKey, dbList, setNodeKey, listButton, setListButton }) => {
   const { listName } = useParams();
 
   //!states
@@ -37,7 +38,7 @@ const Lists = ({ nodeKey, dbList, setNodeKey }) => {
       setCurrentList(dbList[nodeKey].movies)
     }
   }, [nodeKey, dbList])
-  
+
 
   //asynchronous function: awaits for API call in each loop, then compares and pushes movie ID to array
   async function findRandomMovie(genreMatchedMovies, arrayOfMatchedMovies) {
@@ -148,7 +149,7 @@ const Lists = ({ nodeKey, dbList, setNodeKey }) => {
 
   return (
     <>
-
+      <Header />
       {
         listExists ?
           <section className="userList">
@@ -225,6 +226,8 @@ const Lists = ({ nodeKey, dbList, setNodeKey }) => {
         dbList={dbList}
         setNodeKey={setNodeKey}
         listName={listName}
+        listButton={listButton}
+        setListButton={setListButton}
       />
 
       <Footer />

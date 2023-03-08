@@ -1,9 +1,30 @@
-import firebase from './firebase';
+import firebase from '../firebase';
 import { push, ref, getDatabase } from 'firebase/database';
+import {useEffect} from 'react';
 
+const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection, setModal }) => {
 
-const Modal = ({ dbList, toggleModal, toSend, setListSelection, listSelection }) => {
+    console.log(toSend)
+    //close modal on escape keystroke
+    useEffect (() => {
+        const keyDownHandler = (event) => {
 
+            if (event.key === 'Escape') {   //cover all OS
+                event.preventDefault();
+                setModal(false)
+            }
+
+        }
+
+        document.addEventListener('keydown', keyDownHandler)
+
+        return () => { //https://reactjs.org/docs/hooks-reference.html clean up function:O
+            document.removeEventListener('keydown', keyDownHandler)
+        }
+
+        
+
+    }, [setModal])
     // update sendMovie state with the selected movie
     const handleListSelection = (e) => {
         setListSelection(e.target.value);
