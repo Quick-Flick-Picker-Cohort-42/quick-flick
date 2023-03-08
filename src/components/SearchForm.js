@@ -65,14 +65,15 @@ const SearchForm = ({ setMovieObject }) => {
   const collectMovieInfo = obj => {
     setMovieObject(current => [...current, obj])
   }
-  
-  return(
+
+  return (
     <>
-      <p className="animate__animated animate__fadeInUp">
-        The Quick Flick Picker allows you to search for a movie, make custom lists, and filters through your list by genre and duration to return a random movie suggestion for you!
+
+      <p className="intro">
+        Quick Flicks lets you to search for movies, make custom lists, and filters through your list by genre and duration to return a movie suggestion for you!
       </p>
 
-      <form action="" onSubmit={handleSubmit} className="animate__animated animate__fadeInUp">
+      <form action="" onSubmit={handleSubmit} >
         <label
           htmlFor="movie-input"
           className="sr-only"
@@ -85,6 +86,7 @@ const SearchForm = ({ setMovieObject }) => {
           id="movie-input"
           required
           placeholder="Search for a movie"
+          autocomplete="off"
         />
         <button>Find a flick!</button>
       </form>

@@ -15,7 +15,6 @@ import SearchForm from './components/SearchForm.js'
 
 function App() {
 
-  // ! States
   // stores user's movie selection to add to a list
   const [toSend, setToSend] = useState({});
 
@@ -48,7 +47,7 @@ function App() {
   }, [])
 
   return (
-    <div className='mainContainer'>
+    <>
       <Routes>
         <Route path="/"
           element={
@@ -61,14 +60,14 @@ function App() {
                     setNodeKey={setNodeKey}
                     listButton={listButton}
                     setListButton={setListButton}
-                  />
+                    />
                 </FocusLock>
                 :
                 <ListPanel
-                  dbList={dbList}
-                  setNodeKey={setNodeKey}
-                  listButton={listButton}
-                  setListButton={setListButton}
+                dbList={dbList}
+                setNodeKey={setNodeKey}
+                listButton={listButton}
+                setListButton={setListButton}
                 />
               }
               <Header/>
@@ -80,7 +79,7 @@ function App() {
                 setToSend={setToSend}
                 setListSelection={setListSelection}
                 listSelection={listSelection}
-              />
+                />
               <Footer />
             </>
           }
@@ -93,7 +92,7 @@ function App() {
           setNodeKey={setNodeKey} />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-    </div>
+    </>
   );
 }
 

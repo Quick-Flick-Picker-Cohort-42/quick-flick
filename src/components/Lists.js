@@ -197,7 +197,11 @@ const Lists = ({ nodeKey, dbList, setNodeKey, listButton, setListButton }) => {
                     </select>
                     <button>Submit</button>
                   </form>
-                  <Link to="/"><span className='homeLink'>Back to Home</span></Link>
+                  <Link to="/">
+                    <button className='homeLink'> Back to Home
+
+                    </button>
+                    </Link>
                   <ul>
                     {Object.entries(currentList).map((movie) => {
                       return (
@@ -215,7 +219,7 @@ const Lists = ({ nodeKey, dbList, setNodeKey, listButton, setListButton }) => {
                 </>
                 :
                 <>
-                  <p className="marginBottom">No movies have been added to this list! Try adding a movie first.</p>
+                  <p className='noMovies'>No movies have been added to this list yet!</p>
                   <Link to="/"><span className="homeLink">Back to Home</span></Link>
                 </>
             }
