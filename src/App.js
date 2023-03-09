@@ -15,23 +15,12 @@ import SearchForm from './components/SearchForm.js'
 
 function App() {
 
-  // stores user's movie selection to add to a list
-  const [toSend, setToSend] = useState({});
-
-  // stores list selection input (from dropdown of existing lists)
-  const [listSelection, setListSelection] = useState('');
-
-  // stores lists coming back from Firebase
-  const [dbList, setdbList] = useState({});
-
-  // stores the unique key from each list in Firebase
-  const [nodeKey, setNodeKey] = useState('');
-
-  // stores API movie results
-  const [movieObject, setMovieObject] = useState([]);
-
-  // stores state of list open/close button
-  const [listButton, setListButton] = useState(false);
+  const [toSend, setToSend] = useState({}); // user's movie selection to add to a list
+  const [listSelection, setListSelection] = useState(''); // list input (from dropdown of existing lists)
+  const [dbList, setdbList] = useState({}); // lists coming back from Firebase
+  const [nodeKey, setNodeKey] = useState(''); // unique key from each list in Firebase
+  const [movieObject, setMovieObject] = useState([]); // API movie results
+  const [listButton, setListButton] = useState(false);  // movie list open/close button
 
   useEffect(() => {
     setMovieObject([]);
@@ -40,7 +29,7 @@ function App() {
     const dbRef = ref(database);
 
     onValue(dbRef, (response) => {
-      // use .val() method to return the lists stored in firebase back to the page:
+      // return the lists stored in firebase back to the page:
       const data = response.val();
       setdbList(data);
     })
@@ -60,18 +49,20 @@ function App() {
                     setNodeKey={setNodeKey}
                     listButton={listButton}
                     setListButton={setListButton}
-                    />
+                  />
                 </FocusLock>
                 :
                 <ListPanel
-                dbList={dbList}
-                setNodeKey={setNodeKey}
-                listButton={listButton}
-                setListButton={setListButton}
+                  dbList={dbList}
+                  setNodeKey={setNodeKey}
+                  listButton={listButton}
+                  setListButton={setListButton}
                 />
               }
-              <Header/>
-              <SearchForm setMovieObject={setMovieObject} />
+              <Header />
+              <SearchForm
+                setMovieObject={setMovieObject}
+              />
               <Results
                 movieObject={movieObject}
                 dbList={dbList}
@@ -79,7 +70,7 @@ function App() {
                 setToSend={setToSend}
                 setListSelection={setListSelection}
                 listSelection={listSelection}
-                />
+              />
               <Footer />
             </>
           }
