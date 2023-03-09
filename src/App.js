@@ -9,8 +9,8 @@ import ListPanel from './components/ListPanel.js';
 import Footer from './components/Footer.js';
 import Lists from './components/Lists.js';
 import ErrorPage from './components/ErrorPage.js'
-import FocusLock from 'react-focus-lock';
 import SearchForm from './components/SearchForm.js'
+// import FocusLock from 'react-focus-lock';
 
 
 function App() {
@@ -43,14 +43,14 @@ function App() {
             <>
               {listButton
                 ?
-                <FocusLock>
+                // <FocusLock>
                   <ListPanel
                     dbList={dbList}
                     setNodeKey={setNodeKey}
                     listButton={listButton}
                     setListButton={setListButton}
                   />
-                </FocusLock>
+                // </FocusLock>
                 :
                 <ListPanel
                   dbList={dbList}
