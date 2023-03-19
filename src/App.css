@@ -6,7 +6,7 @@ html {
 
 body {
   margin: 0;
-  color: white;
+  color: rgba(255, 255, 255, 0.90);
 }
 
 article,
@@ -267,19 +267,20 @@ html {
 }
 
 :root {
-  --lightBlue: rgba(13, 170, 248, 0.968);
-  --blue: #B3D5DF;
-  --beige: #EADBC4;
+  --lightPurple: rgba(56, 58, 89, 1);
+  --teal: #007991;
+  --lime: #C7EF00;
   --darkPurple: rgba(35, 36, 61, 1);
+  
 }
 
 button {
   font-size: clamp(0.8rem, 1vw, 1rem);
-  border: 2px solid var(--lightBlue);
+  border: 2px solid var(--teal);
   border-radius: 15px;
   padding: 5px 15px;
   margin: 5px;
-  background-image: linear-gradient(75deg, var(--lightBlue), var(--beige), var(--blue));
+  background-image: linear-gradient(75deg, var(--lime), var(--teal), var(--lightPurple));
   background-size: 300%;
   background-position: left;
   transition: 0.5s background-position ease-in-out;
@@ -287,7 +288,6 @@ button {
 
 button:hover,
 button:focus {
-  border: 2px solid var(--beige);
   cursor: pointer;
   background-position: right;
 }
@@ -296,7 +296,7 @@ select {
   font-size: clamp(0.8rem, 3vw, 1rem);
   font-family: inherit;
   text-align: center;
-  background-color: var(--lightBlue);
+  background-color: var(--teal);
   border: none;
   border-radius: 15px;
   padding: 5px;
@@ -364,7 +364,7 @@ p {
 }
 
 .homeLink {
-  background-color: var(--lightBlue);
+  background-color: var(--teal);
   border: solid 2px var(--beige);
   border-radius: 15px;
   margin-top: 10px;
@@ -390,7 +390,7 @@ p {
 
 .moviePoster {
   min-width: 50%;
-  filter: drop-shadow(0 0 1rem var(--blue));
+  filter: drop-shadow(0 0 1rem white);
 }
 
 .movieInformation {
@@ -407,9 +407,6 @@ p {
   margin-left: 0;
 }
 
-.movieInformation span {
-  text-shadow: 1px 1px var(--lightBlue)
-}
 
 .trailerLinks {
   transition: 0.3s linear all;
@@ -417,7 +414,7 @@ p {
 
 .trailerLinks:hover,
 .trailerLinks:focus {
-  background-color: var(--lightBlue);
+  background-color: var(--teal);
   border-radius: 15px;
   padding: 0px 15px;
 }
@@ -464,13 +461,13 @@ p {
 .deleteList {
   padding: 4px 6px;
   font-size: 0.8rem;
-  background-color: var(--lightBlue);
+  background-color: var(--teal);
   border: 2px solid var(--beige);
   transition: 0.3s linear all;
 }
 
 .listPanel {
-  background-color: var(--lightBlue);
+  background-color: var(--teal);
   height: 100%;
   position: fixed;
   left: 0;
@@ -550,7 +547,7 @@ p {
   top: 18px;
   width: 142px;
   background-color: var(--beige);
-  border: 1px solid var(--lightBlue);
+  border: 1px solid var(--teal);
   border-radius: 15px;
   margin-left: 40px;
   padding-top: 3px;
@@ -559,12 +556,12 @@ p {
 }
 
 /* input[type=checkbox]:checked~.listPanelToggle>.listLabel {
-  background-color: var(--lightBlue);
+  background-color: var(--teal);
   border: 1px solid var(--beige);
 } */
 
 /* input[type=checkbox]:checked~.listPanelToggle>.spinnerBackground {
-  background-color: var(--lightBlue);
+  background-color: var(--teal);
 } */
 
 .diagonalActive {
@@ -609,7 +606,7 @@ p {
 .listPoster {
   margin: 15px;
   padding: 20px;
-  background-color: var(--blue);
+  background-color: var(--lightPurple);
   border-radius: 10px;
   width: 30%;
 }
@@ -634,7 +631,6 @@ li h3 {
   margin-top: 10px;
   font-size: clamp(1rem, 1vw, 1.5rem);
   font-family: 'Josefin Sans', sans-serif;
-  text-shadow: 2px 2px 2px var(--blue);
 }
 
 .noMovies {

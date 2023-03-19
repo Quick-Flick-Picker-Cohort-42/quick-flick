@@ -84,7 +84,7 @@ const Lists = ({ nodeKey, dbList, setNodeKey, listButton, setListButton }) => {
 
         const allMovies = document.querySelectorAll('.listPoster');
         allMovies.forEach((movie) => {
-          movie.style.backgroundColor = 'var(--blue)';
+          movie.style.backgroundColor = 'var(--lightPurple)';
           movie.style.boxShadow = "none";
         })
 
@@ -104,8 +104,7 @@ const Lists = ({ nodeKey, dbList, setNodeKey, listButton, setListButton }) => {
         setRandomMovie(document.getElementById((finalMovie)).firstChild.textContent)
 
         // styling for the suggested movie
-        document.getElementById(finalMovie).style.backgroundColor = `var(--beige)`;
-        document.getElementById(finalMovie).style.boxShadow = `0 0 40px 10px orange`;
+        document.getElementById(finalMovie).style.boxShadow = `0 0 20px 10px white`;
         document.getElementById(finalMovie).scrollIntoView({ block: "center" })
 
       } else if (genreMatch.length === 0 && moviesMatched.length === 0) {
