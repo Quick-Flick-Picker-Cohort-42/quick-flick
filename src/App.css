@@ -5,7 +5,8 @@ html {
 }
 
 body {
-  margin: 0
+  margin: 0;
+  color: white;
 }
 
 article,
@@ -255,7 +256,7 @@ html {
   font-size: 125%;
   font-family: 'Lato', sans-serif;
   text-align: center;
-  background-color: var(--light-sage);
+  background-color: var(--darkPurple);
   scroll-behavior: smooth;
 }
 
@@ -266,19 +267,19 @@ html {
 }
 
 :root {
-  --sage: #ABBEBA;
+  --lightBlue: rgba(13, 170, 248, 0.968);
   --blue: #B3D5DF;
   --beige: #EADBC4;
-  --light-sage: rgba(171, 190, 186, 0.4);
+  --darkPurple: rgba(35, 36, 61, 1);
 }
 
 button {
   font-size: clamp(0.8rem, 1vw, 1rem);
-  border: 2px solid var(--sage);
+  border: 2px solid var(--lightBlue);
   border-radius: 15px;
   padding: 5px 15px;
   margin: 5px;
-  background-image: linear-gradient(75deg, var(--sage), var(--beige), var(--blue));
+  background-image: linear-gradient(75deg, var(--lightBlue), var(--beige), var(--blue));
   background-size: 300%;
   background-position: left;
   transition: 0.5s background-position ease-in-out;
@@ -295,7 +296,7 @@ select {
   font-size: clamp(0.8rem, 3vw, 1rem);
   font-family: inherit;
   text-align: center;
-  background-color: var(--sage);
+  background-color: var(--lightBlue);
   border: none;
   border-radius: 15px;
   padding: 5px;
@@ -333,7 +334,6 @@ h3,
 h4 {
   font-family: 'Josefin Sans', sans-serif;
   text-transform: uppercase;
-  text-shadow: 2px 2px 2px var(--blue);
   padding: 0;
   margin: 0;
 }
@@ -364,7 +364,7 @@ p {
 }
 
 .homeLink {
-  background-color: var(--sage);
+  background-color: var(--lightBlue);
   border: solid 2px var(--beige);
   border-radius: 15px;
   margin-top: 10px;
@@ -408,7 +408,7 @@ p {
 }
 
 .movieInformation span {
-  text-shadow: 1px 1px var(--sage)
+  text-shadow: 1px 1px var(--lightBlue)
 }
 
 .trailerLinks {
@@ -417,7 +417,7 @@ p {
 
 .trailerLinks:hover,
 .trailerLinks:focus {
-  background-color: var(--sage);
+  background-color: var(--lightBlue);
   border-radius: 15px;
   padding: 0px 15px;
 }
@@ -464,13 +464,13 @@ p {
 .deleteList {
   padding: 4px 6px;
   font-size: 0.8rem;
-  background-color: var(--sage);
+  background-color: var(--lightBlue);
   border: 2px solid var(--beige);
   transition: 0.3s linear all;
 }
 
 .listPanel {
-  background-color: var(--sage);
+  background-color: var(--lightBlue);
   height: 100%;
   position: fixed;
   left: 0;
@@ -550,7 +550,7 @@ p {
   top: 18px;
   width: 142px;
   background-color: var(--beige);
-  border: 1px solid var(--sage);
+  border: 1px solid var(--lightBlue);
   border-radius: 15px;
   margin-left: 40px;
   padding-top: 3px;
@@ -559,12 +559,12 @@ p {
 }
 
 /* input[type=checkbox]:checked~.listPanelToggle>.listLabel {
-  background-color: var(--sage);
+  background-color: var(--lightBlue);
   border: 1px solid var(--beige);
 } */
 
 /* input[type=checkbox]:checked~.listPanelToggle>.spinnerBackground {
-  background-color: var(--sage);
+  background-color: var(--lightBlue);
 } */
 
 .diagonalActive {
