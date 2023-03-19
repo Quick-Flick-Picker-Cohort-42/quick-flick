@@ -509,11 +509,6 @@ p {
   border: 1px solid var(--beige);
 }
 
-/* this messes up smooth slideout of the movie list menu side panel, as hidden means it dissapears immediately rather than sliding out... */
-/* .listHidden {
-  visibility: hidden;
-} */
-
 .spinner {
   transition: 0.3s all;
   position: fixed;

@@ -2,6 +2,10 @@ import DisplayList from './DisplayList';
 import { useState } from 'react';
 import { getDatabase, ref, remove, push } from 'firebase/database';
 import firebase from '../firebase';
+import FocusLock from 'react-focus-lock';
+import ListPanelButton from './ListPanelButton';
+
+
 
 const ListPanel = ({ dbList, setNodeKey, listButton, setListButton }) => {
 
@@ -16,9 +20,9 @@ const ListPanel = ({ dbList, setNodeKey, listButton, setListButton }) => {
         });
     })
 
-    const openListPanel = () => {
-        listButton ? setListButton(false) : setListButton(true)
-    }
+    // const openListPanel = () => {
+    //     listButton ? setListButton(false) : setListButton(true)
+    // }
 
     // creates the list in firebase
     const handleListCreation = ((e) => {
@@ -49,46 +53,50 @@ const ListPanel = ({ dbList, setNodeKey, listButton, setListButton }) => {
         setNodeKey('');
     }
 
+
+
     return (
         <div>
-            {/* when listButton is clicked, change horizontal bars */}
-            <button className='listPanelToggle' onClick={openListPanel}>
-                <div className={listButton ? 'line1Active spinner diagonal part-1' : 'spinner diagonal part-1'}></div>
-                <div className={listButton ? 'diagonalActive spinner horizontal' : 'spinner horizontal'}></div>
-                <div className={listButton ? 'line2Active spinner diagonal part-2' : 'spinner diagonal part-2'}></div>
-                <div className='listLabel'><h4>movie Lists</h4></div>
-            </button>
-
-            <div className={listButton ? 'listPanel panelActive' : 'listPanel listHidden'}>
-                <form
-                    className='listSection'
-                    onSubmit={handleListCreation}
-                >
-                    <label
-                        htmlFor="list-input"
-                        className="sr-only"
-                    >
-                        Enter a name for your list
-                    </label>
-                    <input
-                        onChange={handleListInput}
-                        value={list.listName}
-                        type="text"
-                        id="list-input"
-                        required
-                        maxLength='20'
-                        placeholder="Enter list name"
-                        className='createList'
-                    />
-                    <button className='createList'>Create a new list!</button>
-                </form>
-
-                <DisplayList
-                    dbList={dbList}
-                    handleRemoveList={handleRemoveList}
+            <FocusLock disabled={listButton ? false : true}>
+                <ListPanelButton
+                    listButton={listButton}
+                    setListButton={setListButton}
                 />
 
-            </div>
+                <div className={listButton ? 'listPanel panelActive' : 'listPanel'}>
+
+                    <form
+                        className='listSection'
+                        onSubmit={handleListCreation}
+                    >
+                        <label
+                            htmlFor="list-input"
+                            className="sr-only"
+                        >
+                            Enter a name for your list
+                        </label>
+                        <input
+                            onChange={handleListInput}
+                            value={list.listName}
+                            type="text"
+                            id="list-input"
+                            required
+                            maxLength='20'
+                            placeholder="Enter list name"
+                            className='createList'
+                        />
+                        <button className='createList'>Create a new list!</button>
+                    </form>
+
+                    <DisplayList
+                        dbList={dbList}
+                        handleRemoveList={handleRemoveList}
+                    />
+
+
+                </div>
+
+            </FocusLock>
         </div>
     )
 }
