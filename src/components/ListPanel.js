@@ -20,10 +20,6 @@ const ListPanel = ({ dbList, setNodeKey, listButton, setListButton }) => {
         });
     })
 
-    // const openListPanel = () => {
-    //     listButton ? setListButton(false) : setListButton(true)
-    // }
-
     // creates the list in firebase
     const handleListCreation = ((e) => {
         e.preventDefault()
@@ -63,8 +59,9 @@ const ListPanel = ({ dbList, setNodeKey, listButton, setListButton }) => {
                     setListButton={setListButton}
                 />
 
-                <div className={listButton ? 'listPanel panelActive' : 'listPanel'}>
-
+                <div
+                    className={'listPanel' + (listButton ? ' panelActive' : '') }
+                >
                     <form
                         className='listSection'
                         onSubmit={handleListCreation}

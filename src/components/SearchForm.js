@@ -86,7 +86,7 @@ const SearchForm = ({ setMovieObject }) => {
           id="movie-input"
           required
           placeholder="Search for a movie"
-          autocomplete="off"
+          autoComplete="off"
         />
         <button>Find a flick!</button>
       </form>
