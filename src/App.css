@@ -6,7 +6,7 @@ html {
 
 body {
   margin: 0;
-  color: rgba(255, 255, 255, 0.90);
+  color: var(--beige);
 }
 
 article,
@@ -127,7 +127,8 @@ textarea {
   font-family: 'Lato', sans-serif;
   font-size: 100%;
   line-height: 1.15;
-  margin: 0
+  margin: 0;
+  cursor: pointer;
 }
 
 button,
@@ -271,36 +272,42 @@ html {
   --teal: #007991;
   --lime: #C7EF00;
   --darkPurple: rgba(35, 36, 61, 1);
-  
+  --beige: rgba(255, 255, 255, 0.90);
+
 }
 
 button {
   font-size: clamp(0.8rem, 1vw, 1rem);
-  border: 2px solid var(--teal);
-  border-radius: 15px;
-  padding: 5px 15px;
+  color: var(--beige);
+  border: 2px solid var(--beige);
+  border-radius: 25px;
+  padding: 6px 15px;
   margin: 5px;
-  background-image: linear-gradient(75deg, var(--lime), var(--teal), var(--lightPurple));
-  background-size: 300%;
+  background-image: linear-gradient(75deg, var(--teal), var(--lime));
+  background-size: 400%;
   background-position: left;
   transition: 0.5s background-position ease-in-out;
+  font-weight: bold;
 }
 
 button:hover,
 button:focus {
   cursor: pointer;
   background-position: right;
+  color: black;
 }
 
 select {
-  font-size: clamp(0.8rem, 3vw, 1rem);
+  font-size: clamp(1rem, 3vw, 1.2rem);  
   font-family: inherit;
   text-align: center;
-  background-color: var(--teal);
   border: none;
-  border-radius: 15px;
-  padding: 5px;
   margin: 5px;
+  padding: 0 5px;
+  color: var(--beige);
+  background-color: var(--lightPurple);
+  border-bottom: 1px solid var(--beige);
+  text-transform: lowercase;
 }
 
 input {
@@ -340,12 +347,13 @@ h4 {
 
 h1 {
   font-size: clamp(1.5rem, 7vw, 4rem);
-  margin: 60px 0 40px;
+  margin: 120px 0 40px;
 }
 
 h2 {
   font-size: clamp(1.3rem, 6vw, 2.5rem);
   margin: 80px 0 20px;
+  text-decoration: underline;
 }
 
 h3 {
@@ -422,7 +430,6 @@ p {
 /* LIST PANEL / DISPLAY LIST COMPONENT STYLING */
 
 .listSection {
-  width: 320px;
   text-align: right;
   padding: 15px 10px;
 }
@@ -459,21 +466,26 @@ p {
 }
 
 .deleteList {
-  padding: 4px 6px;
+  padding: 3px;
+  margin-left: 12px;
   font-size: 0.8rem;
+  text-transform: uppercase;
   background-color: var(--teal);
   border: 2px solid var(--beige);
   transition: 0.3s linear all;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
 }
 
 .listPanel {
-  background-color: var(--teal);
+  background-color: var(--lightPurple);
   height: 100%;
   position: fixed;
   left: 0;
   top: 0;
-  width: 320;
-  padding-top: 60px;
+  width: 320px;
+  padding: 60px 15px;
   z-index: 10;
   transform: translateX(-335px);
   transition: transform 0.5s ease-in-out;
@@ -486,6 +498,7 @@ p {
 
 .listPanelToggle {
   transition: 0.3s all;
+  color: var(--beige);
   position: fixed;
   cursor: pointer;
   background: transparent;
@@ -498,12 +511,10 @@ p {
   font-size: 0.8rem;
 }
 
-.listPanelToggle:hover {
-  border: none;
-}
-
+.listPanelToggle:hover,
 .listPanelToggle:focus {
   border: 1px solid var(--beige);
+  color: white;
 }
 
 .spinner {
@@ -511,7 +522,7 @@ p {
   position: fixed;
   height: 3px;
   width: 25px;
-  background-color: black;
+  background-color: var(--beige);
 }
 
 .horizontal {
@@ -544,25 +555,14 @@ p {
   display: block;
   transition: 0.3s all;
   position: fixed;
-  top: 18px;
+  top: 21px;
   width: 142px;
-  background-color: var(--beige);
-  border: 1px solid var(--teal);
   border-radius: 15px;
-  margin-left: 40px;
+  margin-left: 20px;
   padding-top: 3px;
   font-weight: bold;
   text-align: center;
 }
-
-/* input[type=checkbox]:checked~.listPanelToggle>.listLabel {
-  background-color: var(--teal);
-  border: 1px solid var(--beige);
-} */
-
-/* input[type=checkbox]:checked~.listPanelToggle>.spinnerBackground {
-  background-color: var(--teal);
-} */
 
 .diagonalActive {
   transition: all 0.3s;
@@ -611,6 +611,12 @@ p {
   width: 30%;
 }
 
+.nlfButton {
+  display: block;
+  margin: 15px auto;
+  font-size: 1rem;
+}
+
 li img {
   min-width: 100%;
   border-radius: 10px;
@@ -622,7 +628,8 @@ li h3 {
 }
 
 .listButton {
-  padding: 5px;
+  padding: 5px 10px;
+  margin: 15px;
 }
 
 .winningText {
@@ -729,7 +736,7 @@ footer a::before {
   bottom: -1px;
   width: 0px;
   height: 1px;
-  background: black none repeat scroll;
+  background: var(--beige) none repeat scroll;
   transition: width .6s ease 0s;
 }
 

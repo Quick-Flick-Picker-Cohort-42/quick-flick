@@ -76,10 +76,7 @@ function App() {
               <Lists
                 nodeKey={nodeKey}
                 dbList={dbList}
-                listButton={listButton}
-                setListButton={setListButton}
                 setNodeKey={setNodeKey} />
-
           }
           />
 

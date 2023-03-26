@@ -1,6 +1,6 @@
 import DisplayList from './DisplayList';
 import { useState } from 'react';
-import { getDatabase, ref, remove, push } from 'firebase/database';
+import { getDatabase, ref, push } from 'firebase/database';
 import firebase from '../firebase';
 import FocusLock from 'react-focus-lock';
 import ListPanelButton from './ListPanelButton';
@@ -42,15 +42,6 @@ const ListPanel = ({ dbList, setNodeKey, listButton, setListButton }) => {
         setList({ listName: '' })
     })
 
-    const handleRemoveList = (node) => {
-        const database = getDatabase(firebase);
-        const dbRef = ref(database, `/${node}`);
-        remove(dbRef);
-        setNodeKey('');
-    }
-
-
-
     return (
         <div>
             <FocusLock disabled={listButton ? false : true}>
@@ -60,7 +51,7 @@ const ListPanel = ({ dbList, setNodeKey, listButton, setListButton }) => {
                 />
 
                 <div
-                    className={'listPanel' + (listButton ? ' panelActive' : '') }
+                    className={'listPanel' + (listButton ? ' panelActive' : '')}
                 >
                     <form
                         className='listSection'
@@ -87,9 +78,8 @@ const ListPanel = ({ dbList, setNodeKey, listButton, setListButton }) => {
 
                     <DisplayList
                         dbList={dbList}
-                        handleRemoveList={handleRemoveList}
+                        setNodeKey={setNodeKey}
                     />
-
 
                 </div>
 
