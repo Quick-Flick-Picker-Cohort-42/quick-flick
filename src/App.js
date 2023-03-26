@@ -7,10 +7,11 @@ import Header from './components/Header.js';
 import Results from './components/Results.js'
 import ListPanel from './components/ListPanel.js';
 import Footer from './components/Footer.js';
-import Lists from './components/Lists.js';
-import ErrorPage from './components/ErrorPage.js'
+import Lists from './pages/Lists.js';
+import ErrorPage from './pages/ErrorPage.js'
+import FocusLock from 'react-focus-lock';
 import SearchForm from './components/SearchForm.js'
-// import FocusLock from 'react-focus-lock';
+import ListPanelButton from './components/ListPanelButton';
 
 
 function App() {
@@ -37,52 +38,51 @@ function App() {
 
   return (
     <>
-      <Routes>
-        <Route path="/"
-          element={
-            <>
-              {listButton
-                ?
-                // <FocusLock>
-                  <ListPanel
-                    dbList={dbList}
-                    setNodeKey={setNodeKey}
-                    listButton={listButton}
-                    setListButton={setListButton}
-                  />
-                // </FocusLock>
-                :
-                <ListPanel
-                  dbList={dbList}
-                  setNodeKey={setNodeKey}
-                  listButton={listButton}
-                  setListButton={setListButton}
-                />
-              }
-              <Header />
-              <SearchForm
-                setMovieObject={setMovieObject}
-              />
-              <Results
-                movieObject={movieObject}
-                dbList={dbList}
-                toSend={toSend}
-                setToSend={setToSend}
-                setListSelection={setListSelection}
-                listSelection={listSelection}
-              />
-              <Footer />
-            </>
-          }
-        />
-        <Route path="/list/:listName" element={<Lists
-          nodeKey={nodeKey}
-          dbList={dbList}
+
+      <ListPanel
+        dbList={dbList}
+        setNodeKey={setNodeKey}
+        listButton={listButton}
+        setListButton={setListButton}
+      />
+      <FocusLock disabled={listButton ? true : false}>
+        <ListPanelButton
           listButton={listButton}
           setListButton={setListButton}
-          setNodeKey={setNodeKey} />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
+        />
+
+        <Routes>
+          <Route path="/"
+            element={
+              <>
+                <Header />
+                <SearchForm
+                  setMovieObject={setMovieObject}
+                />
+                <Results
+                  movieObject={movieObject}
+                  dbList={dbList}
+                  toSend={toSend}
+                  setToSend={setToSend}
+                  setListSelection={setListSelection}
+                  listSelection={listSelection}
+                />
+                <Footer />
+              </>
+            }
+          />
+
+          <Route path="/list/:listName" element={
+              <Lists
+                nodeKey={nodeKey}
+                dbList={dbList}
+                setNodeKey={setNodeKey} />
+          }
+          />
+
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </FocusLock>
     </>
   );
 }

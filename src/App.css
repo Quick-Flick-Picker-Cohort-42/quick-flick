@@ -5,7 +5,8 @@ html {
 }
 
 body {
-  margin: 0
+  margin: 0;
+  color: var(--beige);
 }
 
 article,
@@ -126,7 +127,8 @@ textarea {
   font-family: 'Lato', sans-serif;
   font-size: 100%;
   line-height: 1.15;
-  margin: 0
+  margin: 0;
+  cursor: pointer;
 }
 
 button,
@@ -255,7 +257,7 @@ html {
   font-size: 125%;
   font-family: 'Lato', sans-serif;
   text-align: center;
-  background-color: var(--light-sage);
+  background-color: var(--darkPurple);
   scroll-behavior: smooth;
 }
 
@@ -266,40 +268,46 @@ html {
 }
 
 :root {
-  --sage: #ABBEBA;
-  --blue: #B3D5DF;
-  --beige: #EADBC4;
-  --light-sage: rgba(171, 190, 186, 0.4);
+  --lightPurple: rgba(56, 58, 89, 1);
+  --teal: #007991;
+  --lime: #C7EF00;
+  --darkPurple: rgba(35, 36, 61, 1);
+  --beige: rgba(255, 255, 255, 0.90);
+
 }
 
 button {
   font-size: clamp(0.8rem, 1vw, 1rem);
-  border: 2px solid var(--sage);
-  border-radius: 15px;
-  padding: 5px 15px;
+  color: var(--beige);
+  border: 2px solid var(--beige);
+  border-radius: 25px;
+  padding: 6px 15px;
   margin: 5px;
-  background-image: linear-gradient(75deg, var(--sage), var(--beige), var(--blue));
-  background-size: 300%;
+  background-image: linear-gradient(75deg, var(--teal), var(--lime));
+  background-size: 400%;
   background-position: left;
   transition: 0.5s background-position ease-in-out;
+  font-weight: bold;
 }
 
 button:hover,
 button:focus {
-  border: 2px solid var(--beige);
   cursor: pointer;
   background-position: right;
+  color: black;
 }
 
 select {
-  font-size: clamp(0.8rem, 3vw, 1rem);
+  font-size: clamp(1rem, 3vw, 1.2rem);  
   font-family: inherit;
   text-align: center;
-  background-color: var(--sage);
   border: none;
-  border-radius: 15px;
-  padding: 5px;
   margin: 5px;
+  padding: 0 5px;
+  color: var(--beige);
+  background-color: var(--lightPurple);
+  border-bottom: 1px solid var(--beige);
+  text-transform: lowercase;
 }
 
 input {
@@ -333,19 +341,19 @@ h3,
 h4 {
   font-family: 'Josefin Sans', sans-serif;
   text-transform: uppercase;
-  text-shadow: 2px 2px 2px var(--blue);
   padding: 0;
   margin: 0;
 }
 
 h1 {
   font-size: clamp(1.5rem, 7vw, 4rem);
-  margin: 60px 0 40px;
+  margin: 120px 0 40px;
 }
 
 h2 {
   font-size: clamp(1.3rem, 6vw, 2.5rem);
   margin: 80px 0 20px;
+  text-decoration: underline;
 }
 
 h3 {
@@ -364,7 +372,7 @@ p {
 }
 
 .homeLink {
-  background-color: var(--sage);
+  background-color: var(--teal);
   border: solid 2px var(--beige);
   border-radius: 15px;
   margin-top: 10px;
@@ -390,7 +398,7 @@ p {
 
 .moviePoster {
   min-width: 50%;
-  filter: drop-shadow(0 0 1rem var(--blue));
+  filter: drop-shadow(0 0 1rem white);
 }
 
 .movieInformation {
@@ -407,9 +415,6 @@ p {
   margin-left: 0;
 }
 
-.movieInformation span {
-  text-shadow: 1px 1px var(--sage)
-}
 
 .trailerLinks {
   transition: 0.3s linear all;
@@ -417,7 +422,7 @@ p {
 
 .trailerLinks:hover,
 .trailerLinks:focus {
-  background-color: var(--sage);
+  background-color: var(--teal);
   border-radius: 15px;
   padding: 0px 15px;
 }
@@ -425,7 +430,6 @@ p {
 /* LIST PANEL / DISPLAY LIST COMPONENT STYLING */
 
 .listSection {
-  width: 320px;
   text-align: right;
   padding: 15px 10px;
 }
@@ -462,21 +466,26 @@ p {
 }
 
 .deleteList {
-  padding: 4px 6px;
+  padding: 3px;
+  margin-left: 12px;
   font-size: 0.8rem;
-  background-color: var(--sage);
+  text-transform: uppercase;
+  background-color: var(--teal);
   border: 2px solid var(--beige);
   transition: 0.3s linear all;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
 }
 
 .listPanel {
-  background-color: var(--sage);
+  background-color: var(--lightPurple);
   height: 100%;
   position: fixed;
   left: 0;
   top: 0;
-  width: 320;
-  padding-top: 60px;
+  width: 320px;
+  padding: 60px 15px;
   z-index: 10;
   transform: translateX(-335px);
   transition: transform 0.5s ease-in-out;
@@ -489,6 +498,7 @@ p {
 
 .listPanelToggle {
   transition: 0.3s all;
+  color: var(--beige);
   position: fixed;
   cursor: pointer;
   background: transparent;
@@ -501,25 +511,18 @@ p {
   font-size: 0.8rem;
 }
 
-.listPanelToggle:hover {
-  border: none;
-}
-
+.listPanelToggle:hover,
 .listPanelToggle:focus {
   border: 1px solid var(--beige);
+  color: white;
 }
-
-/* this messes up smooth slideout of the movie list menu side panel, as hidden means it dissapears immediately rather than sliding out... */
-/* .listHidden {
-  visibility: hidden;
-} */
 
 .spinner {
   transition: 0.3s all;
   position: fixed;
   height: 3px;
   width: 25px;
-  background-color: black;
+  background-color: var(--beige);
 }
 
 .horizontal {
@@ -552,25 +555,14 @@ p {
   display: block;
   transition: 0.3s all;
   position: fixed;
-  top: 18px;
+  top: 21px;
   width: 142px;
-  background-color: var(--beige);
-  border: 1px solid var(--sage);
   border-radius: 15px;
-  margin-left: 40px;
+  margin-left: 20px;
   padding-top: 3px;
   font-weight: bold;
   text-align: center;
 }
-
-/* input[type=checkbox]:checked~.listPanelToggle>.listLabel {
-  background-color: var(--sage);
-  border: 1px solid var(--beige);
-} */
-
-/* input[type=checkbox]:checked~.listPanelToggle>.spinnerBackground {
-  background-color: var(--sage);
-} */
 
 .diagonalActive {
   transition: all 0.3s;
@@ -614,9 +606,15 @@ p {
 .listPoster {
   margin: 15px;
   padding: 20px;
-  background-color: var(--blue);
+  background-color: var(--lightPurple);
   border-radius: 10px;
   width: 30%;
+}
+
+.nlfButton {
+  display: block;
+  margin: 15px auto;
+  font-size: 1rem;
 }
 
 li img {
@@ -630,7 +628,8 @@ li h3 {
 }
 
 .listButton {
-  padding: 5px;
+  padding: 5px 10px;
+  margin: 15px;
 }
 
 .winningText {
@@ -639,7 +638,6 @@ li h3 {
   margin-top: 10px;
   font-size: clamp(1rem, 1vw, 1.5rem);
   font-family: 'Josefin Sans', sans-serif;
-  text-shadow: 2px 2px 2px var(--blue);
 }
 
 .noMovies {
@@ -738,7 +736,7 @@ footer a::before {
   bottom: -1px;
   width: 0px;
   height: 1px;
-  background: black none repeat scroll;
+  background: var(--beige) none repeat scroll;
   transition: width .6s ease 0s;
 }
 

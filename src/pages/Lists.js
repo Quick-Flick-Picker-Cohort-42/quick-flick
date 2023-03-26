@@ -3,13 +3,12 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import ErrorPage from './ErrorPage';
-import ListPanel from './ListPanel';
 import firebase from '../firebase';
 import { getDatabase, ref, remove } from 'firebase/database';
-import Header from './Header.js';
-import Footer from './Footer.js';
+import Header from '../components/Header.js';
+import Footer from '../components/Footer.js';
 
-const Lists = ({ nodeKey, dbList, setNodeKey, listButton, setListButton }) => {
+const Lists = ({ nodeKey, dbList, setNodeKey }) => {
   const { listName } = useParams();
 
   //!states
@@ -85,7 +84,7 @@ const Lists = ({ nodeKey, dbList, setNodeKey, listButton, setListButton }) => {
 
         const allMovies = document.querySelectorAll('.listPoster');
         allMovies.forEach((movie) => {
-          movie.style.backgroundColor = 'var(--blue)';
+          movie.style.backgroundColor = 'var(--lightPurple)';
           movie.style.boxShadow = "none";
         })
 
@@ -105,8 +104,7 @@ const Lists = ({ nodeKey, dbList, setNodeKey, listButton, setListButton }) => {
         setRandomMovie(document.getElementById((finalMovie)).firstChild.textContent)
 
         // styling for the suggested movie
-        document.getElementById(finalMovie).style.backgroundColor = `var(--beige)`;
-        document.getElementById(finalMovie).style.boxShadow = `0 0 40px 10px orange`;
+        document.getElementById(finalMovie).style.boxShadow = `0 0 20px 10px white`;
         document.getElementById(finalMovie).scrollIntoView({ block: "center" })
 
       } else if (genreMatch.length === 0 && moviesMatched.length === 0) {
@@ -128,9 +126,14 @@ const Lists = ({ nodeKey, dbList, setNodeKey, listButton, setListButton }) => {
   }
 
   const handleRemoveFromList = (movie) => {
-    const database = getDatabase(firebase);
-    const dbRef = ref(database, `/${nodeKey}/movies/${movie[0]}`);
-    remove(dbRef)
+    if (window.confirm('Are you sure you want to remove this movie from your list?')) {
+      const database = getDatabase(firebase);
+      const dbRef = ref(database, `/${nodeKey}/movies/${movie[0]}`);
+      remove(dbRef)
+    } else {
+      return null
+    }
+
   }
 
   useEffect(() => {
@@ -191,17 +194,13 @@ const Lists = ({ nodeKey, dbList, setNodeKey, listButton, setListButton }) => {
                       value={chosenDuration}
                     >
                       <option disabled value="">select a duration</option>
-                      <option value="90">Less than 1.5 hours</option>
-                      <option value="120">Less than 2 hours</option>
-                      <option value="1000">All the time in the world</option>
+                      <option value="90">less than 1.5 hours</option>
+                      <option value="120">less than 2 hours</option>
+                      <option value="1000">all the time in the world</option>
                     </select>
-                    <button>Submit</button>
+                    <button className='nlfButton'>Pick a movie for me!</button>
                   </form>
-                  <Link to="/">
-                    <button className='homeLink'> Back to Home
 
-                    </button>
-                    </Link>
                   <ul>
                     {Object.entries(currentList).map((movie) => {
                       return (
@@ -215,7 +214,9 @@ const Lists = ({ nodeKey, dbList, setNodeKey, listButton, setListButton }) => {
                     })}
                   </ul>
 
-
+                  <Link to="/">
+                    <button className='homeLink'> Back to Home</button>
+                  </Link>
                 </>
                 :
                 <>
@@ -226,14 +227,6 @@ const Lists = ({ nodeKey, dbList, setNodeKey, listButton, setListButton }) => {
           </section>
           : <ErrorPage />
       }
-      <ListPanel
-        dbList={dbList}
-        setNodeKey={setNodeKey}
-        listName={listName}
-        listButton={listButton}
-        setListButton={setListButton}
-      />
-
       <Footer />
     </>
   )
